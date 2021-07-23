@@ -8,3 +8,24 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+
+
+**/mvnw
+**/mvnw.cmd
+**/.mvn
+
+**/targer/
+
+.idea
+
+
+**/.gitignore
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.iml
