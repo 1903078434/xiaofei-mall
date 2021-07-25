@@ -1,9 +1,8 @@
 # Tomcat
 server:
   port: 8080
-
 # Spring
-spring: 
+spring:
   application:
     # 应用名称
     name: ruoyi-gateway
@@ -13,6 +12,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   cloud:
+
     nacos:
       discovery:
         # 服务注册地址
@@ -25,6 +25,12 @@ spring:
         # 共享配置
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        # 加载多个配置文件
+#        ext-config:
+#          - data-id: ruoyi-gateway-dev.yml
+#            group: DEFAULT_GROUP
+#            refresh: true
+
     sentinel:
       # 取消控制台懒加载
       eager: true
@@ -40,3 +46,4 @@ spring:
             groupId: DEFAULT_GROUP
             data-type: json
             rule-type: flow
+

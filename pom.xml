@@ -105,6 +105,7 @@
                 <artifactId>swagger-models</artifactId>
                 <version>${swagger.core.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
@@ -248,6 +249,7 @@
 		<module>ruoyi-common</module>
         <module>mall-product</module>
         <module>mall-common</module>
+        <module>mall-generator</module>
     </modules>
     <packaging>pom</packaging>
 
