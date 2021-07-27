@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +58,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
      * @param attrgroupId id字符串，多个id使用 ， 分割的
      * @return true:删除成功。false：删除失败
      */
+    @Transactional
     @Override
     public boolean deleteAttrGroupById(String attrgroupId) {
         //TODO 属性分组删除功能尚未完善
@@ -75,6 +77,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
      * @param attrGroupVo 属性分组的信息
      * @return true：修改成功，false：修改数百
      */
+    @Transactional
     @Override
     public boolean updateAttrGroupById(AttrGroupVo attrGroupVo) {
         // TODO　属性分组修改功能未完成
