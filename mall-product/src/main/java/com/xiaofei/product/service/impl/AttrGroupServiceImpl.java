@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ruoyi.common.core.utils.StringUtils;
 import com.xiaofei.common.product.entity.AttrGroupEntity;
 import com.xiaofei.common.product.vo.AttrGroupVo;
 import com.xiaofei.common.vo.PageVo;
@@ -12,6 +11,7 @@ import com.xiaofei.product.mapper.AttrGroupDao;
 import com.xiaofei.product.service.AttrGroupService;
 import com.xiaofei.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,14 +120,21 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         PageHelper.startPage(attrGroupVo.getPageNo(), attrGroupVo.getPageSize());
 
         //判断搜索条件是否为空
-        QueryWrapper<AttrGroupEntity> queryWrapper = null;
+        QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<AttrGroupEntity>();
 
         //搜索条件不为空，则拼接查询条件
         if (!StringUtils.isEmpty(attrGroupVo.getSearchValue())) {
-            queryWrapper = new QueryWrapper<AttrGroupEntity>()
-                    .eq("attr_group_id", attrGroupVo.getSearchValue()).or()
-                    .eq("attr_group_name", attrGroupVo.getSearchValue()).or()
-                    .eq("catelog_id", attrGroupVo.getSearchValue()).or();
+            queryWrapper.and(wrapper -> {
+                wrapper.eq("attr_group_id", attrGroupVo.getSearchValue()).or()
+                        .like("attr_group_name", attrGroupVo.getSearchValue()).or()
+                        .like("descript", attrGroupVo.getSearchValue());
+            });
+
+        }
+
+        //判断类别id是否为0
+        if (attrGroupVo.getCatelogId() != 0) {
+            queryWrapper.eq("catelog_id", attrGroupVo.getCatelogId());
         }
 
         //根据搜索条件查询
