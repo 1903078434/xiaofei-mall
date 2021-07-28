@@ -59,15 +59,15 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         //保存属性的基本信息
         boolean saveAttr = this.save(attrEntity);
 
-        boolean saveRelation = false;
         //保存属性分组和属性的信息，判断是否选择了属性分组
-        if (!StringUtils.isEmpty(attrVo.getAttrGroupId().toString())) {
+        if (attrVo.getAttrGroupId() != null) {
             AttrAttrgroupRelationEntity relation = new AttrAttrgroupRelationEntity();
             relation.setAttrId(attrEntity.getAttrId());
             relation.setAttrGroupId(attrVo.getAttrGroupId());
-            saveRelation = attrAttrgroupRelationService.save(relation);
+            boolean saveRelation = attrAttrgroupRelationService.save(relation);
+            return saveAttr && saveRelation;
         }
-        return saveAttr && saveRelation;
+        return saveAttr;
     }
 
     /**
