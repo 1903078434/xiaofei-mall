@@ -2,10 +2,9 @@ package com.xiaofei.common.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 属性&属性分组关联
@@ -35,6 +34,6 @@ public class AttrAttrgroupRelationEntity implements Serializable {
 	/**
 	 * 属性组内排序
 	 */
-	private Integer attrSort;
+	private Integer attrSort=0;
 
 }

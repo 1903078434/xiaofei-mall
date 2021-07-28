@@ -24,7 +24,7 @@ public class PageVo<T> {
     private Integer pageNo = 1;
 
     @ApiModelProperty("每页显示的数量")
-    private Integer pageSize = 10;
+    private Integer pageSize = 8;
 
     @ApiModelProperty("总页码")
     private Integer pageTotal = 1;
@@ -34,6 +34,13 @@ public class PageVo<T> {
 
     @ApiModelProperty("当前页数据")
     private List<T> items;
+
+    public PageVo(Integer pageNo, Integer pageSize, Integer pageTotal, Long itemCount) {
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
+        this.pageTotal = pageTotal;
+        this.itemCount = itemCount;
+    }
 
     public void setPageSize(Integer pageSize) {
         if (pageSize > 500) {

@@ -5,6 +5,8 @@ import com.xiaofei.common.product.entity.AttrGroupEntity;
 import com.xiaofei.common.product.vo.AttrGroupVo;
 import com.xiaofei.common.vo.PageVo;
 
+import java.util.List;
+
 /**
  * 商品类别
  * User: 李飞
@@ -53,4 +55,11 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      */
     PageVo<AttrGroupEntity> queryByPage(AttrGroupVo attrGroupVo);
 
+    /**
+     * 根据类别查询属性分组信息
+     *
+     * @param categoryId 类别id
+     * @return 返回指定类别的属性分组
+     */
+    List<AttrGroupVo> queryAttrGroupByCategoryId(Long categoryId);
 }

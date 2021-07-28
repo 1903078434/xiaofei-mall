@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -148,5 +149,23 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return new PageVo<>(page.getPageNum(), page.getPageSize(), page.getPages(), page.getTotal(), page.getList());
     }
 
+    /**
+     * 根据类别查询属性分组信息
+     *
+     * @param categoryId 类别id
+     * @return 返回指定类别的属性分组
+     */
+    @Override
+    public List<AttrGroupVo> queryAttrGroupByCategoryId(Long categoryId) {
+        List<AttrGroupEntity> attrGroupEntitys = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", categoryId));
 
+        List<AttrGroupVo> attrGroupVos = new ArrayList<>();
+        attrGroupEntitys.forEach(attrGroupEntity -> {
+            AttrGroupVo attrGroupVo = new AttrGroupVo();
+            BeanUtils.copyProperties(attrGroupEntity, attrGroupVo);
+            attrGroupVos.add(attrGroupVo);
+        });
+
+        return attrGroupVos;
+    }
 }

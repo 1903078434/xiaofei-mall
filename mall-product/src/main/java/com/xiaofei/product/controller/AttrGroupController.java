@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * User: 李飞
  * Date: 2021/7/26
@@ -54,6 +56,14 @@ public class AttrGroupController {
     public AjaxResult queryAttrGroupById(@PathVariable("attrgroupId") Long attrgroupId) {
         AttrGroupVo attrGroupVo = attrGroupService.queryAttrGroupById(attrgroupId);
         return AjaxResult.success("查询成功").put("data", attrGroupVo);
+    }
+
+    @ApiOperation(value = "根据属性类别id查询属性分组信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @ApiImplicitParam(name = "categoryId", value = "类别id", paramType = "path", required = true, dataType = "Long")
+    @GetMapping("/attrgroup/list/{categoryId}")
+    public AjaxResult queryAttrGroupByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        List<AttrGroupVo> attrGroupVos = attrGroupService.queryAttrGroupByCategoryId(categoryId);
+        return AjaxResult.success("查询成功").put("data", attrGroupVos);
     }
 
     @ApiOperation(value = "根据分页信息查询属性分组信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")

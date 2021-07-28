@@ -1,11 +1,13 @@
 package com.xiaofei.common.product.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 商品属性
@@ -15,46 +17,40 @@ import lombok.Data;
  * @date 2021-06-26 23:39:45
  */
 @Data
+@ApiModel("商品属性")
 @TableName("pms_attr")
 public class AttrEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 属性id
-	 */
-	@TableId
+	@TableId(type = IdType.AUTO)
+	@ApiModelProperty("属性id")
 	private Long attrId;
-	/**
-	 * 属性名
-	 */
+
+	@ApiModelProperty("属性名")
 	private String attrName;
-	/**
-	 * 是否需要检索[0-不需要，1-需要]
-	 */
-	private Integer searchType;
-	/**
-	 * 属性图标
-	 */
+
+	@ApiModelProperty("是否需要检索[0-不需要，1-需要]")
+	private Byte searchType;
+
+	@ApiModelProperty("值类型。【1：多选。0：单选】")
+	private Byte valueType;
+
+	@ApiModelProperty("属性图标")
 	private String icon;
-	/**
-	 * 可选值列表[用逗号分隔]
-	 */
+
+	@ApiModelProperty("可选值列表[用逗号分隔]")
 	private String valueSelect;
-	/**
-	 * 属性类型[0-销售属性，1-基本属性，2-既是销售属性又是基本属性]
-	 */
-	private Integer attrType;
-	/**
-	 * 启用状态[0 - 禁用，1 - 启用]
-	 */
+
+	@ApiModelProperty("属性类型[0-销售属性，1-基本属性]")
+	private Byte attrType;
+
+	@ApiModelProperty("启用状态[0 - 禁用，1 - 启用]")
 	private Long enable;
-	/**
-	 * 所属分类
-	 */
+
+	@ApiModelProperty("所属分类")
 	private Long catelogId;
-	/**
-	 * 快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整
-	 */
-	private Integer showDesc;
+
+	@ApiModelProperty("快速展示【是否展示在介绍上；0-否 1-是】")
+	private Byte showDesc;
 
 }
