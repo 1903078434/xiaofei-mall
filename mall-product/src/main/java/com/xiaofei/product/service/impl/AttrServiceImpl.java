@@ -104,6 +104,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         //保存属性的基本信息
         boolean updateAttr = this.updateById(attrEntity);
 
+        //判断是销售属性还是基本属性，如果是销售属性，到这一步，直接返回
+        if (attrVo.getAttrType() == 0) {
+            return updateAttr;
+        }
+
         boolean updateRelation = false;
         //保存属性分组和属性的信息，判断是否选择了属性分组
         if (!StringUtils.isEmpty(attrVo.getAttrGroupId().toString())) {
@@ -260,7 +265,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             queryWrapper.like("attr_name", searchValue);
         }
 
-        queryWrapper.eq("attr_type",1);
+        queryWrapper.eq("attr_type", 1);
 
         List<AttrEntity> attrEntitys = this.list(queryWrapper);
 
