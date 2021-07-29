@@ -136,15 +136,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
 
 
-        //判断是基本属性还是销售属性【1：基本属性。0：销售属性】
+        //判断是基本属性还是销售属性【1：基本属性。0：销售属性】，如果没有传入，或传入其他的值，直接查询全部
         if (1 == attrType) {
             queryWrapper.eq("attr_type", attrType);
         } else {
             if (0 == attrType) {
                 queryWrapper.eq("attr_type", attrType);
-            } else {
-                //如果没有传入是销售属性还是基本属性，或传入其他无用值，直接返回
-                return new PageVo<>();
             }
         }
 
@@ -238,5 +235,49 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         attrVo.setCategoryName(categoryService.getById(catelogId).getName());
 
         return attrVo;
+    }
+
+    /**
+     * 查询未关联的属性
+     *
+     * @param attrIds 已关联的属性集合
+     * @return 返回未关联的属性集合
+     */
+    @Override
+    public PageVo<AttrVo> queryNotRelationAttr(AttrVo attrVo, List<Long> attrIds) {
+        PageHelper.startPage(attrVo.getPageNo(), attrVo.getPageSize());
+
+        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
+
+        //判断已经关联的属性的id是否为空
+        if (attrIds != null && attrIds.size() > 0) {
+            queryWrapper.notIn("attr_id", attrIds);
+        }
+
+        //判断搜索条件是否为空
+        String searchValue = attrVo.getSearchValue();
+        if (!StringUtils.isEmpty(searchValue)) {
+            queryWrapper.like("attr_name", searchValue);
+        }
+
+        queryWrapper.eq("attr_type",1);
+
+        List<AttrEntity> attrEntitys = this.list(queryWrapper);
+
+        PageInfo<AttrEntity> pageInfo = new PageInfo<>(attrEntitys);
+
+        PageVo<AttrVo> page = new PageVo<>(pageInfo.getPageNum(), pageInfo.getPageSize(), pageInfo.getPages(), pageInfo.getTotal());
+
+        List<AttrVo> items = attrEntitys.stream().map(attrEntity -> {
+            AttrVo attr = new AttrVo();
+
+            BeanUtils.copyProperties(attrEntity, attr);
+
+            return attr;
+        }).collect(Collectors.toList());
+
+        page.setItems(items);
+
+        return page;
     }
 }
