@@ -4,7 +4,9 @@ pagehelper:
   rowBoundsWithCount: true # 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。
   pageSizeZero: true # ，当该参数设置为 true 时，如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果（相当于没有执行分页查询，但是返回结果仍然是 Page 类型）。
   auto-dialect: true
+
 #设置日志级别
 logging:
   level:
     com.xiaofei.product: debug
+

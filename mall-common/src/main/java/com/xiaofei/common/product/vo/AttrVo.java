@@ -1,5 +1,6 @@
 package com.xiaofei.common.product.vo;
 
+import com.xiaofei.common.vo.BasePage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
