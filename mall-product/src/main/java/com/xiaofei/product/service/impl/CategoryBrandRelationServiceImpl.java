@@ -38,6 +38,14 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Transactional
     @Override
     public boolean addCategoryAndBrandRelation(CategoryBrandRelationVo categoryBrandRelationVo) {
+        //先查询品牌和分类是否已经绑定了
+        CategoryBrandRelationEntity categoryBrandRelationEntity = this.getOne(new QueryWrapper<CategoryBrandRelationEntity>()
+                .eq("brand_id", categoryBrandRelationVo.getBrandId())
+                .eq("catelog_id", categoryBrandRelationVo.getCatelogId()));
+        if (categoryBrandRelationEntity != null) {
+            return false;
+        }
+
         //查询类别信息
         Long catelogId = categoryBrandRelationVo.getCatelogId();
         CategoryEntity categoryEntity = categoryService.getById(catelogId);
@@ -47,7 +55,7 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         BrandEntity brandEntity = brandService.getById(brandId);
 
         //保存品牌和类别的关联信息
-        CategoryBrandRelationEntity categoryBrandRelationEntity = new CategoryBrandRelationEntity();
+        categoryBrandRelationEntity = new CategoryBrandRelationEntity();
         BeanUtils.copyProperties(categoryBrandRelationVo, categoryBrandRelationEntity);
         categoryBrandRelationEntity.setCatelogName(categoryEntity.getName());
         categoryBrandRelationEntity.setBrandName(brandEntity.getName());

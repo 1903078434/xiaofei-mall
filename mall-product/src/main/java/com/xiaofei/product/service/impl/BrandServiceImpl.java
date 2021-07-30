@@ -66,6 +66,29 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     }
 
     /**
+     * 修改商家信息
+     */
+    @Transactional
+    @Override
+    public boolean updateBrandById(BrandVo brand) {
+        //TODO　商家信息修改，未完善
+        BrandEntity brandEntity = new BrandEntity();
+        BeanUtils.copyProperties(brand, brandEntity);
+
+        //修改商家表和类别表的关联表
+        CategoryBrandRelationEntity relationEntity = new CategoryBrandRelationEntity();
+        relationEntity.setBrandName(brand.getName());
+        relationEntity.setBrandId(brand.getBrandId());
+
+        //修改关联表
+        boolean isUpdate = categoryBrandRelationService.update(relationEntity,
+                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brand.getBrandId()));
+
+
+        return this.updateById(brandEntity) && isUpdate;
+    }
+
+    /**
      * 分页查询商品信息
      *
      * @param brandVo 所搜条件
@@ -94,25 +117,16 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     }
 
     /**
-     * 修改商家信息
+     * 根据类别id查询该类别下的所有商家信息
+     *
+     * @param categoryId 类别id
+     * @return 返回指定类别的商家信息
      */
-    @Transactional
     @Override
-    public boolean updateBrandById(BrandVo brand) {
-        //TODO　商家信息修改，未完善
-        BrandEntity brandEntity = new BrandEntity();
-        BeanUtils.copyProperties(brand, brandEntity);
+    public List<CategoryBrandRelationEntity> getByCategoryId(Long categoryId) {
 
-        //修改商家表和类别表的关联表
-        CategoryBrandRelationEntity relationEntity = new CategoryBrandRelationEntity();
-        relationEntity.setBrandName(brand.getName());
-        relationEntity.setBrandId(brand.getBrandId());
+        //指定类被的所有品牌
+        return categoryBrandRelationService.list(new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", categoryId));
 
-        //修改关联表
-        boolean isUpdate = categoryBrandRelationService.update(relationEntity,
-                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brand.getBrandId()));
-
-
-        return this.updateById(brandEntity) && isUpdate;
     }
 }

@@ -1,0 +1,26 @@
+# Tomcat
+server:
+  port: 7001
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: mall-coupon
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+      config:
+        namespace: 1f42df15-53fb-4f95-94f2-b4576832fc7e # 指定命名空间
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

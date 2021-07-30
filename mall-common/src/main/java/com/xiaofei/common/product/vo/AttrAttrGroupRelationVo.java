@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * User: 李飞
  * Date: 2021/7/29
@@ -11,7 +13,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel("属性分组和属性的关联表")
-public class AttrAttrGroupRelationVo {
+public class AttrAttrGroupRelationVo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("属性id")
     private Long attrId;

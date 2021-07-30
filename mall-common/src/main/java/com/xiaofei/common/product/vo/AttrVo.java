@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * User: 李飞
  * Date: 2021/7/28
@@ -18,7 +20,8 @@ import lombok.NoArgsConstructor;
 @ApiModel("商品属性")
 @AllArgsConstructor
 @NoArgsConstructor
-public class AttrVo extends BasePage {
+public class AttrVo extends BasePage implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("属性id")
     private Long attrId;

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * User: 李飞
  * Date: 2021/7/25
@@ -15,7 +17,8 @@ import lombok.NoArgsConstructor;
 @ApiModel("商家信息")
 @AllArgsConstructor
 @NoArgsConstructor
-public class BrandVo {
+public class BrandVo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("品牌id")
     private Long brandId;

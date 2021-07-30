@@ -1,10 +1,16 @@
-pagehelper:
-  reasonable: true # 当该参数设置为 true 时，pageNum<=0 时会查询第一页
-  helper-dialect: mysql # 指定当前连接的是什么数据库，
-  rowBoundsWithCount: true # 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。
-  pageSizeZero: true # ，当该参数设置为 true 时，如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果（相当于没有执行分页查询，但是返回结果仍然是 Page 类型）。
-  auto-dialect: true
-#设置日志级别
-logging:
-  level:
-    com.xiaofei.product: debug
+## 分布式事务配置
+#seata:
+#  tx-service-group: mall-product-seata-service-group
+#  enable-auto-data-source-proxy: true
+#  registry:
+#    type: nacos
+#    nacos:
+#      server-addr: localhost:8848
+#      namespace: 81bd7db6-0d67-4789-9d9d-9ac25bf37f43
+#      group: SEATA_GROUP
+#  config:
+#    type: nacos
+#    nacos:
+#      server-addr: localhost:8848
+#      namespace: 81bd7db6-0d67-4789-9d9d-9ac25bf37f43
+#      group: SEATA_GROUP

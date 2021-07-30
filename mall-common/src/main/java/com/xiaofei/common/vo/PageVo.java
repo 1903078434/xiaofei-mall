@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,7 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("分页信息")
-public class PageVo<T> {
+public class PageVo<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("当前页码")
     private Integer pageNo = 1;

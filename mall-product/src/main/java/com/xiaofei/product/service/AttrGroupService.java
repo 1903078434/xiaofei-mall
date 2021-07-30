@@ -2,6 +2,7 @@ package com.xiaofei.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaofei.common.product.entity.AttrGroupEntity;
+import com.xiaofei.common.product.vo.AttrAndAttrGroupVo;
 import com.xiaofei.common.product.vo.AttrGroupVo;
 import com.xiaofei.common.vo.PageVo;
 
@@ -62,4 +63,12 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @return 返回指定类别的属性分组
      */
     List<AttrGroupVo> queryAttrGroupByCategoryId(Long categoryId);
+
+    /**
+     * 获取指定类别下的属性，和分组信息
+     *
+     * @param categoryId 类别id
+     * @return 返回属性分组和属性的结合信息
+     */
+    List<AttrAndAttrGroupVo> queryAttrGroupWithAttr(Long categoryId);
 }

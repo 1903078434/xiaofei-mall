@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Time: 22:27
  */
 @Configuration
-@EnableTransactionManagement//开启事务注解
+@EnableTransactionManagement//开始事务管理，开启之后，只要在方法上标注@Transaction即可使用注解
 @MapperScan("com.xiaofei.product.mapper")
 public class MyBatisConfig {
 }

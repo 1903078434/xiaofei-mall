@@ -88,7 +88,7 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLe
         QueryWrapper<MemberLevelEntity> queryWrapper = new QueryWrapper<>();
         //构造查询条件
         if (!StringUtils.isEmpty(memberLevelVo.getSearchValue())) {
-            queryWrapper.eq("name", memberLevelVo.getSearchValue());
+            queryWrapper.like("name", memberLevelVo.getSearchValue());
         }
 
         List<MemberLevelEntity> items = this.list(queryWrapper);

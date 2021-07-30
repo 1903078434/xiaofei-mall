@@ -2,6 +2,7 @@ package com.xiaofei.product.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.product.entity.BrandEntity;
+import com.xiaofei.common.product.entity.CategoryBrandRelationEntity;
 import com.xiaofei.common.product.vo.BrandVo;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.service.BrandService;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * User: 李飞
@@ -55,6 +58,14 @@ public class BrandController {
     public AjaxResult queryBrandById(@PathVariable("brandId") Long brandId) {
         BrandEntity brand = brandService.getById(brandId);
         return AjaxResult.success("查询成功").put("data", brand);
+    }
+
+    @ApiOperation(value = "根据类别id查询该类别下的所有商家信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @ApiImplicitParam(name = "categoryId", value = "类别id", paramType = "path", required = true, dataType = "Long")
+    @GetMapping("/brand/categoryId/{categoryId}")
+    public AjaxResult queryBrandByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        List<CategoryBrandRelationEntity> items = brandService.getByCategoryId(categoryId);
+        return AjaxResult.success("查询成功").put("data", items);
     }
 
     @ApiOperation(value = "分页和搜索查询商家信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")

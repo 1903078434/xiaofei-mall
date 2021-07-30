@@ -2,6 +2,7 @@ package com.xiaofei.product.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.product.entity.AttrGroupEntity;
+import com.xiaofei.common.product.vo.AttrAndAttrGroupVo;
 import com.xiaofei.common.product.vo.AttrGroupVo;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.service.AttrGroupService;
@@ -70,6 +71,14 @@ public class AttrGroupController {
     @GetMapping("/attrgroup/list")
     public AjaxResult queryByPage(AttrGroupVo attrGroupVo) {
         PageVo<AttrGroupEntity> items = attrGroupService.queryByPage(attrGroupVo);
+        return AjaxResult.success().put("data", items);
+    }
+
+    @ApiOperation(value = "获取指定类别下的属性分组和属性，，每一组属性分组都绑定着属性", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @ApiImplicitParam(name = "categoryId", value = "类别id", paramType = "path", required = true, dataType = "Long")
+    @GetMapping("/attrgroup/list/{categoryId}/withattr")
+    public AjaxResult queryByCategoryWithAttr(@PathVariable("categoryId") Long categoryId) {
+        List<AttrAndAttrGroupVo> items = attrGroupService.queryAttrGroupWithAttr(categoryId);
         return AjaxResult.success().put("data", items);
     }
 

@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * User: 李飞
  * Date: 2021/7/28
@@ -11,7 +13,8 @@ import lombok.Data;
  */
 @Data
 @ApiModel("分页基本参数和搜索条件")
-public class BasePage {
+public class BasePage implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("当前页码")
     private Integer pageNo = 1;

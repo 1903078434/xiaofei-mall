@@ -4,11 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xiaofei.common.product.entity.AttrAttrgroupRelationEntity;
+import com.xiaofei.common.product.entity.AttrEntity;
 import com.xiaofei.common.product.entity.AttrGroupEntity;
+import com.xiaofei.common.product.vo.AttrAndAttrGroupVo;
 import com.xiaofei.common.product.vo.AttrGroupVo;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.mapper.AttrGroupDao;
+import com.xiaofei.product.service.AttrAttrgroupRelationService;
 import com.xiaofei.product.service.AttrGroupService;
+import com.xiaofei.product.service.AttrService;
 import com.xiaofei.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +40,12 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private AttrService attrService;
+
+    @Autowired
+    private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     /**
      * 属性分组信息的添加
@@ -167,5 +178,40 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         });
 
         return attrGroupVos;
+    }
+
+    /**
+     * 获取指定类别下的属性，和分组信息
+     *
+     * @param categoryId 类别id
+     * @return 返回属性分组和属性的结合信息
+     */
+    @Override
+    public List<AttrAndAttrGroupVo>  queryAttrGroupWithAttr(Long categoryId) {
+        List<AttrAndAttrGroupVo> items = new ArrayList<>();
+
+        //查询指定类别下的所有分组信息
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", categoryId));
+
+        //遍历分组信息，查询分组下的所有属性
+        attrGroupEntities.forEach(attrGroupEntity -> {
+            AttrAndAttrGroupVo attrAndAttrGroupVo = new AttrAndAttrGroupVo();
+            BeanUtils.copyProperties(attrGroupEntity, attrAndAttrGroupVo);
+
+            //查询指定分组和属性的关联关系
+            List<AttrAttrgroupRelationEntity> attrAttrgroupRelationEntities = attrAttrgroupRelationService.list(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupEntity.getAttrGroupId()));
+
+            //根据属性id查询所有的属性信息
+            List<AttrAndAttrGroupVo.Attr> attrs = new ArrayList<>();
+            attrAttrgroupRelationEntities.forEach(attrAttrgroupRelationEntity -> {
+                AttrEntity attrEntity = attrService.getOne(new QueryWrapper<AttrEntity>().eq("attr_id", attrAttrgroupRelationEntity.getAttrId()));
+                AttrAndAttrGroupVo.Attr attr = new AttrAndAttrGroupVo.Attr();
+                BeanUtils.copyProperties(attrEntity, attr);
+                attrs.add(attr);
+            });
+            attrAndAttrGroupVo.setAttrs(attrs);
+            items.add(attrAndAttrGroupVo);
+        });
+        return items;
     }
 }
