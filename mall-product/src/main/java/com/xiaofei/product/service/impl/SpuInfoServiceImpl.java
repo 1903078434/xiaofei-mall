@@ -9,12 +9,12 @@ import com.xiaofei.common.product.vo.spu.*;
 import com.xiaofei.product.feign.CouponFeignService;
 import com.xiaofei.product.mapper.SpuInfoDao;
 import com.xiaofei.product.service.*;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -56,7 +56,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      *
      * @param spuVo 商品信息
      */
-    @Transactional //Seata的分布式事务锁
+    @GlobalTransactional //Seata的分布式事务锁
     @Override
     public void addSpuInfo(SpuVo spuVo) {
 
@@ -108,7 +108,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             log.error("远程保存spu积分信息失败");
             log.debug("========================错误信息 --end-- ==============================\n");
         }
-
         //6、保存当前spu对应的sku信息
         List<Sku> skus = spuVo.getSkus();//商品的skus的全部信息
         if (skus != null && skus.size() > 0) {

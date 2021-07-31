@@ -107,6 +107,18 @@
             <artifactId>swagger-annotations</artifactId>
         </dependency>
 
+        <!--用于解决seata+nacos出现的序列化问题-->
+        <!--<dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>de.javakaffee</groupId>
+            <artifactId>kryo-serializers</artifactId>
+            <version>0.44</version>
+        </dependency>-->
+
     </dependencies>
 
 </project>
