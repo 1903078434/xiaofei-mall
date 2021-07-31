@@ -2,10 +2,9 @@ package com.xiaofei.common.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * sku销售属性&值
@@ -43,6 +42,6 @@ public class SkuSaleAttrValueEntity implements Serializable {
 	/**
 	 * 顺序
 	 */
-	private Integer attrSort;
+	private Integer attrSort=0;
 
 }

@@ -1,11 +1,16 @@
 package com.xiaofei.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuReductionDto;
 import com.xiaofei.common.dto.SpuBoundsDto;
 import com.xiaofei.common.product.entity.*;
+import com.xiaofei.common.product.vo.SpuInfoVo;
 import com.xiaofei.common.product.vo.spu.*;
+import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.feign.CouponFeignService;
 import com.xiaofei.product.mapper.SpuInfoDao;
 import com.xiaofei.product.service.*;
@@ -51,12 +56,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
+    @Autowired
+    private SpuInfoDescService spuInfoDescService;
+
     /**
      * 添加spu的信息和sku的信息
      *
      * @param spuVo 商品信息
      */
-    @GlobalTransactional //Seata的分布式事务锁
+    @GlobalTransactional(timeoutMills = 60000000) //Seata的分布式事务锁
     @Override
     public void addSpuInfo(SpuVo spuVo) {
 
@@ -75,10 +83,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         spuInfoDescEntity.setSpuId(spuInfoEntity.getId());
         //String.join方法用于将集合或数组中的每一个元素用指定的分隔符分开之后拼接，然后将拼接的字符串返回
         spuInfoDescEntity.setDecript(String.join(",", decriptImg));
+        spuInfoDescService.save(spuInfoDescEntity);
 
         //3、保存spu图片集【pms_spu_images】
         List<String> spuImages = spuVo.getImages();//获取商品的图片合集
-        spuImagesService.saveImages(spuInfoEntity.getId(), spuImages);
+        spuImagesService.saveImages(spuInfoEntity.getId(),spuVo.getSpuName(), spuImages);
 
         //4、保存spu的规格参数【pms_product_attr_value】
         List<BaseAttr> spuInfoBaseAttrs = spuVo.getBaseAttrs();//商品的基本属性，不包含销售属性，spu保存基本信息，sku保存销售属性
@@ -128,6 +137,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 skuInfoEntity.setSpuId(spuInfoEntity.getId());//设置spu商品id
                 skuInfoEntity.setCatalogId(spuInfoEntity.getCatalogId());//设置三级分类id
                 skuInfoEntity.setSkuDefaultImg(defaultImg);//设置商品的默认图片
+                skuInfoEntity.setSaleCount(0L);//设置销售数量为0
                 skuInfoService.save(skuInfoEntity);//保存sku的基本信息，下面的操作因为需要sku的id，所以这里需要先将sku的信息保存获取id
 
                 //6.2、sku的图片信息【pms_sku_images】
@@ -173,8 +183,80 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                         log.debug("========================错误信息 --end-- ==============================\n");
                     }
                 }
-
             });
         }
+
+    }
+
+    /**
+     * 分页查询商品信息
+     *
+     * @param spuInfoVo 查询条件
+     * @return 返回查询到的商品信息
+     */
+    @Override
+    public PageVo<SpuInfoVo> queryByPage(SpuInfoVo spuInfoVo) {
+        PageHelper.startPage(spuInfoVo.getPageNo(), spuInfoVo.getPageSize());
+
+        //查询条件选择器
+        QueryWrapper<SpuInfoEntity> queryWrapper = new QueryWrapper<>();
+
+        //判断是否传入了分类信息
+        if (spuInfoVo.getCatalogId() != null && spuInfoVo.getCatalogId() > 0) {
+            queryWrapper.eq("catalog_id", spuInfoVo.getCatalogId());
+        }
+
+        //判断是否传入了商家信息
+        if (spuInfoVo.getBrandId() != null && spuInfoVo.getBrandId() > 0) {
+            queryWrapper.eq("brand_id", spuInfoVo.getBrandId());
+        }
+
+        //判断是否传入了上架状态，0：下架。1：下架
+        if (spuInfoVo.getPublishStatus() != null) {
+            queryWrapper.eq("publish_status", spuInfoVo.getPublishStatus());
+        }
+
+        //判断搜索条件是否为空
+        if (!StringUtils.isEmpty(spuInfoVo.getSearchValue())) {
+            queryWrapper.and(wrapper -> {
+                wrapper.like("spu_name", spuInfoVo.getSearchValue());
+            });
+        }
+
+        //根据搜索条件查询
+        List<SpuInfoEntity> spuInfos = this.list(queryWrapper);
+
+        PageInfo<SpuInfoEntity> pageInfo = new PageInfo<>(spuInfos);
+
+        PageVo<SpuInfoVo> page = new PageVo<>(pageInfo.getPageNum(), pageInfo.getPageSize(), pageInfo.getPages(), pageInfo.getTotal());
+
+        //将查询出来的结果再次查询数据库，根据属性id查询属性分组信息，根据分类id查询分类名称
+
+        List<SpuInfoVo> items = pageInfo.getList().stream().map(spuInfoEntity -> {
+            SpuInfoVo spuVo = new SpuInfoVo();
+            BeanUtils.copyProperties(spuInfoEntity, spuVo);
+            return spuVo;
+        }).collect(Collectors.toList());
+
+        page.setItems(items);
+
+        return page;
+    }
+
+    /**
+     * 根据spuId查询Spu的基本信息
+     *
+     * @param spuId 商品id
+     * @return 返回商品信息
+     */
+    @Override
+    public PageVo<SpuInfoVo> querySpuInfoById(Long spuId) {
+        PageVo<SpuInfoVo> page = new PageVo<>();
+
+
+        // this.getById()
+
+
+        return page;
     }
 }

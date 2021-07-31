@@ -19,7 +19,7 @@ public class Sku {
     private String skuName;
 
     @ApiModelProperty("价格")
-    private String price;
+    private BigDecimal price;
 
     @ApiModelProperty("标题")
     private String skuTitle;

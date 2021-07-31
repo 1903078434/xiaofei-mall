@@ -15,8 +15,9 @@ public interface SpuImagesService extends IService<SpuImagesEntity> {
     /**
      * 保存商品的图片合集
      *
-     * @param id        商品id
+     * @param spuId     商品id
+     * @param spuName   商品名称
      * @param spuImages 商品的图片集
      */
-    void saveImages(Long id, List<String> spuImages);
+    void saveImages(Long spuId, String spuName, List<String> spuImages);
 }

@@ -22,8 +22,8 @@ import java.util.List;
 @RequestMapping("/product")
 @RestController
 public class AttrAttrgroupRelationController {
-    @Autowired
 
+    @Autowired
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     @ApiOperation(value = "添加属性和属性分组的信息信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")

@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel("spu保存")
@@ -23,10 +24,10 @@ public class SpuVo {
     private Long brandId;
 
     @ApiModelProperty("商品重量")
-    private double weight;
+    private BigDecimal weight;
 
     @ApiModelProperty("发布状态")
-    private int publishStatus;
+    private Integer publishStatus;
 
     @ApiModelProperty("商品介绍图集地址")
     private List<String> decript;

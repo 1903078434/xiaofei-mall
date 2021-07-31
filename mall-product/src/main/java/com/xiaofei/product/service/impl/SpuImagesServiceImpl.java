@@ -19,17 +19,19 @@ public class SpuImagesServiceImpl extends ServiceImpl<SpuImagesDao, SpuImagesEnt
     /**
      * 保存商品的图片合集
      *
-     * @param id        商品id
-     * @param spuImages 商品的图片合集
+     * @param spuId     商品id
+     * @param spuName   商品名称
+     * @param spuImages 商品的图片集
      */
     @Override
-    public void saveImages(Long id, List<String> spuImages) {
+    public void saveImages(Long spuId, String spuName, List<String> spuImages) {
         if (spuImages != null && spuImages.size() > 0) {
 
             //给每一张图片设置商品id
             List<SpuImagesEntity> spuImagesEntities = spuImages.stream().map(img -> {
                 SpuImagesEntity spuImagesEntity = new SpuImagesEntity();
-                spuImagesEntity.setSpuId(id);
+                spuImagesEntity.setSpuId(spuId);
+                spuImagesEntity.setImgName(spuName);
                 spuImagesEntity.setImgUrl(img);
                 return spuImagesEntity;
             }).collect(Collectors.toList());

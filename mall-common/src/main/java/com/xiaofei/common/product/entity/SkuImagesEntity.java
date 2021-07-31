@@ -2,10 +2,9 @@ package com.xiaofei.common.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * sku图片
@@ -35,7 +34,7 @@ public class SkuImagesEntity implements Serializable {
 	/**
 	 * 排序
 	 */
-	private Integer imgSort;
+	private Integer imgSort=0;
 	/**
 	 * 默认图[0 - 不是默认图，1 - 是默认图]
 	 */
