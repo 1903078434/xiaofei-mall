@@ -64,7 +64,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      *
      * @param spuVo 商品信息
      */
-    @GlobalTransactional(timeoutMills = 60000000) //Seata的分布式事务锁
+    @GlobalTransactional//Seata的分布式事务锁
     @Override
     public void addSpuInfo(SpuVo spuVo) {
 
