@@ -253,6 +253,7 @@
         <module>mall-third-part</module>
         <module>mall-member</module>
         <module>mall-coupon</module>
+        <module>mall-ware</module>
     </modules>
     <packaging>pom</packaging>
 

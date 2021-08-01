@@ -39,7 +39,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
         //判断搜索条件是否为空
         if (!StringUtils.isEmpty(skuInfoVo.getSearchValue())) {
-            queryWrapper.eq("sku_name", skuInfoVo.getSearchValue());
+            queryWrapper.like("sku_name", skuInfoVo.getSearchValue());
         }
 
         //判断传入了类别id没有
@@ -53,10 +53,10 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         }
 
         //判断是否传入销量排序没有
-        if (skuInfoVo.getSaleCount() == -1) {
+        if (skuInfoVo.getSaleCount() != null && skuInfoVo.getSaleCount() == -1) {
             //降序
             queryWrapper.orderByDesc("sale_count");
-        } else if (skuInfoVo.getSaleCount() == 1) {
+        } else if (skuInfoVo.getSaleCount() != null && skuInfoVo.getSaleCount() == 1) {
             //升序
             queryWrapper.orderByAsc("sale_count");
         }
