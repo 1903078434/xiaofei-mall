@@ -78,14 +78,14 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.17</version>
+            <version>1.2.1</version>
         </dependency>
 
         <!--mysql-connector-java-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.19</version>
+            <version>8.0.21</version>
         </dependency>
 
         <!--ruoyi-common-core，里面有一些工具类-->

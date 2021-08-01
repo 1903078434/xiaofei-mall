@@ -32,5 +32,4 @@ public class SkuInfoServiceTest {
         page.getItems().forEach(System.out::println);
     }
 
-
 }

@@ -38,7 +38,7 @@ public class SpuInfoController {
         return AjaxResult.success().put("data", page);
     }
 
-    @ApiOperation(value = "根据spuId查询属性分组信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @ApiOperation(value = "根据spuId查询spu信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "spuId", value = "商品id", paramType = "path", required = true, dataType = "Long")
     @GetMapping("/{spuId}")
     public AjaxResult querySpuInfoById(@PathVariable("spuId") Long spuId) {

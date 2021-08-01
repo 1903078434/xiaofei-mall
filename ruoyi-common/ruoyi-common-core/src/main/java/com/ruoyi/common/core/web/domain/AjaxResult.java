@@ -1,9 +1,9 @@
 package com.ruoyi.common.core.web.domain;
 
-import java.util.HashMap;
-
 import com.ruoyi.common.core.constant.HttpStatus;
 import com.ruoyi.common.core.utils.StringUtils;
+
+import java.util.HashMap;
 
 /**
  * 操作消息提醒
@@ -62,10 +62,6 @@ public class AjaxResult extends HashMap<String, Object> {
 
     /**
      * 方便链式调用
-     *
-     * @param key
-     * @param value
-     * @return
      */
     @Override
     public AjaxResult put(String key, Object value) {
@@ -114,8 +110,6 @@ public class AjaxResult extends HashMap<String, Object> {
 
     /**
      * 返回错误消息
-     *
-     * @return
      */
     public static AjaxResult error() {
         return AjaxResult.error("操作失败");
