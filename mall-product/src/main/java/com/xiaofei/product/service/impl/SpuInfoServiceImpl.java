@@ -87,7 +87,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         //3、保存spu图片集【pms_spu_images】
         List<String> spuImages = spuVo.getImages();//获取商品的图片合集
-        spuImagesService.saveImages(spuInfoEntity.getId(),spuVo.getSpuName(), spuImages);
+        spuImagesService.saveImages(spuInfoEntity.getId(), spuVo.getSpuName(), spuImages);
 
         //4、保存spu的规格参数【pms_product_attr_value】
         List<BaseAttr> spuInfoBaseAttrs = spuVo.getBaseAttrs();//商品的基本属性，不包含销售属性，spu保存基本信息，sku保存销售属性
@@ -103,7 +103,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             return productAttrValueEntity;
         }).collect(Collectors.toList());
         //保存构造好的商品属性信息
-        productAttrValueService.saveBatch(productAttrValueEntities);
+        productAttrValueService.addSpuAttr(spuInfoEntity.getId(), productAttrValueEntities);
 
         //5、保存spu的积分信息【mall_sms --> sms_spu_bounds】
         Bounds bounds = spuVo.getBounds();
