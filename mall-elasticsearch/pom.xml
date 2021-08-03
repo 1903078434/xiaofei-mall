@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <artifactId>ruoyi</artifactId>
@@ -10,20 +9,22 @@
         <version>3.0.0</version>
     </parent>
 
+    <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.xiaofei</groupId>
-    <artifactId>mall-third-part</artifactId>
+    <artifactId>mall-elasticsearch</artifactId>
     <version>1.0</version>
-    <description>第三方服务使用，阿里云OSS文件上传</description>
+    <description>ElasticSearch7.12.1整合SpringBoot</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <java.version>1.8</java.version>
+        <elasticsearch.version>7.8.0</elasticsearch.version>
     </properties>
-
 
     <dependencies>
 
+        <!--mall-common-->
         <dependency>
             <groupId>com.xiaofei</groupId>
             <artifactId>mall-common</artifactId>
@@ -45,34 +46,23 @@
             </exclusions>
         </dependency>
 
-        <!--web场景启动器-->
+        <!--spring-boot-starter-web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--服务的远程调用-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!--阿里云OSS场景启动器-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
-            <version>2.2.0.RELEASE</version>
-        </dependency>
 
+        <!--spring-boot-starter-test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <!--排除哪些包-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+
+        <!--spring-data-elasticsearch-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
     </dependencies>
@@ -85,7 +75,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>

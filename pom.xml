@@ -254,6 +254,7 @@
         <module>mall-member</module>
         <module>mall-coupon</module>
         <module>mall-ware</module>
+        <module>mall-elasticsearch</module>
     </modules>
     <packaging>pom</packaging>
 
