@@ -1,10 +1,12 @@
 package com.xiaofei.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +22,7 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @param wareSkuVo 库存信息
      * @return 成功或失败的信息，key：【isSuccess，msg】
      */
-    Map<String,Object> addWareSku(WareSkuVo wareSkuVo);
+    Map<String, Object> addWareSku(WareSkuVo wareSkuVo);
 
     /**
      * 根据库存id集合删除库存信息
@@ -46,4 +48,11 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      */
     PageVo<WareSkuEntity> queryByPage(WareSkuVo wareSkuVo);
 
+    /**
+     * 查询是否有库存
+     *
+     * @param skuIds 商品id集合
+     * @return 返回指定商品的库存信息
+     */
+    List<SkuHasStockDto> getSkuStock(List<Long> skuIds);
 }

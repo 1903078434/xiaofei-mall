@@ -22,11 +22,11 @@
     </update>-->
 
     <!--查询商品的总库存，【总库存 = 所有指定sku的库存相加 + 锁定库存（就是还在付款中的库存）-->
-    <!--<select id="getSkuStock" resultType="java.lang.Long">
+    <select id="getSkuStock" resultType="java.lang.Long">
         SELECT SUM(stock - wms_ware_sku.stock_locked)
         FROM mall_wms.wms_ware_sku
         WHERE sku_id = #{skuId}
-    </select>-->
+    </select>
 
 
 </mapper>

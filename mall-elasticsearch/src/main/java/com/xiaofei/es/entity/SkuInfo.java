@@ -1,4 +1,4 @@
-package com.xiaofei.es.enrity;
+package com.xiaofei.es.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "skus", createIndex = true, shards = 1, replicas = 1)
+@Document(indexName = "product")
 public class SkuInfo {
 
 
@@ -29,5 +29,6 @@ public class SkuInfo {
     @Field(type = FieldType.Text)
     private String imgUrl;
 
+    @Field(type = FieldType.Date , pattern = "dd.MM.uuuu")
+    private Long createDate;
 }
-

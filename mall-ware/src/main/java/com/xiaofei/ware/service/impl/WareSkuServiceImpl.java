@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
@@ -18,10 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -66,7 +64,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
                 resp.put("msg", isSuccess ? "添加成功" : "添加失败");
             } else {
                 resp.put("isSuccess", false);
-                resp.put("msg", "skuId为" + wareSkuVo.getSkuId() + "的商品已添加，直接去修改");
+                resp.put("msg", "skuId为" + wareSkuVo.getSkuId() + "的商品库存已添加，直接去修改");
             }
         } else {
             resp.put("isSuccess", false);
@@ -136,6 +134,26 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         PageInfo<WareSkuEntity> pageInfo = new PageInfo<>(items);
 
         return new PageVo<>(pageInfo.getPageNum(), pageInfo.getPageSize(), pageInfo.getPages(), pageInfo.getTotal(), pageInfo.getList());
+    }
+
+    /**
+     * 查询是否有库存
+     *
+     * @param skuIds 商品id集合
+     * @return 返回指定商品的库存信息
+     */
+    @Override
+    public List<SkuHasStockDto> getSkuStock(List<Long> skuIds) {
+        return skuIds.stream().map(skuId -> {
+            SkuHasStockDto vo = new SkuHasStockDto();
+            //查询当前sku的库存量
+            //SELECT SUM(stock-stock_locked) FROM `wms_ware_sku` WHERE sku_id=1
+            Long count = baseMapper.getSkuStock(skuId); //获取每一个sku的库存总量
+            //按照这个计数count，就会判断是否有库存
+            vo.setSkuId(skuId);
+            vo.setHasStock(count != null && count > 0); //有库存
+            return vo;
+        }).collect(Collectors.toList());
     }
 }
 

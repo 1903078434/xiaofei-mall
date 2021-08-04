@@ -42,6 +42,18 @@
                     <groupId>com.alibaba</groupId>
                     <artifactId>druid-spring-boot-starter</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.github.pagehelper</groupId>
+                    <artifactId>pagehelper-spring-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-spring-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 

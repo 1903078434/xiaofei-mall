@@ -21,6 +21,13 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
     void addSpuInfo(SpuVo spuVo);
 
     /**
+     * 商品上架
+     *
+     * @param spuId 商品id
+     */
+    Boolean spuUp(Long spuId);
+
+    /**
      * 分页查询商品信息
      *
      * @param spuInfoVo 查询条件
@@ -35,4 +42,5 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
      * @return 返回商品信息
      */
     PageVo<SpuInfoVo> querySpuInfoById(Long spuId);
+
 }

@@ -1,6 +1,8 @@
 package com.xiaofei.ware.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.dto.SkuHasStockDto;
+import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
@@ -11,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +65,12 @@ public class WareSkuController {
     public AjaxResult queryWareSkuById(@PathVariable("id") Long id) {
         WareSkuEntity item = wareSkuService.getById(id);
         return AjaxResult.success("查询成功").put("data", item);
+    }
+
+    @GetMapping("/hasStock")
+    public ResponseResult<List<SkuHasStockDto>> getSkuStock(@RequestParam("skuIds") List<Long> skuIds) {
+        List<SkuHasStockDto> items = wareSkuService.getSkuStock(skuIds);
+        return new ResponseResult<List<SkuHasStockDto>>().success("查询成功", items);
     }
 
 
