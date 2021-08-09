@@ -1,8 +1,6 @@
 package com.xiaofei.es.repository;
 
 import com.xiaofei.es.entity.SkuInfo;
-import org.springframework.data.elasticsearch.annotations.Highlight;
-import org.springframework.data.elasticsearch.annotations.HighlightField;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
@@ -13,7 +11,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 //@Repository
 public interface SkuInfoRepository extends ElasticsearchRepository<SkuInfo, Long> {
 
-    @Highlight(fields = {@HighlightField(name = "skuName")})
     SkuInfo findBySkuName(String skuName);
 
 }

@@ -67,7 +67,6 @@ public class SkuInfoTest {
 
     }
 
-
     @DisplayName("通过skuName查询数据")
     @Test
     public void getBySkuName() {
@@ -79,5 +78,10 @@ public class SkuInfoTest {
         //二、使用ElasticsearchRestTemplate添加数据
         //System.out.println("返回的数据为：" + template.get("1", SkuInfo.class));
 
+    }
+
+    @DisplayName("ElasticsearchRestTemplate复杂查询-高亮查询")
+    @Test
+    public void queryHeightLight() {
     }
 }

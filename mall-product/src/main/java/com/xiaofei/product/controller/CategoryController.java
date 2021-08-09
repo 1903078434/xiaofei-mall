@@ -61,6 +61,12 @@ public class CategoryController {
         return AjaxResult.success("查询成功").put("data", categoryService.queryAllCategory());
     }
 
+    @ApiOperation(value = "获取缓存中的商品类别信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @GetMapping("/category/cache/list")
+    public AjaxResult queryCacheCategory() {
+        return AjaxResult.success("查询成功").put("data", categoryService.queryCacheCategory());
+    }
+
     /**
      * 查询所有分类及其子分类，以树形结构组装起来
      */

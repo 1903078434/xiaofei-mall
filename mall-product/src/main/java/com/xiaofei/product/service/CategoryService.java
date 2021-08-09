@@ -13,12 +13,6 @@ import java.util.List;
  * Time: 22:48
  */
 public interface CategoryService extends IService<CategoryEntity> {
-    /**
-     * 查询所有商品分类
-     *
-     * @return 三级分类
-     */
-    List<CategoryEntity> queryAllCategory();
 
     /**
      * 添加商品类别
@@ -52,7 +46,21 @@ public interface CategoryService extends IService<CategoryEntity> {
     /**
      * 查询所有分类及其子分类，以树形结构组装起来，级联选择器中的值
      */
-    List<CategoryEntity> listWithTree() ;
+    List<CategoryEntity> listWithTree();
+
+    /**
+     * 查询所有商品分类
+     *
+     * @return 三级分类
+     */
+    List<CategoryEntity> queryAllCategory();
+
+    /**
+     * 查询缓存中的三级分类
+     *
+     * @return 三级分类
+     */
+    List<CategoryEntity> queryCacheCategory();
 
 
 }

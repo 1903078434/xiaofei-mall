@@ -255,6 +255,7 @@
         <module>mall-coupon</module>
         <module>mall-ware</module>
         <module>mall-elasticsearch</module>
+        <module>mall-gateway</module>
     </modules>
     <packaging>pom</packaging>
 

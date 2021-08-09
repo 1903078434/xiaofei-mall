@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -210,6 +211,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      *
      * @param spuId 商品id
      */
+    @Transactional
     @Override
     public Boolean spuUp(Long spuId) {
 
@@ -219,11 +221,18 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         //可以被检索的属性
         List<AttrEntity> attrs = attrService.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds).eq("search_type", 1));
 
+        //可检索的属性id
+        List<Long> searchAttrIds = attrs.stream().map(AttrEntity::getAttrId).collect(Collectors.toList());
+        //过滤出来可查询的销售属性
+        productAttrValueEntities =
+                productAttrValueEntities.stream().filter(productAttrValueEntity ->
+                        searchAttrIds.contains(productAttrValueEntity.getAttrId()))
+                        .collect(Collectors.toList());
+
         //sku的所有基本属性
-        List<SkuESDto.Attr> skuESAttrs = attrs.stream().map(attr -> {
+        List<SkuESDto.Attr> skuESAttrs = productAttrValueEntities.stream().map(item -> {
             SkuESDto.Attr skuESAttr = new SkuESDto.Attr();
-            BeanUtils.copyProperties(attr, skuESAttr);
-            skuESAttr.setAttrValue(attr.getValueSelect());
+            BeanUtils.copyProperties(item, skuESAttr);
             return skuESAttr;
         }).collect(Collectors.toList());
 
@@ -231,7 +240,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         List<SkuInfoEntity> skus = skuInfoService.list(new QueryWrapper<SkuInfoEntity>().eq("spu_id", spuId));
 
         List<Long> skuIds = skus.stream().map(SkuInfoEntity::getSkuId).collect(Collectors.toList());
-        //TODO hasStock 库存查询
+        //hasStock 库存查询
         Map<Long, Boolean> skuHasStocks = null;
         try {
             ResponseResult<List<SkuHasStockDto>> wareResponse = wareFeignService.hasStock(skuIds);

@@ -1,14 +1,14 @@
 package com.xiaofei.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xiaofei.common.product.entity.AttrGroupEntity;
 import com.xiaofei.common.product.entity.CategoryEntity;
-import com.xiaofei.common.product.vo.AttrGroupVo;
 import com.xiaofei.common.product.vo.CategoryVo;
 import com.xiaofei.product.mapper.CategoryDao;
 import com.xiaofei.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +58,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * @param categoryId 商品类别id
      * @return true：删除成功。false：删除失败
      */
+    @CacheEvict(value = "category",allEntries = true)//类别删除，删除redis缓存中的类别信息
     @Transactional
     @Override
     public boolean deleteCategoryById(Long categoryId) {
@@ -72,6 +73,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * @param categoryVo 传入的商品类别信息
      * @return 返回是否修改成功
      */
+    @CacheEvict(value = "category",allEntries = true)//类别修改，重新删除缓存中的商品类别信息
     @Transactional
     @Override
     public boolean updateCategory(CategoryVo categoryVo) {
@@ -162,5 +164,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .collect(Collectors.toList());//将结果作为一个集合返回
     }
 
-
+    /**
+     * 查询缓存中的三级分类
+     *
+     * @return 三级分类
+     */
+    @Cacheable(value = "category", key = "'categoryJson'")
+    @Override
+    public List<CategoryEntity> queryCacheCategory() {
+        return this.queryAllCategory();
+    }
 }

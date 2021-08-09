@@ -1,0 +1,25 @@
+spring:
+  redis:
+    host: 47.103.110.49
+    port: 6379
+    password:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        # 商品服务
+        - id: mall-product
+          uri: lb://mall-product
+          predicates:
+            - Path=/product/**
+# 不校验白名单
+ignore:
+  whites:
+    - /auth/logout
+    - /auth/login
+    - /*/v2/api-docs
+    - /csrf
+    - /thirdpart/**
