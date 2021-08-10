@@ -19,7 +19,6 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Document(indexName = "product")
 public class SkuInfo {
 
-
     @Id
     private Long skuId;
 

@@ -270,7 +270,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
             //查询商家和类别的信息
             CategoryEntity categoryEntity = categoryService.getById(sku.getCatalogId());
-            skuESDto.setCatalogName(categoryEntity.getName());
+            skuESDto.setCategoryId(sku.getCatalogId());
+            skuESDto.setCategoryName(categoryEntity.getName());
 
             BrandEntity brandEntity = brandService.getById(sku.getBrandId());
             skuESDto.setBrandName(brandEntity.getName());
@@ -278,6 +279,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
             //设置基本属性
             skuESDto.setAttrs(skuESAttrs);
+
+            //设置上架时间
+            skuESDto.setAddTime(System.currentTimeMillis());
+
+            //设置评论数量
+            skuESDto.setCommentNum(0L);
 
             return skuESDto;
         }).collect(Collectors.toList());

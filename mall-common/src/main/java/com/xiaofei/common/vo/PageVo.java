@@ -34,8 +34,27 @@ public class PageVo<T> implements Serializable {
     @ApiModelProperty("商品的总数量")
     private Long itemCount = 0L;
 
-    @ApiModelProperty("当前页数据")
+    @ApiModelProperty("当前页数据集合")
     private List<T> items;
+
+    @ApiModelProperty("当前页数据")
+    private T item;
+
+    public PageVo(Integer pageNo, Integer pageSize, Integer pageTotal, Long itemCount, List<T> items) {
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
+        this.pageTotal = pageTotal;
+        this.itemCount = itemCount;
+        this.items = items;
+    }
+
+    public PageVo(Integer pageNo, Integer pageSize, Integer pageTotal, Long itemCount, T item) {
+        this.pageNo = pageNo;
+        this.pageSize = pageSize;
+        this.pageTotal = pageTotal;
+        this.itemCount = itemCount;
+        this.item = item;
+    }
 
     public PageVo(Integer pageNo, Integer pageSize, Integer pageTotal, Long itemCount) {
         this.pageNo = pageNo;

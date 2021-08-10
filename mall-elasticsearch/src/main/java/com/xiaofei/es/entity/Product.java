@@ -32,7 +32,7 @@ public class Product {
     @Field(type = FieldType.Keyword)
     private BigDecimal skuPrice;//商品价格
 
-    @Field(type = FieldType.Keyword, index = false, docValues = false)
+    @Field(type = FieldType.Keyword)
     private String skuImg;//商品默认图片
 
     @Field(type = FieldType.Long)
@@ -48,19 +48,25 @@ public class Product {
     private Long brandId;//品牌Id
 
     @Field(type = FieldType.Long)
-    private Long catalogId;//商品分类Id
+    private Long categoryId;//商品分类Id
 
-    @Field(type = FieldType.Keyword, index = false, docValues = false)
+    @Field(type = FieldType.Keyword, fielddata = true)
     private String brandName;//品牌名称
 
-    @Field(type = FieldType.Long, index = false, docValues = false)
+    @Field(type = FieldType.Long, fielddata = true)
     private String brandImg;//品牌图片
 
-    @Field(type = FieldType.Long, index = false, docValues = false)
-    private String catalogName;//属性集合
+    @Field(type = FieldType.Long, fielddata = true)
+    private String categoryName;//属性集合
 
     @Field(type = FieldType.Nested)
     private List<SkuESDto.Attr> attrs;//属性集合
+
+    @Field(type = FieldType.Long)
+    private Long addTime;//时间上传时间戳
+
+    @Field(type = FieldType.Long)
+    private Long commentNum = 0L;//评论数量 ，如果不传入评论数量，默认为0条评论
 
     /**
      * 商品属性
@@ -70,7 +76,7 @@ public class Product {
         @Field(type = FieldType.Long)
         private Long attrId;//属性Id
 
-        @Field(type = FieldType.Keyword, index = false, docValues = false)
+        @Field(type = FieldType.Keyword, fielddata = true)
         private String attrName;//属性名称
 
         @Field(type = FieldType.Keyword)

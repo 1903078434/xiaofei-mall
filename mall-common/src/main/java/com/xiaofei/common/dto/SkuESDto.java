@@ -44,7 +44,7 @@ public class SkuESDto {
     private Long brandId;
 
     @ApiModelProperty("商品分类Id")
-    private Long catalogId;
+    private Long categoryId;
 
     @ApiModelProperty("品牌名称")
     private String brandName;
@@ -53,7 +53,13 @@ public class SkuESDto {
     private String brandImg;
 
     @ApiModelProperty("类别名称")
-    private String catalogName;
+    private String categoryName;
+
+    @ApiModelProperty("商品添加的时间戳")
+    private Long addTime;//时间上传时间戳
+
+    @ApiModelProperty("评论数量 ，如果不传入评论数量，默认为0条评论")
+    private Long commentNum = 0L;
 
     @ApiModelProperty("属性集合")
     private List<Attr> attrs;

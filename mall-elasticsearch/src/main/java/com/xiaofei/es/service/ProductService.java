@@ -1,7 +1,10 @@
 package com.xiaofei.es.service;
 
 import com.xiaofei.common.dto.SkuESDto;
+import com.xiaofei.common.es.vo.SearchVo;
+import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.es.entity.Product;
+import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 
 import java.util.List;
@@ -32,4 +35,11 @@ public interface ProductService {
      * @return 返回推荐的数据
      */
     List<Product> getProductRandom(Long brandId, Long categoryId);
+
+    /**
+     * 搜索商品数据
+     *
+     * @param searchVo 搜索条件
+     */
+    PageVo<SearchHits<Product>> searchProduct(SearchVo searchVo);
 }

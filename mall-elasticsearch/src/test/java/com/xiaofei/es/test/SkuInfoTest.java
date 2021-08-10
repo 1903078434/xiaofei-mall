@@ -1,5 +1,6 @@
 package com.xiaofei.es.test;
 
+import com.xiaofei.es.entity.Product;
 import com.xiaofei.es.entity.SkuInfo;
 import com.xiaofei.es.repository.SkuInfoRepository;
 import org.elasticsearch.client.RequestOptions;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.core.query.Criteria;
+import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 
 import java.io.IOException;
 
@@ -31,6 +34,14 @@ public class SkuInfoTest {
 
     @Autowired
     RestHighLevelClient highLevelClient;
+
+    @DisplayName("条件查询")
+    @Test
+    void query1(){
+        Criteria criteria = new Criteria("skuId").is(1);
+        CriteriaQuery query = new CriteriaQuery(criteria);
+        template.search(query, Product.class).forEach(System.out::println);
+    }
 
     @DisplayName("创建索引")
     @Test
