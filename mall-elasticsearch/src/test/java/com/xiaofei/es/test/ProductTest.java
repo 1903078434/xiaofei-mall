@@ -5,6 +5,7 @@ import com.xiaofei.common.es.vo.SearchVo;
 import com.xiaofei.es.entity.Product;
 import com.xiaofei.es.repository.ProductRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
@@ -67,7 +68,11 @@ public class ProductTest {
     @Test
     void nativeSearchQuery() {
         SearchVo searchVo = new SearchVo();
+        searchVo.setMaxPrice(new BigDecimal(7000));
+        searchVo.setCategoryId(225L);
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
         //价格区间判断
         BigDecimal minPrice = searchVo.getMinPrice();

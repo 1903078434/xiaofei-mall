@@ -2,6 +2,7 @@ package com.xiaofei.es.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuESDto;
+import com.xiaofei.common.es.vo.ProductRespVo;
 import com.xiaofei.common.es.vo.SearchVo;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
@@ -10,7 +11,6 @@ import com.xiaofei.es.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class ProductController {
     @ApiOperation(value = "根据搜索条件查询商品信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @GetMapping
     public AjaxResult getProductSearchAttr(SearchVo searchVo) {
-        PageVo<SearchHits<Product>> page = productService.searchProduct(searchVo);
+        PageVo<ProductRespVo> page = productService.searchProduct(searchVo);
         return AjaxResult.success().put("data", page);
     }
 }

@@ -1,17 +1,19 @@
 package com.xiaofei.es.service.impl;
 
-import com.xiaofei.es.constant.EsSearchConstant;
+import com.alibaba.fastjson.JSON;
 import com.xiaofei.common.dto.SkuESDto;
+import com.xiaofei.common.es.vo.ProductRespVo;
 import com.xiaofei.common.es.vo.SearchVo;
 import com.xiaofei.common.vo.PageVo;
+import com.xiaofei.es.constant.EsSearchConstant;
 import com.xiaofei.es.entity.Product;
 import com.xiaofei.es.repository.ProductRepository;
 import com.xiaofei.es.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -28,6 +30,7 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,67 +94,11 @@ public class ProductServiceImpl implements ProductService {
      * @param searchVo 搜索条件
      */
     @Override
-    public PageVo<SearchHits<Product>> searchProduct(SearchVo searchVo) {
-
-       /* //构造插叙条件
-        Criteria criteria = new Criteria();
-
-        //价格区间判断
-        BigDecimal minPrice = searchVo.getMinPrice();
-        BigDecimal maxPrice = searchVo.getMaxPrice();
-        if (minPrice.compareTo(maxPrice) > 0) {
-            BigDecimal t = minPrice;
-            minPrice = maxPrice;
-            maxPrice = t;
-        }
-        criteria.and(new Criteria("skuPrice").greaterThanEqual(minPrice).lessThanEqual(maxPrice));
-
-        //判断搜素条件是否为空
-        if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-            criteria.and(new Criteria("skuTitle").is(searchVo.getSearchValue()));
-        }
-
-        //判断类别id是否为空
-        if (searchVo.getCategoryId() != null && searchVo.getCategoryId() > 0) {
-            criteria.and(new Criteria("catalogId").is(searchVo.getCategoryId()));
-        }
-
-        //库存判断
-        if (searchVo.getHasStock() != null) {
-            criteria.and(new Criteria("hasStock").is(searchVo.getHasStock() == 1));
-        }
-
-        //判断品牌id
-        if (searchVo.getBrandId() != null && searchVo.getBrandId().size() > 0) {
-            criteria.and(new Criteria("brandId").in(searchVo.getBrandId()));
-        }
-
-        CriteriaQuery criteriaQuery = new CriteriaQuery(criteria);
-
-        //分页查询
-        criteriaQuery.setPageable(PageRequest.of(searchVo.getPageNo() - 1, searchVo.getPageSize()));
-
-        //判断搜索值是否为空，如果不为空，则设置高亮查询
-        if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-            HighlightBuilder highlight = new HighlightBuilder();
-            highlight.preTags("<b style='color:red'>");//样式前缀
-            highlight.postTags("</b>");//样式后缀
-            highlight.field("skuTitle");//设置需要高亮的属性
-            criteriaQuery.setHighlightQuery(new HighlightQuery(highlight));
-        }
-
-        //排序查询
-
-
-        //TODO 设置聚合查询
-        //criteria.matches()
-
-
-        SearchHits<Product> search = elasticsearchRestTemplate.search(criteriaQuery, Product.class);
-*/
+    public PageVo<ProductRespVo> searchProduct(SearchVo searchVo) {
 
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
 
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         //价格区间判断
         BigDecimal minPrice = searchVo.getMinPrice();
         BigDecimal maxPrice = searchVo.getMaxPrice();
@@ -161,7 +108,6 @@ public class ProductServiceImpl implements ProductService {
             maxPrice = t;
         }
         queryBuilder.withFilter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
-
         //判断搜素条件是否为空
         if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
             queryBuilder.withQuery(QueryBuilders.queryStringQuery(searchVo.getSearchValue()).field("skuTitle"));//匹配查询，需要分词和评分
@@ -182,6 +128,8 @@ public class ProductServiceImpl implements ProductService {
             queryBuilder.withFilter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
         }
 
+        //TODO 属性查询，以后再整合
+
         queryBuilder.withPageable(PageRequest.of(searchVo.getPageNo() - 1, searchVo.getPageSize()));//分页查询
 
         HighlightBuilder highlightBuilder = new HighlightBuilder();//高亮查询构建
@@ -195,6 +143,8 @@ public class ProductServiceImpl implements ProductService {
             EsSearchConstant.SortStatus sortStatus = EsSearchConstant.SortStatus.getSortStatus(searchVo.getSort());
             queryBuilder.withSort(new FieldSortBuilder(sortStatus.getField()).order(sortStatus.getSortOrder()));
         }
+
+        // TODO 聚合信息已经完成，以后再整合
 
         //聚合品牌信息
         TermsAggregationBuilder brandAgg = AggregationBuilders.terms("brandId");
@@ -220,20 +170,33 @@ public class ProductServiceImpl implements ProductService {
 
         SearchHits<Product> search = elasticsearchRestTemplate.search(query, Product.class);
 
-        //遍历聚合信息
-        Aggregations aggregations = search.getAggregations();
+        System.out.println(JSON.toJSONString(search.getTotalHitsRelation()));
 
-        System.out.println("======================================");
-
-        //遍历商品信息
-        search.getSearchHits().forEach(System.out::println);
+        List<ProductRespVo> items = new ArrayList<>();
+        //封装信息
+        search.getSearchHits().forEach(item -> {
+            ProductRespVo productRespVo = new ProductRespVo();
+            BeanUtils.copyProperties(item.getContent(), productRespVo);
+            //如果搜索值没有，则没有高亮
+            if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
+                List<String> skuTitle = item.getHighlightField("skuTitle");
+                if (skuTitle.size() > 0) {
+                    productRespVo.setHighlightFields(skuTitle.get(0));
+                } else {
+                    productRespVo.setHighlightFields("");
+                }
+            } else {
+                productRespVo.setHighlightFields("");
+            }
+            items.add(productRespVo);
+            System.out.println(JSON.toJSONString(productRespVo));
+        });
 
         Integer pageTotal = Math.toIntExact(search.getTotalHits() % searchVo.getPageSize() == 0 ?
                 search.getTotalHits() / searchVo.getPageSize() :
                 search.getTotalHits() / searchVo.getPageSize() + 1);
 
-        return new PageVo<>(searchVo.getPageNo(), searchVo.getPageSize(), pageTotal, search.getTotalHits(), search);
-
+        return new PageVo<>(searchVo.getPageNo(), searchVo.getPageSize(), pageTotal, search.getTotalHits(), items);
     }
 
     /**
