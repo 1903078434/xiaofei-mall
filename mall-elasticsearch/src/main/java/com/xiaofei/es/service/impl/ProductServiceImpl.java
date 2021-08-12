@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
         //价格区间判断
         BigDecimal minPrice = searchVo.getMinPrice();
         BigDecimal maxPrice = searchVo.getMaxPrice();
@@ -107,26 +108,29 @@ public class ProductServiceImpl implements ProductService {
             minPrice = maxPrice;
             maxPrice = t;
         }
-        queryBuilder.withFilter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
+
+        boolQueryBuilder.filter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
         //判断搜素条件是否为空
         if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-            queryBuilder.withQuery(QueryBuilders.queryStringQuery(searchVo.getSearchValue()).field("skuTitle"));//匹配查询，需要分词和评分
+            boolQueryBuilder.must(QueryBuilders.matchQuery("skuTitle", searchVo.getSearchValue()));//匹配查询，需要分词和评分
         }
 
         //判断类别id
         if (searchVo.getCategoryId() != null && searchVo.getCategoryId() > 0) {
-            queryBuilder.withFilter(QueryBuilders.termQuery("categoryId", searchVo.getCategoryId()));
+            boolQueryBuilder.filter(QueryBuilders.termQuery("categoryId", searchVo.getCategoryId()));
         }
 
         //库存判断
         if (searchVo.getHasStock() != null) {
-            queryBuilder.withFilter(QueryBuilders.termQuery("hasStock", searchVo.getHasStock() == 1));
+            boolQueryBuilder.filter(QueryBuilders.termQuery("hasStock", searchVo.getHasStock() == 1));
         }
 
         //判断品牌id
         if (searchVo.getBrandId() != null && searchVo.getBrandId().size() > 0) {
-            queryBuilder.withFilter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
+            boolQueryBuilder.filter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
         }
+
+        queryBuilder.withQuery(boolQueryBuilder);
 
         //TODO 属性查询，以后再整合
 
@@ -197,6 +201,7 @@ public class ProductServiceImpl implements ProductService {
                 search.getTotalHits() / searchVo.getPageSize() + 1);
 
         return new PageVo<>(searchVo.getPageNo(), searchVo.getPageSize(), pageTotal, search.getTotalHits(), items);
+
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.xiaofei.es.test;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaofei.common.es.vo.ProductRespVo;
 import com.xiaofei.common.es.vo.SearchVo;
+import com.xiaofei.es.constant.EsSearchConstant;
 import com.xiaofei.es.entity.Product;
 import com.xiaofei.es.repository.ProductRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +16,7 @@ import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,8 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: 李飞
@@ -82,26 +87,26 @@ public class ProductTest {
             minPrice = maxPrice;
             maxPrice = t;
         }
-        queryBuilder.withFilter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
+        queryBuilder = queryBuilder.withFilter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
 
         //判断搜素条件是否为空
         if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-            queryBuilder.withQuery(QueryBuilders.queryStringQuery(searchVo.getSearchValue()).field("skuTitle"));//匹配查询，需要分词和评分
+            queryBuilder = queryBuilder.withQuery(QueryBuilders.queryStringQuery(searchVo.getSearchValue()).field("skuTitle"));//匹配查询，需要分词和评分
         }
 
         //判断类别id
         if (searchVo.getCategoryId() != null && searchVo.getCategoryId() > 0) {
-            queryBuilder.withFilter(QueryBuilders.termQuery("categoryId", searchVo.getCategoryId()));
+            queryBuilder = queryBuilder.withFilter(QueryBuilders.termQuery("categoryId", searchVo.getCategoryId()));
         }
 
         //库存判断
         if (searchVo.getHasStock() != null) {
-            queryBuilder.withFilter(QueryBuilders.termQuery("hasStock", searchVo.getHasStock() == 1));
+            queryBuilder = queryBuilder.withFilter(QueryBuilders.termQuery("hasStock", searchVo.getHasStock() == 1));
         }
 
         //判断品牌id
         if (searchVo.getBrandId() != null && searchVo.getBrandId().size() > 0) {
-            queryBuilder.withFilter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
+            queryBuilder = queryBuilder.withFilter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
         }
 
         //queryBuilder.withFields("skuTitle", "skuPrice");//设置只查询哪些属性的值，未设置的属性，查询出来的值为空
@@ -114,18 +119,18 @@ public class ProductTest {
 
         //queryBuilder.withFilter(QueryBuilders.termsQuery("brandId", Arrays.asList(1, 2, 3)));//匹配多个值，满足一个即可
 
-        queryBuilder.withSort(new FieldSortBuilder("skuPrice").order(SortOrder.ASC));//排序
+        queryBuilder = queryBuilder.withSort(new FieldSortBuilder("skuPrice").order(SortOrder.ASC));//排序
 
         //设置过滤条件 ，这里设置价格大于等于6000小于等于7000的过滤条件
         //queryBuilder.withFilter(QueryBuilders.rangeQuery("skuPrice").gte(6000).lte(7000));//价格区间
 
-        queryBuilder.withPageable(PageRequest.of(searchVo.getPageNo() - 1, searchVo.getPageSize()));//分页查询
+        queryBuilder = queryBuilder.withPageable(PageRequest.of(searchVo.getPageNo() - 1, searchVo.getPageSize()));//分页查询
 
         HighlightBuilder highlightBuilder = new HighlightBuilder();//高亮查询构建
         highlightBuilder.preTags("<span style='color:red;'>");//样式前缀
         highlightBuilder.postTags("</span>");//样式后缀
         highlightBuilder.field("skuTitle");//设置需要高亮的属性
-        queryBuilder.withHighlightBuilder(highlightBuilder);//设置高亮查询
+        queryBuilder = queryBuilder.withHighlightBuilder(highlightBuilder);//设置高亮查询
 
         //TODO 排序查询
 
@@ -134,20 +139,20 @@ public class ProductTest {
         brandAgg.field("brandId").size(50);
         brandAgg.subAggregation(AggregationBuilders.terms("brandName").field("brandName.keyword").size(1));
         brandAgg.subAggregation(AggregationBuilders.terms("brandImg").field("brandImg.keyword").size(1));
-        queryBuilder.addAggregation(brandAgg);
+        queryBuilder = queryBuilder.addAggregation(brandAgg);
 
         //聚合类别信息
         TermsAggregationBuilder categoryAgg = AggregationBuilders.terms("categoryId");
         categoryAgg.field("categoryId").size(50);
         categoryAgg.subAggregation(AggregationBuilders.terms("categoryName").field("categoryName.keyword")).size(50);
-        queryBuilder.addAggregation(categoryAgg);
+        queryBuilder = queryBuilder.addAggregation(categoryAgg);
 
         //属性聚合
         TermsAggregationBuilder attrsAgg = AggregationBuilders.terms("attrId");
         attrsAgg.field("attrs.attrId").size(100);
         attrsAgg.subAggregation(AggregationBuilders.terms("attrName").field("attrs.attrName.keyword"));
         attrsAgg.subAggregation(AggregationBuilders.terms("attrValue").field("attrs.attrValue.keyword"));
-        queryBuilder.addAggregation(attrsAgg);
+        queryBuilder = queryBuilder.addAggregation(attrsAgg);
 
         Query query = queryBuilder.build();
 
@@ -242,6 +247,113 @@ public class ProductTest {
         //根据id删除
         productRepository.deleteById(1L);
         //等其他条件删除
+    }
+
+    void test3() {
+        SearchVo searchVo = new SearchVo();
+
+        Criteria criteria = new Criteria();
+
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        //价格区间判断
+        BigDecimal minPrice = searchVo.getMinPrice();
+        BigDecimal maxPrice = searchVo.getMaxPrice();
+        if (minPrice.compareTo(maxPrice) > 0) {
+            BigDecimal t = minPrice;
+            minPrice = maxPrice;
+            maxPrice = t;
+        }
+        queryBuilder.withFilter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
+        //判断搜素条件是否为空
+        if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
+            queryBuilder.withQuery(QueryBuilders.queryStringQuery(searchVo.getSearchValue()).field("skuTitle"));//匹配查询，需要分词和评分
+        }
+
+        //判断类别id
+        if (searchVo.getCategoryId() != null && searchVo.getCategoryId() > 0) {
+            queryBuilder = queryBuilder.withFilter(QueryBuilders.termQuery("categoryId", searchVo.getCategoryId()));
+        }
+
+        //库存判断
+        if (searchVo.getHasStock() != null) {
+            queryBuilder.withFilter(QueryBuilders.termQuery("hasStock", searchVo.getHasStock() == 1));
+        }
+
+        //判断品牌id
+        if (searchVo.getBrandId() != null && searchVo.getBrandId().size() > 0) {
+            queryBuilder.withFilter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
+        }
+
+        //TODO 属性查询，以后再整合
+
+        queryBuilder.withPageable(PageRequest.of(searchVo.getPageNo() - 1, searchVo.getPageSize()));//分页查询
+
+        HighlightBuilder highlightBuilder = new HighlightBuilder();//高亮查询构建
+        highlightBuilder.preTags("<span style='color:red;'>");//样式前缀
+        highlightBuilder.postTags("</span>");//样式后缀
+        highlightBuilder.field("skuTitle");//设置需要高亮的属性
+        queryBuilder.withHighlightBuilder(highlightBuilder);//设置高亮查询
+
+        //排序查询
+        if (searchVo.getSort() != null) {
+            EsSearchConstant.SortStatus sortStatus = EsSearchConstant.SortStatus.getSortStatus(searchVo.getSort());
+            queryBuilder.withSort(new FieldSortBuilder(sortStatus.getField()).order(sortStatus.getSortOrder()));
+        }
+
+        // TODO 聚合信息已经完成，以后再整合
+
+        //聚合品牌信息
+        TermsAggregationBuilder brandAgg = AggregationBuilders.terms("brandId");
+        brandAgg.field("brandId").size(50);
+        brandAgg.subAggregation(AggregationBuilders.terms("brandName").field("brandName.keyword").size(1));
+        brandAgg.subAggregation(AggregationBuilders.terms("brandImg").field("brandImg.keyword").size(1));
+        queryBuilder.addAggregation(brandAgg);
+
+        //聚合类别信息
+        TermsAggregationBuilder categoryAgg = AggregationBuilders.terms("categoryId");
+        categoryAgg.field("categoryId").size(50);
+        categoryAgg.subAggregation(AggregationBuilders.terms("categoryName").field("categoryName.keyword")).size(50);
+        queryBuilder.addAggregation(categoryAgg);
+
+        //属性聚合
+        TermsAggregationBuilder attrsAgg = AggregationBuilders.terms("attrId");
+        attrsAgg.field("attrs.attrId").size(100);
+        attrsAgg.subAggregation(AggregationBuilders.terms("attrName").field("attrs.attrName.keyword"));
+        attrsAgg.subAggregation(AggregationBuilders.terms("attrValue").field("attrs.attrValue.keyword"));
+        queryBuilder.addAggregation(attrsAgg);
+
+        Query query = queryBuilder.build();
+
+        SearchHits<Product> search = elasticsearchRestTemplate.search(query, Product.class);
+
+        System.out.println(JSON.toJSONString(search.getTotalHitsRelation()));
+
+        List<ProductRespVo> items = new ArrayList<>();
+        //封装信息
+        search.getSearchHits().forEach(item -> {
+            ProductRespVo productRespVo = new ProductRespVo();
+            BeanUtils.copyProperties(item.getContent(), productRespVo);
+            //如果搜索值没有，则没有高亮
+            if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
+                List<String> skuTitle = item.getHighlightField("skuTitle");
+                if (skuTitle.size() > 0) {
+                    productRespVo.setHighlightFields(skuTitle.get(0));
+                } else {
+                    productRespVo.setHighlightFields("");
+                }
+            } else {
+                productRespVo.setHighlightFields("");
+            }
+            items.add(productRespVo);
+            System.out.println(JSON.toJSONString(productRespVo));
+        });
+
+        Integer pageTotal = Math.toIntExact(search.getTotalHits() % searchVo.getPageSize() == 0 ?
+                search.getTotalHits() / searchVo.getPageSize() :
+                search.getTotalHits() / searchVo.getPageSize() + 1);
+
     }
 
 }
