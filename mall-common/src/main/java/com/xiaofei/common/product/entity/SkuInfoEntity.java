@@ -3,6 +3,8 @@ package com.xiaofei.common.product.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,53 +19,42 @@ import java.math.BigDecimal;
  */
 @Data
 @TableName("pms_sku_info")
+@ApiModel("sku基本信息")
 public class SkuInfoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * skuId
-     */
     @TableId(type = IdType.AUTO)
+    @ApiModelProperty("skuId")
     private Long skuId;
-    /**
-     * spuId
-     */
+
+    @ApiModelProperty("spuId")
     private Long spuId;
-    /**
-     * sku名称
-     */
+
+    @ApiModelProperty("sku名称")
     private String skuName;
-    /**
-     * sku介绍描述
-     */
+
+    @ApiModelProperty("sku介绍描述")
     private String skuDesc;
-    /**
-     * 所属分类id
-     */
+
+    @ApiModelProperty("所属分类id")
     private Long catalogId;
-    /**
-     * 品牌id
-     */
+
+    @ApiModelProperty("品牌id")
     private Long brandId;
-    /**
-     * 默认图片
-     */
+
+    @ApiModelProperty("默认图片")
     private String skuDefaultImg;
-    /**
-     * 标题
-     */
+
+    @ApiModelProperty("标题")
     private String skuTitle;
-    /**
-     * 副标题
-     */
+
+    @ApiModelProperty("副标题")
     private String skuSubtitle;
-    /**
-     * 价格
-     */
+
+    @ApiModelProperty("价格")
     private BigDecimal price;
-    /**
-     * 销量
-     */
-    private Long saleCount=0L;
+
+    @ApiModelProperty("销量")
+    private Long saleCount = 0L;
 
 }

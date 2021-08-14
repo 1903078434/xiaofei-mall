@@ -139,7 +139,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return paths;
     }
 
-
     /**
      * 查询所有分类及其子分类，以树形结构组装起来，级联选择器中的值
      */

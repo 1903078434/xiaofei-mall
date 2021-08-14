@@ -9,6 +9,7 @@ import com.xiaofei.common.product.entity.AttrEntity;
 import com.xiaofei.common.product.entity.AttrGroupEntity;
 import com.xiaofei.common.product.vo.AttrAndAttrGroupVo;
 import com.xiaofei.common.product.vo.AttrGroupVo;
+import com.xiaofei.common.product.vo.SkuDetailInfoVo;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.mapper.AttrGroupDao;
 import com.xiaofei.product.service.AttrAttrgroupRelationService;
@@ -187,7 +188,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
      * @return 返回属性分组和属性的结合信息
      */
     @Override
-    public List<AttrAndAttrGroupVo>  queryAttrGroupWithAttr(Long categoryId) {
+    public List<AttrAndAttrGroupVo> queryAttrGroupWithAttr(Long categoryId) {
         List<AttrAndAttrGroupVo> items = new ArrayList<>();
 
         //查询指定类别下的所有分组信息
@@ -213,5 +214,17 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             items.add(attrAndAttrGroupVo);
         });
         return items;
+    }
+
+    /**
+     * 查询指定spu的，属性分组，及其属性分组下对应的属性信息
+     *
+     * @param spuId      商品id
+     * @param categoryId 商品类别
+     * @return 返回指定spu的属性分组和对应分组下的信息
+     */
+    @Override
+    public List<SkuDetailInfoVo.SpuItemBaseAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long categoryId) {
+        return this.baseMapper.getAttrGroupWithAttrsBySpuId(spuId, categoryId);
     }
 }

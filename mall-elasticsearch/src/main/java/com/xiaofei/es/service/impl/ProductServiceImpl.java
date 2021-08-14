@@ -112,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
         boolQueryBuilder.filter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
         //判断搜素条件是否为空
         if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("skuTitle", searchVo.getSearchValue()));//匹配查询，需要分词和评分
+            boolQueryBuilder.must(QueryBuilders.matchQuery("skuTitle", searchVo.getSearchValue()))  ;//匹配查询，需要分词和评分
         }
 
         //判断类别id
