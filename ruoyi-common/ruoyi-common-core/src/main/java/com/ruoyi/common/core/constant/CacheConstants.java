@@ -2,11 +2,10 @@ package com.ruoyi.common.core.constant;
 
 /**
  * 缓存的key 常量
- * 
+ *
  * @author ruoyi
  */
-public class CacheConstants
-{
+public class CacheConstants {
     /**
      * 令牌自定义标识
      */

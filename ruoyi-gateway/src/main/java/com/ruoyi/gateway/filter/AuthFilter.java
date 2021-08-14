@@ -95,7 +95,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
         return chain.filter(mutableExchange);
     }
 
-
+    /**
+     * 当没有授权的时候返回给用户的信息
+     */
     private Mono<Void> setUnauthorizedResponse(ServerWebExchange exchange, String msg) {
         //获取响应信息
         ServerHttpResponse response = exchange.getResponse();

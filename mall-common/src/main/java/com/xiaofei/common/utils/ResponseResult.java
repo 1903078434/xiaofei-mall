@@ -39,4 +39,16 @@ public class ResponseResult<T> {
         return this;
     }
 
+    public ResponseResult<T> error(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+        return this;
+    }
+
+    public ResponseResult<T> error(Integer code, String msg, T data) {
+        error(code, msg);
+        this.data = data;
+        return this;
+    }
+
 }
