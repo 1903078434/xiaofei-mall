@@ -29,7 +29,7 @@ public class ProductController {
     private ProductService productService;
 
     @ApiOperation(value = "商品上架", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
-    @PostMapping
+    @PostMapping("/internal")
     public ResponseResult<Boolean> addProduct(@RequestBody List<SkuESDto> skuESDtos) {
         boolean isSave = productService.saveProduct(skuESDtos);
         return new ResponseResult<Boolean>().success(isSave ? "添加成功" : "添加失败", isSave);

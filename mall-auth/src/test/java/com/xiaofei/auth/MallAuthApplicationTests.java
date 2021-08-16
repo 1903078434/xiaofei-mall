@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -26,7 +27,7 @@ class MallAuthApplicationTests {
     @Test
     void redisTest() {
         redisTemplate.opsForValue().set("1903078434@qq.com", "827333", 600, TimeUnit.SECONDS);
-        System.out.println("存入redis中的值为："+redisTemplate.opsForValue().get("190307822434@qq.com"));
+        System.out.println("存入redis中的值为：" + redisTemplate.opsForValue().get("190307822434@qq.com"));
     }
 
     @Test
@@ -173,6 +174,16 @@ class MallAuthApplicationTests {
         helper.setFrom("1903078434@qq.com");
 
         mailSender.send(mimeMessage);
+    }
+
+    @DisplayName("密码加密测试")
+    @Test
+    void passwordTest() {
+        String password = "123456";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodePassword = passwordEncoder.encode(password);
+        System.out.println(encodePassword);
+        System.out.println("两次密码是否相等：" + passwordEncoder.matches(password, encodePassword));
     }
 
 }

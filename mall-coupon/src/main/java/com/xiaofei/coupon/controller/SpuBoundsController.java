@@ -25,7 +25,7 @@ public class SpuBoundsController {
     private SpuBoundsService spuBoundsService;
 
     @ApiOperation(value = "添加SPU的积分信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping
+    @PostMapping("/internal")
     public AjaxResult addSpuBounds(@RequestBody SpuBoundsEntity spuBoundsEntity) {
         boolean isAdd = spuBoundsService.save(spuBoundsEntity);
         return AjaxResult.success(isAdd ? "添加成功" : "添加失败").put("data", isAdd);

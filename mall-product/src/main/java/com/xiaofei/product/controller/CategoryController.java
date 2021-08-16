@@ -26,7 +26,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @ApiOperation(value = "添加商品类别", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("/category/add")
+    @PostMapping("/category/internal/add")
     public AjaxResult addCategory(@RequestBody CategoryVo categoryVo) {
         boolean isAdd = categoryService.addCategory(categoryVo);
         return AjaxResult.success().put("data", isAdd);
@@ -34,14 +34,14 @@ public class CategoryController {
 
     @ApiOperation(value = "根据类别id删除商品类别", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "categoryId", value = "类别id", paramType = "path", required = true, dataType = "Long")
-    @DeleteMapping("/category/{categoryId}")
+    @DeleteMapping("/category/internal/{categoryId}")
     public AjaxResult deleteCategoryById(@PathVariable("categoryId") Long categoryId) {
         boolean isDelete = categoryService.deleteCategoryById(categoryId);
         return AjaxResult.success().put("data", isDelete);
     }
 
     @ApiOperation(value = "修改商品类别", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping("/category/update")
+    @PutMapping("/category/internal/update")
     public AjaxResult updateCategory(@RequestBody CategoryVo categoryVo) {
         boolean isAdd = categoryService.updateCategory(categoryVo);
         return AjaxResult.success(isAdd ? "修改成功" : "修改失败").put("data", isAdd);

@@ -27,7 +27,7 @@ public class AttrAttrgroupRelationController {
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     @ApiOperation(value = "添加属性和属性分组的信息信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("/attrattrgrouprelation")
+    @PostMapping("/internal/attrattrgrouprelation")
     public AjaxResult addAttr(@RequestBody List<AttrAttrGroupRelationVo> relationVos) {
         boolean isAdd = attrAttrgroupRelationService.addRelation(relationVos);
         return AjaxResult.success(isAdd ? "添加成功" : "添加失败").put("data", isAdd);
@@ -35,7 +35,7 @@ public class AttrAttrgroupRelationController {
 
     @ApiOperation(value = "单个或批量删除属性和属性分组", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "relationId", value = "关联Id数组字符串", paramType = "body", required = true, dataType = "String")
-    @DeleteMapping("/attrattrgrouprelation")
+    @DeleteMapping("/internal/attrattrgrouprelation")
     public AjaxResult deleteAttrAttrGroupRelation(@RequestBody List<AttrAttrGroupRelationVo> relationVos) {
         boolean isDelete = attrAttrgroupRelationService.deleteByRelation(relationVos);
         return AjaxResult.success(isDelete ? "删除成功" : "删除失败").put("data", isDelete);

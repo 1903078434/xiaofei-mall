@@ -11,12 +11,15 @@ import lombok.Data;
  */
 @Data
 @ApiModel("用户登录")
-public class UserLoginVo {
+public class UserInfoVo {
     @ApiModelProperty("用户名")
     private String username;
 
     @ApiModelProperty("密码")
     private String password;
+
+    @ApiModelProperty("邮箱")
+    private String email;
 
     @ApiModelProperty("验证码")
     private Integer code;

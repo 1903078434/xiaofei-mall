@@ -26,7 +26,7 @@ public class ProductAttrValueController {
 
     @ApiOperation(value = "批量修改产品的基本属性", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "spuId", value = "spuId", paramType = "path", required = true, dataType = "Long")
-    @PutMapping("/{spuId}")
+    @PutMapping("/internal/{spuId}")
     public AjaxResult updateCategory(@RequestBody List<ProductAttrValueVo> items, @PathVariable("spuId") Long spuId) {
         boolean isUpdate = productAttrValueService.updateProductAttrValue(items,spuId);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);

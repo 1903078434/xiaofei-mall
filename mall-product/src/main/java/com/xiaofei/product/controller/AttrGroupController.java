@@ -27,7 +27,7 @@ public class AttrGroupController {
     private AttrGroupService attrGroupService;
 
     @ApiOperation(value = "添加属性分组信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("/attrgroup/add")
+    @PostMapping("/attrgroup/internal/add")
     public AjaxResult addAttrGroup(@RequestBody AttrGroupVo attrGroupVo) {
 
         boolean isAdd = attrGroupService.addAttrGroup(attrGroupVo);
@@ -37,7 +37,7 @@ public class AttrGroupController {
 
     @ApiOperation(value = "根据属性分组id删除", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "attrGroupId", value = "属性分组id集合,多个id，隔开", paramType = "body", required = true, dataType = "Long")
-    @DeleteMapping("/attrgroup/delete")
+    @DeleteMapping("/attrgroup/internal/delete")
     public AjaxResult deleteAttrGroupById(@RequestBody String attrgroupId) {
 
         boolean isDelete = attrGroupService.deleteAttrGroupById(attrgroupId);
@@ -45,7 +45,7 @@ public class AttrGroupController {
     }
 
     @ApiOperation(value = "根据属性分组id修改属性分组信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping("/attrgroup/update")
+    @PutMapping("/attrgroup/internal/update")
     public AjaxResult updateAttrGroup(@RequestBody AttrGroupVo attrGroupVo) {
         boolean isUpdate = attrGroupService.updateAttrGroupById(attrGroupVo);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);

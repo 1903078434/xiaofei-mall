@@ -25,7 +25,7 @@ public class WareInfoController {
     private WareInfoService wareInfoService;
 
     @ApiOperation(value = "添加仓库信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping
+    @PostMapping("/internal")
     public AjaxResult addWareInfo(@RequestBody WareInfoVo wareInfoVo) {
 
         boolean isAdd = wareInfoService.addWareInfo(wareInfoVo);
@@ -35,21 +35,21 @@ public class WareInfoController {
 
     @ApiOperation(value = "根据仓库id删除仓库", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "wareId", value = "仓库id集合", paramType = "body", required = true, dataType = "String")
-    @DeleteMapping
+    @DeleteMapping("/internal")
     public AjaxResult deleteWareInfoById(@RequestBody String wareId) {
         boolean isDelete = wareInfoService.deleteWareById(wareId);
         return AjaxResult.success(isDelete ? "删除成功" : "删除失败").put("data", isDelete);
     }
 
     @ApiOperation(value = "根据仓库id修改仓库信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping
+    @PutMapping("/internal")
     public AjaxResult updateWareInfo(@RequestBody WareInfoVo wareInfoVo) {
         boolean isUpdate = wareInfoService.updateWareInfoById(wareInfoVo);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);
     }
 
     @ApiOperation(value = "分页和搜索查询仓库信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
-    @GetMapping
+    @GetMapping("/internal")
     public AjaxResult queryWareInfoByPage(WareInfoVo wareInfoVo) {
         //分页查询和条件查询
         PageVo<WareInfoEntity> page = wareInfoService.queryByPage(wareInfoVo);
@@ -58,7 +58,7 @@ public class WareInfoController {
 
     @ApiOperation(value = "根据仓库id查询仓库信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "wareId", value = "仓库id", paramType = "path", required = true, dataType = "Long")
-    @GetMapping("/{wareId}")
+    @GetMapping("/internal/{wareId}")
     public AjaxResult queryWareInfoById(@PathVariable("wareId") Long wareId) {
         WareInfoEntity wareInfo = wareInfoService.getById(wareId);
         return AjaxResult.success("查询成功").put("data", wareInfo);

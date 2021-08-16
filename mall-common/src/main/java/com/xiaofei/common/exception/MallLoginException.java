@@ -1,27 +1,28 @@
-package com.xiaofei.auth.exception;
+package com.xiaofei.common.exception;
 
 /**
  * User: 李飞
  * Date: 2021/8/14
  * Time: 21:43
  */
-public class LoginException extends Exception {
-    public LoginException() {
+public class MallLoginException extends Exception {
+
+    public MallLoginException() {
         super();
     }
 
     //用详细信息指定一个异常
-    public LoginException(String message) {
+    public MallLoginException(String message) {
         super(message);
     }
 
     //用指定的详细信息和原因构造一个新的异常
-    public LoginException(String message, Throwable cause) {
+    public MallLoginException(String message, Throwable cause) {
         super(message, cause);
     }
 
     //用指定原因构造一个新的异常
-    public LoginException(Throwable cause) {
+    public MallLoginException(Throwable cause) {
         super(cause);
     }
 }

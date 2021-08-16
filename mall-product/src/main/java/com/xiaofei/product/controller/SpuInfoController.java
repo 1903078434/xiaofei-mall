@@ -25,7 +25,7 @@ public class SpuInfoController {
     private SpuInfoService spuInfoService;
 
     @ApiOperation(value = "添加spu信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping
+    @PostMapping("/internal")
     public AjaxResult addSpuInfo(@RequestBody SpuVo spuVo) {
         spuInfoService.addSpuInfo(spuVo);
         return AjaxResult.success();
@@ -33,7 +33,7 @@ public class SpuInfoController {
 
     @ApiOperation(value = "商品上架", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "spuId", value = "商品id", paramType = "path", required = true, dataType = "Long")
-    @PutMapping("/{spuId}")
+    @PutMapping("/internal/{spuId}")
     public AjaxResult spuUp(@PathVariable("spuId") Long spuId) {
         Boolean isSuccess = spuInfoService.spuUp(spuId);
         return AjaxResult.success().put("data", isSuccess);

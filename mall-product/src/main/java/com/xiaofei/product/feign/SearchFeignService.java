@@ -19,6 +19,6 @@ public interface SearchFeignService {
     /**
      * 商品上架
      */
-    @PostMapping("/elasticsearch/product")
+    @PostMapping("/elasticsearch/product/internal")
     public ResponseResult<Boolean> addProduct(@RequestBody List<SkuESDto> skuESDtos);
 }

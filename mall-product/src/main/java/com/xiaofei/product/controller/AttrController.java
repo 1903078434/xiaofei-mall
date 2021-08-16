@@ -24,14 +24,14 @@ public class AttrController {
     private AttrService attrService;
 
     @ApiOperation(value = "添加属性信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("/attr")
+    @PostMapping("/internal/attr")
     public AjaxResult addAttr(@RequestBody AttrVo attrVo) {
         boolean isAdd = attrService.addAttr(attrVo);
         return AjaxResult.success(isAdd ? "添加成功" : "添加失败").put("data", isAdd);
     }
 
     @ApiOperation(value = "修改属性信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping("/attr")
+    @PutMapping("/internal/attr")
     public AjaxResult updateAttr(@RequestBody AttrVo attrVo) {
         boolean isUpdate = attrService.updateAttr(attrVo);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);
@@ -39,7 +39,7 @@ public class AttrController {
 
     @ApiOperation(value = "根据属性id删除", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "attrId", value = "属性Id", paramType = "body", required = true, dataType = "String")
-    @DeleteMapping("/attr")
+    @DeleteMapping("/internal/attr")
     public AjaxResult deleteAttrById(@RequestBody String attrId) {
 
         boolean isDelete = attrService.deleteAttrById(attrId);

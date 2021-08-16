@@ -19,7 +19,7 @@ import java.util.Map;
  * Time: 18:20
  */
 @RestController
-@RequestMapping("/auth/mall")
+@RequestMapping("/user/email")
 @Api("邮件发送")
 public class MallController {
 

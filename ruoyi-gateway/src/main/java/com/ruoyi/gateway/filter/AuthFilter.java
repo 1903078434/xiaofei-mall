@@ -37,7 +37,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     private static final Logger log = LoggerFactory.getLogger(AuthFilter.class);
 
-    //过期时间
+    //token过期时间
     private final static long EXPIRE_TIME = Constants.TOKEN_EXPIRE * 60;
 
     // 排除过滤的 uri 地址，nacos自行添加

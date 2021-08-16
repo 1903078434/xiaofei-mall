@@ -50,8 +50,8 @@ public class MallServiceImpl implements MallService {
             //判断redis中是否已经存在了
             String key = redisTemplate.opsForValue().get(mallInfoVo.getRegisterEmail());
             if (key != null) {
-                resp.put("isSuccess", "false");
-                resp.put("message", "验证码已发送");
+                resp.put("isSuccess", false);
+                resp.put("message", "请2分钟后再发送");
                 return resp;
             }
 
@@ -60,14 +60,14 @@ public class MallServiceImpl implements MallService {
             key = RandomUtil.randomInt(100000, 999999) + "";
 
             //将key保存到redis中
-            redisTemplate.opsForValue().set(mallInfoVo.getRegisterEmail()
-                    , key, 600, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(mallInfoVo.getRegisterEmail()+"registercode"
+                    , key, 120, TimeUnit.SECONDS);
 
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false);
 
             helper.setSubject("通知");
-            helper.setText("m", true);
+            helper.setText("你的注册验证码为：【 " + key + " 】", true);
 
             helper.setTo(mallInfoVo.getRegisterEmail());
             helper.setFrom(mallUsername);
@@ -78,11 +78,11 @@ public class MallServiceImpl implements MallService {
             //删除redis中的验证码
             redisTemplate.delete(mallInfoVo.getRegisterEmail());
 
-            resp.put("isSuccess", "false");
+            resp.put("isSuccess", false);
             resp.put("message", "发送失败，系统发生错误");
             return resp;
         }
-        resp.put("isSuccess", "true");
+        resp.put("isSuccess", true);
         resp.put("message", "发送成功");
         return resp;
     }

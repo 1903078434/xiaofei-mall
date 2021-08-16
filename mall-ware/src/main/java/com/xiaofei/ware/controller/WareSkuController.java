@@ -30,7 +30,7 @@ public class WareSkuController {
     private WareSkuService wareSkuService;
 
     @ApiOperation(value = "添加库存信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping
+    @PostMapping("/internal")
     public AjaxResult addWareSku(@RequestBody WareSkuVo wareSkuVo) {
         Map<String, Object> response = wareSkuService.addWareSku(wareSkuVo);
         return AjaxResult.success((String) response.get("msg")).put("data", response.get("isSuccess"));
@@ -38,21 +38,21 @@ public class WareSkuController {
 
     @ApiOperation(value = "根据库存id删除库存信息", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "skuId", value = "库存id集合", paramType = "body", required = true, dataType = "String")
-    @DeleteMapping
+    @DeleteMapping("/internal")
     public AjaxResult deleteWareSkuById(@RequestBody String skuId) {
         boolean isDelete = wareSkuService.deleteWareSkuById(skuId);
         return AjaxResult.success(isDelete ? "删除成功" : "删除失败").put("data", isDelete);
     }
 
     @ApiOperation(value = "根据库存id修改库存信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping
+    @PutMapping("/internal")
     public AjaxResult updateWareSku(@RequestBody WareSkuVo wareSkuVo) {
         boolean isUpdate = wareSkuService.updateWareSkuById(wareSkuVo);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);
     }
 
     @ApiOperation(value = "分页和搜索查询库存信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
-    @GetMapping
+    @GetMapping("/internal")
     public AjaxResult queryWareSkuByPage(WareSkuVo wareSkuVo) {
         //分页查询和条件查询
         PageVo<WareSkuEntity> page = wareSkuService.queryByPage(wareSkuVo);
@@ -61,13 +61,13 @@ public class WareSkuController {
 
     @ApiOperation(value = "根据库存id查询库存信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "idd", value = "库存id", paramType = "path", required = true, dataType = "Long")
-    @GetMapping("/{id}")
+    @GetMapping("/internal/{id}")
     public AjaxResult queryWareSkuById(@PathVariable("id") Long id) {
         WareSkuEntity item = wareSkuService.getById(id);
         return AjaxResult.success("查询成功").put("data", item);
     }
 
-    @GetMapping("/hasStock")
+    @GetMapping("/internal/hasStock")
     public ResponseResult<List<SkuHasStockDto>> getSkuStock(@RequestParam("skuIds") List<Long> skuIds) {
         List<SkuHasStockDto> items = wareSkuService.getSkuStock(skuIds);
         return new ResponseResult<List<SkuHasStockDto>>().success("查询成功", items);

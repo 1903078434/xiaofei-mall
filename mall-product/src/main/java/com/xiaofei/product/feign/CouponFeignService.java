@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient("mall-coupon")//设置调用哪个远程服务
 public interface CouponFeignService {
 
-    @PostMapping("/coupon/spubounds")
+    @PostMapping("/coupon/spubounds/internal")
     AjaxResult addSpuBounds(@RequestBody SpuBoundsDto spuBoundsDto);
 
-    @PostMapping("/coupon/skufullreduction")
+    @PostMapping("/coupon/skufullreduction/internal")
     AjaxResult saveSkuReduction(@RequestBody SkuReductionDto skuReductionDto);
 }

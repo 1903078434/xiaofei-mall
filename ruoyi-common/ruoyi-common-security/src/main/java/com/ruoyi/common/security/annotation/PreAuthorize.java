@@ -7,13 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * 权限注解
- * 
+ *
  * @author ruoyi
  */
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PreAuthorize
-{
+public @interface PreAuthorize {
     /**
      * 验证用户是否具备某权限
      */

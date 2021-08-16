@@ -27,7 +27,7 @@ public class CategoryBrandRelationController {
 
 
     @ApiOperation(value = "添加商家和类别关联信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("/categorybrandrelation")
+    @PostMapping("/categorybrandrelation/internal")
     public AjaxResult addCategoryBrandRelation(@RequestBody CategoryBrandRelationVo categoryBrandRelationVo) {
 
         boolean isAdd = categoryBrandRelationService.addCategoryAndBrandRelation(categoryBrandRelationVo);
@@ -37,7 +37,7 @@ public class CategoryBrandRelationController {
 
     @ApiOperation(value = "根据关联id删除", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "id", value = "关联id", paramType = "path", required = true, dataType = "Long")
-    @DeleteMapping("/categorybrandrelation/{id}/{brandId}")
+    @DeleteMapping("/categorybrandrelation/internal/{id}/{brandId}")
     public AjaxResult deleteCategoryBrandRelationById(@PathVariable("id") Long id, @PathVariable("brandId") Long brandId) {
 
         boolean isDelete = categoryBrandRelationService.deleteCategoryAndBrandRelation(id,brandId);
@@ -46,7 +46,7 @@ public class CategoryBrandRelationController {
 
     @ApiOperation(value = "根据品牌id删除", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "brandId", value = "品牌id", paramType = "path", required = true, dataType = "Long")
-    @GetMapping("/categorybrandrelation/{brandId}")
+    @GetMapping("/categorybrandrelation/internal/{brandId}")
     public AjaxResult queryCategoryBrandRelationByBrandId(@PathVariable("brandId") Long brandId) {
         List<CategoryBrandRelationEntity> items = categoryBrandRelationService.getByBrandId(brandId);
         return AjaxResult.success().put("data", items);

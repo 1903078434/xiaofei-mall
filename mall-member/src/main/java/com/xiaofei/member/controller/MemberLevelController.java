@@ -27,7 +27,7 @@ public class MemberLevelController {
     private MemberLevelService memberLevelService;
 
     @ApiOperation(value = "添加会员等级信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("")
+    @PostMapping("/internal")
     public AjaxResult addMemberLevel(@RequestBody MemberLevelVo memberLevelVo) {
         boolean isAdd = memberLevelService.addMemberLevel(memberLevelVo);
         return AjaxResult.success(isAdd ? "添加成功" : "添加失败").put("data", isAdd);
@@ -35,7 +35,7 @@ public class MemberLevelController {
 
     @ApiOperation(value = "根据会员等级id集合删除", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "memberLevelId", value = "会员等级Id", paramType = "body", required = true, dataType = "Long")
-    @DeleteMapping("")
+    @DeleteMapping("/internal")
     public AjaxResult deleteMemberLevelByIds(@RequestBody List<Long> memberLevelIds) {
 
         boolean isDelete = memberLevelService.deleteMemberLevelByIds(memberLevelIds);
@@ -43,7 +43,7 @@ public class MemberLevelController {
     }
 
     @ApiOperation(value = "修改会员等级信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping("")
+    @PutMapping("/internal")
     public AjaxResult updateMemberLevel(@RequestBody MemberLevelVo memberLevelVo) {
         boolean isUpdate = memberLevelService.updateMemberLevel(memberLevelVo);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);
@@ -51,14 +51,14 @@ public class MemberLevelController {
 
     @ApiOperation(value = "根据会员等级id查询会员等级", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "memberLevelId", value = "会员等级Id", paramType = "path", required = true, dataType = "Long")
-    @GetMapping("/{memberLevelId}")
+    @GetMapping("/internal/{memberLevelId}")
     public AjaxResult queryMemberLevelById(@PathVariable("memberLevelId") Long memberLevelId) {
         MemberLevelEntity item = memberLevelService.getById(memberLevelId);
         return AjaxResult.success("查询成功").put("data", item);
     }
 
     @ApiOperation(value = "分页查询会员等级接口", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
-    @GetMapping("/list")
+    @GetMapping("/internal/list")
     public AjaxResult queryMemberLevelByPage(MemberLevelVo memberLevelVo) {
         //分页查询和条件查询
         PageVo<MemberLevelEntity> page = memberLevelService.queryMemberLevelByPage(memberLevelVo);

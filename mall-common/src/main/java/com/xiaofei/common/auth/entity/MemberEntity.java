@@ -86,7 +86,7 @@ public class MemberEntity implements Serializable {
      */
     private Integer growth;
     /**
-     * 启用状态
+     * 启用状态。1：启用。0：不启用
      */
     private Integer status;
     /**

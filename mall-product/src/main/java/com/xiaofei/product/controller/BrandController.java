@@ -28,7 +28,7 @@ public class BrandController {
     private BrandService brandService;
 
     @ApiOperation(value = "添加商家信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
-    @PostMapping("/brand/add")
+    @PostMapping("/brand/internal/add")
     public AjaxResult addBrand(@RequestBody BrandVo brandVo) {
 
         boolean isAdd = brandService.addBrand(brandVo);
@@ -38,7 +38,7 @@ public class BrandController {
 
     @ApiOperation(value = "根据商家id删除", httpMethod = "DELETE", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "brandId", value = "商家id", paramType = "body", required = true, dataType = "Long")
-    @DeleteMapping("/brand/delete")
+    @DeleteMapping("/brand/internal/delete")
     public AjaxResult deleteBrandById(@RequestBody String brandId) {
 
         boolean isDelete = brandService.deleteBrandById(brandId);
@@ -46,7 +46,7 @@ public class BrandController {
     }
 
     @ApiOperation(value = "根据商家id修改商家信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
-    @PutMapping("/brand/update")
+    @PutMapping("/brand/internal/update")
     public AjaxResult updateBrand(@RequestBody BrandVo brand) {
         boolean isUpdate = brandService.updateBrandById(brand);
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);

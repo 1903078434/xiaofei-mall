@@ -16,7 +16,7 @@ import java.util.List;
 @FeignClient("mall-ware")
 public interface WareFeignService {
 
-    @GetMapping("/ware/waresku/hasStock")
+    @GetMapping("/ware/waresku/internal/hasStock")
     ResponseResult<List<SkuHasStockDto>> hasStock(@RequestParam("skuIds") List<Long> skuIds);
 
 }
