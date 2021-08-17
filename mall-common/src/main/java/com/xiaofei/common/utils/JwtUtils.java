@@ -65,9 +65,9 @@ public class JwtUtils {
 
     public static void main(String[] args) {
         String token = JwtUtils.createToken(999L, "小飞");
-        System.out.println("eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIiLCJ6aXAiOiJHWklQIn0.H4sIAAAAAAAAAKtWKi5NUrJSivB09Hdz9dT1dfTx0Q0Ndg3S9fF39_RT0lEqLU4t8kxRsjKCMP0Sc1OB6g0tDYwNzC1MjE2UagHqOCYXRAAAAA.Ujfc4_KqohwIV5yiIla1t72gLg5rtA3JCBkpdDckFxGzbo81ytjqlqdlQu1Bb5ZprQyKqwuSerPaJ-8U3Qr_rA");
-        System.out.println(JwtUtils.getUserId(token));
-        System.out.println(JwtUtils.getUserName(token));
+        System.out.println("Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIiLCJ6aXAiOiJHWklQIn0.H4sIAAAAAAAAAKtWKi5NUrJSivB09Hdz9dT1dfTx0Q0Ndg3S9fF39_RT0lEqLU4t8kxRsjKCMP0Sc1OB6g0tDYwNzC1MjE2UagHqOCYXRAAAAA.Ujfc4_KqohwIV5yiIla1t72gLg5rtA3JCBkpdDckFxGzbo81ytjqlqdlQu1Bb5ZprQyKqwuSerPaJ-8U3Qr_rA");
+        System.out.println(JwtUtils.getUserId("Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIiLCJ6aXAiOiJHWklQIn0.H4sIAAAAAAAAAKtWKi5NUrJSivB09Hdz9dT1dfTx0Q0Ndg3S9fF39_RT0lEqLU4t8kxRsjKCMP0Sc1OB6g0tDYwNzC1MjE2UagHqOCYXRAAAAA.Ujfc4_KqohwIV5yiIla1t72gLg5rtA3JCBkpdDckFxGzbo81ytjqlqdlQu1Bb5ZprQyKqwuSerPaJ-8U3Qr_rA"));
+        System.out.println(JwtUtils.getUserName("Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIiLCJ6aXAiOiJHWklQIn0.H4sIAAAAAAAAAKtWKi5NUrJSivB09Hdz9dT1dfTx0Q0Ndg3S9fF39_RT0lEqLU4t8kxRsjKCMP0Sc1OB6g0tDYwNzC1MjE2UagHqOCYXRAAAAA.Ujfc4_KqohwIV5yiIla1t72gLg5rtA3JCBkpdDckFxGzbo81ytjqlqdlQu1Bb5ZprQyKqwuSerPaJ-8U3Qr_rA"));
     }
 }
 

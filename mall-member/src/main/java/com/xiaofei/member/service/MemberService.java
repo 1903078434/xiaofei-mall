@@ -9,4 +9,12 @@ import com.xiaofei.common.member.entity.MemberEntity;
  * Time: 15:57
  */
 public interface MemberService extends IService<MemberEntity> {
+
+    /**
+     * 通过token获取用户信息
+     *
+     * @param userId 用户id
+     * @return 返回用户信息
+     */
+    MemberEntity getByToken(Long userId);
 }

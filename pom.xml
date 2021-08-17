@@ -257,6 +257,7 @@
         <module>mall-elasticsearch</module>
         <module>mall-gateway</module>
         <module>mall-auth</module>
+        <module>mall-cart</module>
     </modules>
     <packaging>pom</packaging>
 

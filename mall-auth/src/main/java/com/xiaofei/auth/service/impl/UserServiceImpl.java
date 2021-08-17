@@ -161,4 +161,20 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
 
         return resp;
     }
+
+    /**
+     * 退出登录
+     *
+     * @param username 用户名
+     * @return 返回退出信息
+     */
+    @Override
+    public Map<String, Object> loginOut(String username) {
+
+        Map<String, Object> resp = new HashMap<>();
+
+
+
+        return resp;
+    }
 }

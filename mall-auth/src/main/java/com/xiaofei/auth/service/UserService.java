@@ -29,5 +29,13 @@ public interface UserService extends IService<MemberEntity> {
      * @return 返回用户名和token
      */
     Map<String, Object> userLogin(UserInfoVo userInfoVo) throws MallLoginException;
+
+    /**
+     * 退出登录
+     *
+     * @param username 用户名
+     * @return 返回退出信息
+     */
+    Map<String, Object> loginOut(String username);
 }
 
