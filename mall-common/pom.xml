@@ -122,6 +122,7 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
+        <!--jjwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
