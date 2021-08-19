@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaofei.common.product.entity.ProvincesEntity;
 import com.xiaofei.product.mapper.ProvincesDao;
 import com.xiaofei.product.service.ProvincesService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ProvincesServiceImpl extends ServiceImpl<ProvincesDao, ProvincesEnt
      *
      * @return 返回查询到的地区信息
      */
-    //@Cacheable(value = "provinces", key = "'provincesJson'")//开启之后会先去redis中寻找对应的数据，如果没有再从数据库中查询
+    @Cacheable(value = "provinces", key = "'provincesJson'")//开启之后会先去redis中寻找对应的数据，如果没有再从数据库中查询
     @Override
     public List<ProvincesEntity> queryAllProvinces() {
         //1、查出所有分类

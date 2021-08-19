@@ -12,9 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Time: 22:07
  */
 @Data
-@Document("cart_test")
 @AllArgsConstructor
 @NoArgsConstructor
+@Document("cart_test")
 public class CartTest {
 
     @Id

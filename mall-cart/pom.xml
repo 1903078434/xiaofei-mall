@@ -49,10 +49,6 @@
                     <artifactId>spring-boot-starter-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.ruoyi</groupId>
-                    <artifactId>ruoyi-common-core</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>mysql</groupId>
                     <artifactId>mysql-connector-java</artifactId>
                 </exclusion>

@@ -21,9 +21,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MallLoginException.class)
     @ResponseBody
-    public ResponseResult<Object> error(LoginException e) {
+    public ResponseResult<Object> mallException(LoginException e) {
         log.error("用户登录的错误信息为：{}", e.getMessage());
         //未经授权的权限为401
         return new ResponseResult<>().error(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(MallCartException.class)
+    @ResponseBody
+    public ResponseResult<Object> cartException(MallCartException e) {
+        log.error("用户登录的错误信息为：{}", e.getMessage());
+        //未经授权的权限为401
+        return new ResponseResult<>().error(503, e.getMessage());
     }
 }

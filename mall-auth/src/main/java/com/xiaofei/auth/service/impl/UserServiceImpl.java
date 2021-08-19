@@ -173,8 +173,7 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
 
         Map<String, Object> resp = new HashMap<>();
 
-
-
+        redisTemplate.delete(username + "token");
         return resp;
     }
 }

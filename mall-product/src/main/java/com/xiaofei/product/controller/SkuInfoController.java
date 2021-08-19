@@ -41,9 +41,9 @@ public class SkuInfoController {
     @ApiOperation(value = "根据skuId查询商品信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "skuId", value = "skuId", paramType = "path", required = true, dataType = "Long")
     @GetMapping("/{skuId}")
-    public AjaxResult querySkuInfoById(@PathVariable("skuId") Long skuId) {
+    public ResponseResult<SkuInfoEntity> querySkuInfoById(@PathVariable("skuId") Long skuId) {
         SkuInfoEntity item = skuInfoService.getById(skuId);
-        return AjaxResult.success(item == null ? "请添加商品，再添加库存" : "查询成功").put("data", item);
+        return new ResponseResult<SkuInfoEntity>().success(item == null ? "请添加商品，再添加库存" : "查询成功", item);
     }
 
     @ApiOperation(value = "根据skuId查询商品详情页面的信息信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
