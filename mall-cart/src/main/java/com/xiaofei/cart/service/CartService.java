@@ -1,7 +1,8 @@
 package com.xiaofei.cart.service;
 
 import com.xiaofei.cart.entity.CartEntity;
-import com.xiaofei.common.cart.vo.CartReqVo;
+import com.xiaofei.cart.vo.CartReqVo;
+import com.xiaofei.cart.vo.CartRespVo;
 import com.xiaofei.common.exception.MallCartException;
 
 /**
@@ -26,6 +27,14 @@ public interface CartService {
     void deleteCart(String id);
 
     /**
+     * 全选和全不选修改
+     *
+     * @param isCheckAll true：全选。false：全不选
+     * @param userId     用户id
+     */
+    boolean checkAll(boolean isCheckAll, Long userId);
+
+    /**
      * 修改购物车信息
      *
      * @param cartReqVo 新的购物车信息
@@ -40,4 +49,13 @@ public interface CartService {
      * @return 返回对应的购物车信息
      */
     CartEntity queryCartInfoById(String id);
+
+    /**
+     * 根据用户id查询用户购物车信息
+     *
+     * @param userId 用户id
+     * @return 返回指定用户的购物车信息
+     */
+    CartRespVo queryCartByUserId(Long userId);
+
 }

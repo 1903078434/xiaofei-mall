@@ -49,4 +49,7 @@ public class CartEntity {
     @Field(name = "totalSkuPrice")
     private BigDecimal totalSkuPrice;//商品总价格
 
+    @Field(name = "addTime")
+    private Long addTime;//添加时间，保存时间戳
+
 }

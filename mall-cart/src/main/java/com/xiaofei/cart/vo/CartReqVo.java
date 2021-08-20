@@ -1,4 +1,4 @@
-package com.xiaofei.common.cart.vo;
+package com.xiaofei.cart.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

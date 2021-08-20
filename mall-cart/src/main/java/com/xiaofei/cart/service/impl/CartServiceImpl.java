@@ -5,7 +5,8 @@ import com.xiaofei.cart.entity.CartEntity;
 import com.xiaofei.cart.feign.ProductFeign;
 import com.xiaofei.cart.repository.CartRepository;
 import com.xiaofei.cart.service.CartService;
-import com.xiaofei.common.cart.vo.CartReqVo;
+import com.xiaofei.cart.vo.CartReqVo;
+import com.xiaofei.cart.vo.CartRespVo;
 import com.xiaofei.common.exception.MallCartException;
 import com.xiaofei.common.product.entity.SkuInfoEntity;
 import com.xiaofei.common.product.entity.SkuSaleAttrValueEntity;
@@ -21,6 +22,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,12 +84,23 @@ public class CartServiceImpl implements CartService {
             Map<String, Object> attrNames = saleAttrEntity.stream().collect(Collectors.toMap(SkuSaleAttrValueEntity::getAttrName, SkuSaleAttrValueEntity::getAttrValue));
             cartEntity.setSaleAttr(JSON.toJSONString(attrNames));
 
-            cartEntity = cartRepository.insert(cartEntity);
+            //设置添加时间
+            cartEntity.setAddTime(System.currentTimeMillis());
+
+            cartEntity = mongoTemplate.insert(cartEntity);
+            if (StringUtils.isEmpty(cartEntity.getId())) {
+                cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(cartReqVo.getUserId(), cartReqVo.getSpuId(), cartReqVo.getSkuId());
+            }
             return cartEntity.getId();
 
         } else {
             //修改购物车信息
-            return this.updateCart(cartReqVo);
+            Query query = new Query().addCriteria(Criteria.where("_id").is(cartEntity.getId()));
+            Update update = new Update();
+            update.set("buyNum", cartEntity.getBuyNum() + cartReqVo.getBuyNum());
+            update.set("totalSkuPrice", cartEntity.getSkuPrice().multiply(new BigDecimal(cartReqVo.getBuyNum())));
+            mongoTemplate.updateMulti(query, update, CartEntity.class);
+            return cartEntity.getId();
         }
     }
 
@@ -97,7 +110,24 @@ public class CartServiceImpl implements CartService {
     //@Transactional
     @Override
     public void deleteCart(String id) {
-        cartRepository.deleteById(id);
+        //解析id
+        List<String> ids = Arrays.stream(id.split(",")).collect(Collectors.toList());
+        cartRepository.deleteAllById(ids);
+        //cartRepository.deleteById(id);
+    }
+
+    /**
+     * 全选和全不选修改
+     *
+     * @param isCheckAll true：全选。false：全不选
+     * @param userId     用户id
+     */
+    @Override
+    public boolean checkAll(boolean isCheckAll, Long userId) {
+        Query query = new Query().addCriteria(Criteria.where("userId").is(userId));
+        Update update = new Update();
+        update.set("check", isCheckAll);
+        return mongoTemplate.updateMulti(query, update, CartEntity.class).getMatchedCount() > 0;
     }
 
     /**
@@ -109,6 +139,7 @@ public class CartServiceImpl implements CartService {
     //@Transactional
     @Override
     public String updateCart(CartReqVo cartReqVo) throws MallCartException {
+
         CartEntity cartEntity;
         if (StringUtils.isEmpty(cartReqVo.getId())) {
             cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(cartReqVo.getUserId(), cartReqVo.getSpuId(), cartReqVo.getSkuId());
@@ -120,15 +151,16 @@ public class CartServiceImpl implements CartService {
         if (cartEntity != null) {
 
             //判断购物车的数量是否超过99件
-            if (cartEntity.getBuyNum() >= 99 || cartEntity.getBuyNum() + cartReqVo.getBuyNum() > 99) {
-                throw new MallCartException("购物车中，同一件商品只能添加99件");
+            if (cartReqVo.getBuyNum() > 99 || cartReqVo.getBuyNum() < 1) {
+                throw new MallCartException("购物车中，同一件商品最多能添加99件，最少一件");
             }
 
             Query query = new Query().addCriteria(Criteria.where("_id").is(cartEntity.getId()));
 
             Update update = new Update();
-            update.set("buyNum", cartEntity.getBuyNum() + cartReqVo.getBuyNum());
+            update.set("buyNum", cartReqVo.getBuyNum());
             update.set("check", cartReqVo.isCheck());
+            update.set("totalSkuPrice", cartEntity.getSkuPrice().multiply(new BigDecimal(cartReqVo.getBuyNum())));
 
             mongoTemplate.updateMulti(query, update, CartEntity.class);
             return cartEntity.getId();
@@ -144,6 +176,38 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public CartEntity queryCartInfoById(String id) {
-        return cartRepository.findById(id).get();
+        return mongoTemplate.findById(id, CartEntity.class);
+        //return cartRepository.findById(id).get();
+    }
+
+    /**
+     * 根据用户id查询用户购物车信息
+     *
+     * @param userId 用户id
+     * @return 返回指定用户的购物车信息
+     */
+    @Override
+    public CartRespVo queryCartByUserId(Long userId) {
+        CartRespVo cartRespVo = new CartRespVo();
+
+        List<CartEntity> items = cartRepository.findByUserId(userId);
+
+        final BigDecimal[] totalPrice = {new BigDecimal(0)};
+        final Integer[] totalCheck = {0};
+        items.forEach(item -> {
+            if (item.isCheck()) {
+                totalPrice[0] = totalPrice[0].add(item.getTotalSkuPrice());
+                totalCheck[0] = totalCheck[0] + 1;
+            }
+        });
+
+        //封装返回信息
+        cartRespVo.setItems(items);
+        cartRespVo.setTotalCount(items.size());
+        cartRespVo.setTotalPrice(totalPrice[0]);
+        cartRespVo.setTotalCheck(totalCheck[0]);
+        cartRespVo.setCheckAll(items.size() == totalCheck[0]);
+
+        return cartRespVo;
     }
 }
