@@ -1,6 +1,7 @@
 package com.xiaofei.ware.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareInfoEntity;
 import com.xiaofei.common.ware.vo.WareInfoVo;
@@ -59,8 +60,8 @@ public class WareInfoController {
     @ApiOperation(value = "根据仓库id查询仓库信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "wareId", value = "仓库id", paramType = "path", required = true, dataType = "Long")
     @GetMapping("/internal/{wareId}")
-    public AjaxResult queryWareInfoById(@PathVariable("wareId") Long wareId) {
+    public ResponseResult<WareInfoEntity> queryWareInfoById(@PathVariable("wareId") Long wareId) {
         WareInfoEntity wareInfo = wareInfoService.getById(wareId);
-        return AjaxResult.success("查询成功").put("data", wareInfo);
+        return new ResponseResult<WareInfoEntity>().success(wareInfo);
     }
 }

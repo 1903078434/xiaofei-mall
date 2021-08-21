@@ -172,7 +172,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         //TODO 查询商品是否有货
 
         //等待所有的异步任务都完成之后再返回数据
-        CompletableFuture.allOf(skuImgFuture, skuSaleAttrFuture, randSkuInfoFuture, skuDescFuture, skuBaseAttrFuture).get();
+        CompletableFuture.allOf(skuImgFuture, skuSaleAttrFuture, randSkuInfoFuture, skuDescFuture, skuBaseAttrFuture,brandFuture).get();
 
         return skuDetailInfoVo;
     }

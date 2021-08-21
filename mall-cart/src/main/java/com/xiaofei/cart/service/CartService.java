@@ -5,6 +5,8 @@ import com.xiaofei.cart.vo.CartReqVo;
 import com.xiaofei.cart.vo.CartRespVo;
 import com.xiaofei.common.exception.MallCartException;
 
+import java.util.List;
+
 /**
  * 购物车
  * User: 李飞
@@ -58,4 +60,16 @@ public interface CartService {
      */
     CartRespVo queryCartByUserId(Long userId);
 
+    /**
+     * 根据id集合查询信息
+     */
+    List<CartEntity> queryCartsByIds(String id);
+
+    /**
+     * 查询指定用户下面的选中的商品信息
+     *
+     * @param userId 用户id
+     * @return 返回被选中的商品信息
+     */
+    List<CartEntity> queryCheckCart(Long userId);
 }

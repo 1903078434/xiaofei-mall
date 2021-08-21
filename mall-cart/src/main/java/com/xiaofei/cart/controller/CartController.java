@@ -2,8 +2,8 @@ package com.xiaofei.cart.controller;
 
 import com.ruoyi.common.core.constant.CacheConstants;
 import com.ruoyi.common.core.web.domain.AjaxResult;
-import com.xiaofei.cart.service.CartService;
 import com.xiaofei.cart.entity.CartEntity;
+import com.xiaofei.cart.service.CartService;
 import com.xiaofei.cart.vo.CartReqVo;
 import com.xiaofei.cart.vo.CartRespVo;
 import com.xiaofei.common.exception.MallCartException;
@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * User: 李飞
@@ -77,6 +79,20 @@ public class CartController {
     public ResponseResult<CartRespVo> queryCartByUserId(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId) {
         CartRespVo item = cartService.queryCartByUserId(userId);
         return new ResponseResult<CartRespVo>().success("查询成功", item);
+    }
+
+    @ApiOperation(value = "根据购物车id查询购物车信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
+    @PostMapping("/auth/querybyids")
+    public ResponseResult<List<CartEntity>> queryCartByUserIds(@RequestBody String ids) {
+        List<CartEntity> items = cartService.queryCartsByIds(ids);
+        return new ResponseResult<List<CartEntity>>().success("查询成功", items);
+    }
+
+    @ApiOperation(value = "查询指定用户所有选中的商品信息", httpMethod = "POST", response = AjaxResult.class, produces = "application/json")
+    @PostMapping("/auth/querycheckcart")
+    public ResponseResult<List<CartEntity>> queryCheckCart(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId) {
+        List<CartEntity> items = cartService.queryCheckCart(userId);
+        return new ResponseResult<List<CartEntity>>().success("查询成功", items);
     }
 
 

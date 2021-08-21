@@ -32,4 +32,13 @@ public interface CartRepository extends MongoRepository<CartEntity, String> {
      */
     List<CartEntity> findByUserId(Long userId);
 
+    /**
+     * 查询指定用户下面的选中的商品信息
+     *
+     * @param userId 用户id
+     * @param check  true：选中。false：未选中
+     * @return 返回被选中的商品信息
+     */
+    List<CartEntity> findByUserIdAndCheck(Long userId, boolean check);
+
 }

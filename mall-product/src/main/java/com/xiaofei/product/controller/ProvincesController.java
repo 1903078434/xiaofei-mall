@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +31,12 @@ public class ProvincesController {
     public ResponseResult<List<ProvincesEntity>> queryAllProvinces() {
         List<ProvincesEntity> items = provincesService.queryAllProvinces();
         return new ResponseResult<List<ProvincesEntity>>().success("查询成功", items);
+    }
+
+    @ApiOperation(value = "根据id获取信息", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
+    @GetMapping("{id}")
+    public ResponseResult<ProvincesEntity> queryProvincesById(@PathVariable("id") Long id) {
+        ProvincesEntity item = provincesService.getById(id);
+        return new ResponseResult<ProvincesEntity>().success("查询成功", item);
     }
 }

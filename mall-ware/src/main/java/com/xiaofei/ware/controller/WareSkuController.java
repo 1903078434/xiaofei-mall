@@ -67,6 +67,7 @@ public class WareSkuController {
         return AjaxResult.success("查询成功").put("data", item);
     }
 
+    @ApiOperation(value = "判断是否有库存", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @GetMapping("/internal/hasStock")
     public ResponseResult<List<SkuHasStockDto>> getSkuStock(@RequestParam("skuIds") List<Long> skuIds) {
         List<SkuHasStockDto> items = wareSkuService.getSkuStock(skuIds);

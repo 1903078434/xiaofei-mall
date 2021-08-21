@@ -210,4 +210,26 @@ public class CartServiceImpl implements CartService {
 
         return cartRespVo;
     }
+
+    /**
+     * 根据id集合查询信息
+     */
+    @Override
+    public List<CartEntity> queryCartsByIds(String id) {
+        List<String> ids = Arrays.stream(id.split(",")).collect(Collectors.toList());
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").in(ids));
+        return mongoTemplate.find(query, CartEntity.class);
+    }
+
+    /**
+     * 查询指定用户下面的选中的商品信息
+     *
+     * @param userId 用户id
+     * @return 返回被选中的商品信息
+     */
+    @Override
+    public List<CartEntity> queryCheckCart(Long userId) {
+        return cartRepository.findByUserIdAndCheck(userId, true);
+    }
 }
