@@ -1,4 +1,4 @@
-package com.xiaofei.order.entity;
+package com.xiaofei.common.order.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 @TableName(value ="oms_order_item")
 @Data
-public class OrderItem implements Serializable {
+public class OrderItemEntity implements Serializable {
     /**
      * id
      */
@@ -130,7 +130,7 @@ public class OrderItem implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        OrderItem other = (OrderItem) that;
+        OrderItemEntity other = (OrderItemEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getOrderSn() == null ? other.getOrderSn() == null : this.getOrderSn().equals(other.getOrderSn()))

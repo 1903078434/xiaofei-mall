@@ -1,16 +1,20 @@
 package com.xiaofei.member.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * 会员收货地址
  */
-@TableName(value ="ums_member_receive_address")
+@TableName(value = "ums_member_receive_address")
 @Data
-public class MemberReceiveAddressEntity{
+public class MemberReceiveAddressEntity {
     /**
      * id
      */
@@ -63,7 +67,16 @@ public class MemberReceiveAddressEntity{
     private String areacode;
 
     /**
+     * 地区id
+     */
+    private Integer provincesId;
+
+    /**
      * 是否默认，0不是默认，非0是默认
      */
     private Integer defaultStatus;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)//如果该属性的值为空，将不会带上该值
+    @TableField(exist = false)
+    private List<Integer> provincesPath;
 }

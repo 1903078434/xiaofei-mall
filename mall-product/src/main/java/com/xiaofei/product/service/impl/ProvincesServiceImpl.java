@@ -7,6 +7,8 @@ import com.xiaofei.product.service.ProvincesService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +59,32 @@ public class ProvincesServiceImpl extends ServiceImpl<ProvincesDao, ProvincesEnt
                 .peek(provincesEntity -> provincesEntity.setChildren(getChildrens(provincesEntity, all)))//设置子节点
                 .collect(Collectors.toList());//将结果作为一个集合返回
 
+    }
+
+    /**
+     * 根据地区id查询地区的全路径
+     *
+     * @param id 地区id
+     * @return 返回地区id及其父类id的集合
+     */
+    @Override
+    public List<Integer> findProvincesPath(Integer id) {
+        List<Integer> paths = new ArrayList<>();
+        List<Integer> parentPath = findParentPath(id, paths);
+        Collections.reverse(parentPath);
+        return parentPath;
+    }
+
+    /**
+     * 根据子节点查找父节点
+     */
+    private List<Integer> findParentPath(Integer provincesId, List<Integer> paths) {
+        paths.add(provincesId);
+        ProvincesEntity entity = this.getById(provincesId);
+        if (entity.getParentId() != 0) {
+            //收集当前节点id
+            findParentPath(entity.getParentId(), paths);
+        }
+        return paths;
     }
 }

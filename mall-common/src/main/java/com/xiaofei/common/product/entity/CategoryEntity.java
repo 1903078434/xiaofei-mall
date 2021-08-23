@@ -1,5 +1,6 @@
 package com.xiaofei.common.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -53,7 +54,7 @@ public class CategoryEntity implements Serializable {
      */
     @ApiModelProperty("是否删除")
     @TableLogic(value = "1", delval = "0")
-    private Integer showStatus=1;
+    private Integer showStatus = 1;
 
     /**
      * 排序
@@ -83,6 +84,7 @@ public class CategoryEntity implements Serializable {
      * 将当前菜单的所有子分类都放到这个children属性里面
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)//如果该属性的值为空，将不会带上该值
+    @TableField(exist = false)
     @ApiModelProperty("商品类别的子节点")
     private List<CategoryEntity> children;
 

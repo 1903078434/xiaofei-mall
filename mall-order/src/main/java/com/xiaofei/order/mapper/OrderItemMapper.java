@@ -1,11 +1,11 @@
 package com.xiaofei.order.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.xiaofei.order.entity.OrderItem;
-import org.apache.ibatis.annotations.Mapper;
+import com.xiaofei.order.entity.OrderItemEntity;
 
-@Mapper
-public interface OrderItemMapper extends BaseMapper<OrderItem> {
+/**
+ */
+public interface OrderItemMapper extends BaseMapper<OrderItemEntity> {
 
 }
 

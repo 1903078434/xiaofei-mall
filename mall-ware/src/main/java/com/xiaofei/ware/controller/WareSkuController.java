@@ -2,6 +2,8 @@ package com.xiaofei.ware.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuHasStockDto;
+import com.xiaofei.common.exception.OrderException;
+import com.xiaofei.common.order.dto.OrderSkuDto;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
@@ -74,5 +76,11 @@ public class WareSkuController {
         return new ResponseResult<List<SkuHasStockDto>>().success("查询成功", items);
     }
 
+    @ApiOperation(value = "判断购买的商品库存是否足够", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @PutMapping("/auth/hasStock")
+    public ResponseResult<Boolean> updateStock(@RequestBody List<OrderSkuDto> orderSkuDtos)  throws OrderException {
+       boolean isUpdate = wareSkuService.updateStock(orderSkuDtos);
+        return new ResponseResult<Boolean>().success(isUpdate?"库存充足":"库存不足", isUpdate);
+    }
 
 }

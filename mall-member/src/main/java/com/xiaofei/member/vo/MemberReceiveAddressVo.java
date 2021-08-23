@@ -13,11 +13,8 @@ import java.io.Serializable;
 @Data
 public class MemberReceiveAddressVo implements Serializable {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty("收获地址id")
     private Long id;
-
-    @ApiModelProperty("会员id")
-    private Long memberId;
 
     @ApiModelProperty("收货人姓名")
     private String name;
@@ -26,11 +23,8 @@ public class MemberReceiveAddressVo implements Serializable {
     private String phone;
 
     @ApiModelProperty("地区id")
-    private Long provincesId;
+    private Integer provincesId;
 
     @ApiModelProperty("详细地址(街道)")
     private String detailAddress;
-
-    @ApiModelProperty("是否默认")
-    private Boolean defaultStatus;
 }

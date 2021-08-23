@@ -35,8 +35,15 @@ public class ProvincesController {
 
     @ApiOperation(value = "根据id获取信息", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
     @GetMapping("{id}")
-    public ResponseResult<ProvincesEntity> queryProvincesById(@PathVariable("id") Long id) {
+    public ResponseResult<ProvincesEntity> queryProvincesById(@PathVariable("id") Integer id) {
         ProvincesEntity item = provincesService.getById(id);
         return new ResponseResult<ProvincesEntity>().success("查询成功", item);
+    }
+
+    @ApiOperation(value = "根据id获取地区id的全路径", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
+    @GetMapping("/provincespath/{id}")
+    public ResponseResult<List<Integer>> findProvincesPath(@PathVariable("id") Integer id) {
+        List<Integer> items = provincesService.findProvincesPath(id);
+        return new ResponseResult<List<Integer>>().success("查询成功", items);
     }
 }

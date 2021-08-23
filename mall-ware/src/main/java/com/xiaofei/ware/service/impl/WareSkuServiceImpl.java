@@ -6,6 +6,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuHasStockDto;
+import com.xiaofei.common.exception.OrderException;
+import com.xiaofei.common.order.dto.OrderSkuDto;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
@@ -19,7 +21,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -154,6 +159,27 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             vo.setHasStock(count != null && count > 0); //有库存
             return vo;
         }).collect(Collectors.toList());
+    }
+
+    /**
+     * 查询库存是否充足，如果充足，锁定库存
+     *
+     * @param orderSkuDtos 需要查询的信息和需要锁定的库存
+     * @return true：库存充足。false：库存不足
+     */
+    @Override
+    public boolean updateStock(List<OrderSkuDto> orderSkuDtos) throws OrderException {
+        StringBuilder notStockSkuName = new StringBuilder();
+        for (OrderSkuDto orderSkuDto : orderSkuDtos) {
+            Long skuStock = this.baseMapper.getSkuStock(orderSkuDto.getSkuId());
+            if (orderSkuDto.getBuyNum() > skuStock) {
+                notStockSkuName.append(orderSkuDto.getSkuName()).append(",");
+            }
+        }
+        if (!StringUtils.isEmpty(notStockSkuName)) {
+            throw new OrderException("商品【 " + notStockSkuName.substring(0, notStockSkuName.length() - 1) + " 】库存不足");
+        }
+        return true;
     }
 }
 

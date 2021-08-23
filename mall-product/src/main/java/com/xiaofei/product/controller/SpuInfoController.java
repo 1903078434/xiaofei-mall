@@ -1,8 +1,10 @@
 package com.xiaofei.product.controller;
 
 import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.product.entity.SpuInfoEntity;
 import com.xiaofei.common.product.vo.SpuInfoVo;
 import com.xiaofei.common.product.vo.spu.SpuVo;
+import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.service.SpuInfoService;
 import io.swagger.annotations.Api;
@@ -10,6 +12,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * User: 李飞
@@ -52,6 +57,12 @@ public class SpuInfoController {
     public AjaxResult querySpuInfoById(@PathVariable("spuId") Long spuId) {
         PageVo<SpuInfoVo> page = spuInfoService.querySpuInfoById(spuId);
         return AjaxResult.success("查询成功").put("data", page);
+    }
+
+    @ApiOperation(value = "根据spuIds查询商品信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @GetMapping("/byids")
+    public ResponseResult<List<SpuInfoEntity>> querySpuInfoByIds(@RequestParam("skuIds") Set<Long> skuIds) {
+        return new ResponseResult<List<SpuInfoEntity>>().success("查询成功", spuInfoService.listByIds(skuIds));
     }
 
 }

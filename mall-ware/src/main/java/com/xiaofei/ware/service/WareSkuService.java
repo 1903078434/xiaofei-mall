@@ -2,6 +2,8 @@ package com.xiaofei.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaofei.common.dto.SkuHasStockDto;
+import com.xiaofei.common.exception.OrderException;
+import com.xiaofei.common.order.dto.OrderSkuDto;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
@@ -55,4 +57,12 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @return 返回指定商品的库存信息
      */
     List<SkuHasStockDto> getSkuStock(List<Long> skuIds);
+
+    /**
+     * 查询库存是否充足，如果充足，锁定库存
+     *
+     * @param orderSkuDto 需要查询的信息和需要锁定的库存
+     * @return true：库存充足。false：库存不足
+     */
+    boolean updateStock(List<OrderSkuDto> orderSkuDto) throws OrderException;
 }

@@ -17,4 +17,12 @@ public interface ProvincesService extends IService<ProvincesEntity> {
      * @return 返回查询到的地区信息
      */
     List<ProvincesEntity> queryAllProvinces();
+
+    /**
+     * 根据地区id查询地区的全路径
+     *
+     * @param id 地区id
+     * @return 返回地区id及其父类id的集合
+     */
+    List<Integer> findProvincesPath(Integer id);
 }

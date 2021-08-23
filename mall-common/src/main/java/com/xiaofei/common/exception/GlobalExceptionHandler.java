@@ -19,6 +19,14 @@ import javax.security.auth.login.LoginException;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ResponseResult<Object> maxException(LoginException e) {
+        log.error("异常信息为：{}", e.getMessage());
+        //未经授权的权限为401
+        return new ResponseResult<>().error(500, "系统未知错误");
+    }
+
     @ExceptionHandler(MallLoginException.class)
     @ResponseBody
     public ResponseResult<Object> mallException(LoginException e) {
@@ -33,5 +41,13 @@ public class GlobalExceptionHandler {
         log.error("用户登录的错误信息为：{}", e.getMessage());
         //未经授权的权限为401
         return new ResponseResult<>().error(503, e.getMessage());
+    }
+
+    @ExceptionHandler(OrderException.class)
+    @ResponseBody
+    public ResponseResult<Object> orderException(MallCartException e) {
+        log.error("订单错误信息为：{}", e.getMessage());
+        //未经授权的权限为401
+        return new ResponseResult<>().error(415, e.getMessage());
     }
 }
