@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.exception.OrderException;
 import com.xiaofei.common.order.dto.OrderSkuDto;
+import com.xiaofei.common.order.vo.OrderReqVo;
+import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
@@ -51,6 +53,13 @@ public interface WareSkuService extends IService<WareSkuEntity> {
     PageVo<WareSkuEntity> queryByPage(WareSkuVo wareSkuVo);
 
     /**
+     * 支付成功修改库存信息
+     *
+     * @param skuInfos 商品信息
+     */
+    boolean paySuccess(List<OrderReqVo.OrderReqSkuInfo> skuInfos) throws OrderException;
+
+    /**
      * 查询是否有库存
      *
      * @param skuIds 商品id集合
@@ -64,5 +73,6 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @param orderSkuDto 需要查询的信息和需要锁定的库存
      * @return true：库存充足。false：库存不足
      */
-    boolean updateStock(List<OrderSkuDto> orderSkuDto) throws OrderException;
+    ResponseResult<Object> updateStock(List<OrderSkuDto> orderSkuDto);
+
 }

@@ -1,7 +1,7 @@
 package com.xiaofei.order.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.xiaofei.order.entity.OrderEntity;
+import com.xiaofei.common.order.entity.OrderEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 

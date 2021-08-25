@@ -1,9 +1,16 @@
 package com.xiaofei.order.controller;
 
+import com.ruoyi.common.core.constant.CacheConstants;
+import com.xiaofei.common.order.vo.OrderItemQueryVo;
+import com.xiaofei.common.order.vo.OrderItemResp;
 import com.xiaofei.common.utils.ResponseResult;
+import com.xiaofei.common.vo.PageVo;
+import com.xiaofei.order.service.OrderItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,11 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order/orderitem")
 public class OrderItemController {
 
+    @Autowired
+    private OrderItemService orderItemService;
 
-    @ApiOperation(value = "生成订单项", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
-    @PostMapping
-    public ResponseResult<Object> crateCartItem() {
-        return new ResponseResult<>();
+    @ApiOperation(value = "查询付款的订单信息", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
+    @GetMapping("/auth/orderitems")
+    public ResponseResult<PageVo<OrderItemResp>> queryOrderItemInfo(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId,
+                                                                    @RequestHeader(name = CacheConstants.DETAILS_USERNAME) String username,
+                                                                    OrderItemQueryVo orderItemQueryVo) {
+        PageVo<OrderItemResp> page = orderItemService.queryOrderItemInfo(userId, username, orderItemQueryVo);
+
+        return new ResponseResult<PageVo<OrderItemResp>>().success(page);
     }
+
 
 }

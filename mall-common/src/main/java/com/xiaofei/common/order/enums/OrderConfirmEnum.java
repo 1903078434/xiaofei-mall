@@ -1,4 +1,4 @@
-package com.xiaofei.common.order.constant;
+package com.xiaofei.common.order.enums;
 
 /**
  * 订单收货状态

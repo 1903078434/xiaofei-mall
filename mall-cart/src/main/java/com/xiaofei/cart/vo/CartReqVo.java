@@ -23,15 +23,12 @@ public class CartReqVo {
     private Long spuId;
 
     @ApiModelProperty("购买数量")
-    private Integer buyNum = 0;
+    private Integer buyNum = 1;
 
     @ApiModelProperty("是否选中")
     private boolean check = true;
 
     @ApiModelProperty("sku默认图片")
     private String defaultImage;
-
-    @ApiModelProperty("用户id")
-    private Long userId;
 
 }

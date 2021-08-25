@@ -13,13 +13,22 @@
         <result property="stockLocked" column="stock_locked"/>
     </resultMap>
 
-
-    <!--<update id="updateStock">
+    <!--库存锁定-->
+    <update id="lockStock">
         UPDATE mall_wms.wms_ware_sku
-        SET stock = stock + #{skuNum}
+        SET stock_locked = stock_locked + #{buyNum}
         WHERE sku_id = #{skuId}
-          AND ware_id = #{wareId}
-    </update>-->
+    </update>
+
+    <!-- 支付成功 ，修改库存信息，后续还会完善 ，需要指定仓库信息 -->
+    <update id="paySuccess">
+        UPDATE mall_wms.wms_ware_sku
+        SET stock        = stock - #{buyNum},
+            stock_locked = stock_locked - #{buyNum}
+        WHERE sku_id = #{skuId}
+          AND stock_locked >= #{buyNum}
+    </update>
+
 
     <!--查询商品的总库存，【总库存 = 所有指定sku的库存相加 + 锁定库存（就是还在付款中的库存）-->
     <select id="getSkuStock" resultType="java.lang.Long">

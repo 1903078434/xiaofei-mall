@@ -8,6 +8,8 @@ import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.exception.OrderException;
 import com.xiaofei.common.order.dto.OrderSkuDto;
+import com.xiaofei.common.order.vo.OrderReqVo;
+import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
@@ -95,6 +97,23 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     }
 
     /**
+     * 支付成功修改库存信息
+     *
+     * @param skuInfos 商品信息
+     */
+    @Override
+    public boolean paySuccess(List<OrderReqVo.OrderReqSkuInfo> skuInfos) throws OrderException {
+        boolean isUpdate = true;
+        for (OrderReqVo.OrderReqSkuInfo skuInfo : skuInfos) {
+            isUpdate = isUpdate && this.baseMapper.paySuccess(skuInfo.getSkuQuantity(), skuInfo.getSkuId());
+        }
+        if(!isUpdate){
+            throw new OrderException("支付失败，请重新支付");
+        }
+        return isUpdate;
+    }
+
+    /**
      * 根据库存id修改库存信息
      *
      * @param wareSkuVo 新的库存信息
@@ -168,18 +187,26 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
      * @return true：库存充足。false：库存不足
      */
     @Override
-    public boolean updateStock(List<OrderSkuDto> orderSkuDtos) throws OrderException {
+    public ResponseResult<Object> updateStock(List<OrderSkuDto> orderSkuDtos) {
+
+        //TODO 库存查询和扣减部分后续通过完善该模块再来修改，现在，库存模块有BUG
         StringBuilder notStockSkuName = new StringBuilder();
         for (OrderSkuDto orderSkuDto : orderSkuDtos) {
             Long skuStock = this.baseMapper.getSkuStock(orderSkuDto.getSkuId());
             if (orderSkuDto.getBuyNum() > skuStock) {
                 notStockSkuName.append(orderSkuDto.getSkuName()).append(",");
             }
+            //锁定库存
+            boolean isLock = this.baseMapper.lockStock(orderSkuDto.getSkuId(), orderSkuDto.getBuyNum());
+            if (!isLock) {
+                return new ResponseResult<>().error(415, "系统错误，订单生成失败");
+            }
         }
         if (!StringUtils.isEmpty(notStockSkuName)) {
-            throw new OrderException("商品【 " + notStockSkuName.substring(0, notStockSkuName.length() - 1) + " 】库存不足");
+            return new ResponseResult<>().error(415, "商品【 " + notStockSkuName.substring(0, notStockSkuName.length() - 1) + " 】库存不足");
         }
-        return true;
+        return new ResponseResult<>().success("订单生成成功");
+
     }
 }
 

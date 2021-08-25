@@ -18,15 +18,23 @@ public interface CartService {
     /**
      * 添加购物车信息
      *
-     * @param cartReqVo 新的购物车信息
+     * @param cartReqVos 新的购物车信息集合
      * @return true：添加成功。false：添加失败
      */
-    String addCart(CartReqVo cartReqVo) throws MallCartException;
+    List<String> addCart(Long userId,List<CartReqVo>  cartReqVos) throws MallCartException;
 
     /**
      * 删除购物车信息
      */
     void deleteCart(String id);
+
+    /**
+     * 根据用户id和商品id删除购物车信息
+     *
+     * @param userId 用户id
+     * @param skuIds  商品id
+     */
+    void deleteCartBySkuId(Long userId, List<Long> skuIds);
 
     /**
      * 全选和全不选修改
@@ -39,10 +47,12 @@ public interface CartService {
     /**
      * 修改购物车信息
      *
+     *
+     * @param userId 用户id
      * @param cartReqVo 新的购物车信息
      * @return true：修改成功。false：修改失败
      */
-    String updateCart(CartReqVo cartReqVo) throws MallCartException;
+    String updateCart(Long userId, CartReqVo cartReqVo) throws MallCartException;
 
     /**
      * 根据购物车id查询对应的购物车商品信息
@@ -50,7 +60,7 @@ public interface CartService {
      * @param id 购物车id
      * @return 返回对应的购物车信息
      */
-    CartEntity queryCartInfoById(String id);
+    List<CartEntity> queryCartInfoById(String id);
 
     /**
      * 根据用户id查询用户购物车信息
@@ -72,4 +82,5 @@ public interface CartService {
      * @return 返回被选中的商品信息
      */
     List<CartEntity> queryCheckCart(Long userId);
+
 }

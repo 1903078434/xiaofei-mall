@@ -1,10 +1,13 @@
 package com.xiaofei.common.exception;
 
+import org.springframework.stereotype.Component;
+
 /**
  * User: 李飞
  * Date: 2021/8/14
  * Time: 21:43
  */
+@Component
 public class MallLoginException extends Exception {
 
     public MallLoginException() {

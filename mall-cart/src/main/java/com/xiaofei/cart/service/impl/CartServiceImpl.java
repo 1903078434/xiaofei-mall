@@ -22,6 +22,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -48,60 +49,77 @@ public class CartServiceImpl implements CartService {
     /**
      * 添加购物车信息
      *
-     * @param cartReqVo 新的购物车信息
+     * @param cartReqVos 新的购物车信息
      * @return true：添加成功。false：添加失败
      */
     //@Transactional
     @Override
-    public String addCart(CartReqVo cartReqVo) throws MallCartException {
-        //根据id查询购物车中是否已经有该商品的信息了
-        CartEntity cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(cartReqVo.getUserId(), cartReqVo.getSpuId(), cartReqVo.getSkuId());
+    public List<String> addCart(Long userId, List<CartReqVo> cartReqVos) throws MallCartException {
+        List<String> cartIds = new ArrayList<>();
+        for (CartReqVo cartReqVo : cartReqVos) {
+            //根据id查询购物车中是否已经有该商品的信息了
+            CartEntity cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(userId, cartReqVo.getSpuId(), cartReqVo.getSkuId());
 
-        //判断购物车中是否已经有了该商品的信息
-        if (cartEntity == null) {
+            //判断购物车中是否已经有了该商品的信息
+            if (cartEntity == null) {
 
-            cartEntity = new CartEntity();
-            BeanUtils.copyProperties(cartReqVo, cartEntity);
+                cartEntity = new CartEntity();
+                BeanUtils.copyProperties(cartReqVo, cartEntity);
 
-            //1、远程查询商品信息
-            ResponseResult<SkuInfoEntity> skuInfoEntityResp = productFeign.querySkuInfoById(cartReqVo.getSkuId());
-            SkuInfoEntity skuInfoEntity = skuInfoEntityResp.getData();
-            if (skuInfoEntityResp.getCode() != 200 || skuInfoEntity == null) {
-                throw new MallCartException("系统错误，购物车添加失败");
+                //1、远程查询商品信息
+                ResponseResult<SkuInfoEntity> skuInfoEntityResp = productFeign.querySkuInfoById(cartReqVo.getSkuId());
+                SkuInfoEntity skuInfoEntity = skuInfoEntityResp.getData();
+                if (skuInfoEntityResp.getCode() != 200 || skuInfoEntity == null) {
+                    throw new MallCartException("系统错误，购物车添加失败");
+                }
+
+                cartEntity.setSkuName(skuInfoEntity.getSkuName());
+                cartEntity.setSkuPrice(skuInfoEntity.getPrice());
+                cartEntity.setTotalSkuPrice(skuInfoEntity.getPrice().multiply(new BigDecimal(cartReqVo.getBuyNum())));
+
+                //2、查询商品的销售属性
+                ResponseResult<List<SkuSaleAttrValueEntity>> saleAttrResp = productFeign.querySkuSaleAttrBySkuId(cartReqVo.getSkuId());
+                List<SkuSaleAttrValueEntity> saleAttrEntity = saleAttrResp.getData();
+                if (saleAttrResp.getCode() != 200 || saleAttrEntity.size() == 0) {
+                    throw new MallCartException("系统错误，购物车添加失败");
+                }
+
+                Map<String, Object> attrNames = saleAttrEntity.stream().collect(Collectors.toMap(SkuSaleAttrValueEntity::getAttrName, SkuSaleAttrValueEntity::getAttrValue));
+                cartEntity.setSaleAttr(JSON.toJSONString(attrNames));
+
+                //设置添加时间
+                cartEntity.setAddTime(System.currentTimeMillis());
+                cartEntity.setUserId(userId);
+
+                cartEntity = mongoTemplate.insert(cartEntity);
+                if (StringUtils.isEmpty(cartEntity.getId())) {
+                    cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(userId, cartReqVo.getSpuId(), cartReqVo.getSkuId());
+                }
+                cartIds.add(cartEntity.getId());
+
+            } else {
+                //修改购物车信息
+                Query query = new Query().addCriteria(Criteria.where("_id").is(cartEntity.getId()));
+                Update update = new Update();
+                update.set("buyNum", cartEntity.getBuyNum() + cartReqVo.getBuyNum());
+                update.set("totalSkuPrice", cartEntity.getSkuPrice().multiply(new BigDecimal(cartReqVo.getBuyNum())));
+                mongoTemplate.updateMulti(query, update, CartEntity.class);
+                cartIds.add(cartEntity.getId());
             }
-
-            cartEntity.setSkuName(skuInfoEntity.getSkuName());
-            cartEntity.setSkuPrice(skuInfoEntity.getPrice());
-            cartEntity.setTotalSkuPrice(skuInfoEntity.getPrice().multiply(new BigDecimal(cartReqVo.getBuyNum())));
-
-            //2、查询商品的销售属性
-            ResponseResult<List<SkuSaleAttrValueEntity>> saleAttrResp = productFeign.querySkuSaleAttrBySkuId(cartReqVo.getSkuId());
-            List<SkuSaleAttrValueEntity> saleAttrEntity = saleAttrResp.getData();
-            if (saleAttrResp.getCode() != 200 || saleAttrEntity.size() == 0) {
-                throw new MallCartException("系统错误，购物车添加失败");
-            }
-
-            Map<String, Object> attrNames = saleAttrEntity.stream().collect(Collectors.toMap(SkuSaleAttrValueEntity::getAttrName, SkuSaleAttrValueEntity::getAttrValue));
-            cartEntity.setSaleAttr(JSON.toJSONString(attrNames));
-
-            //设置添加时间
-            cartEntity.setAddTime(System.currentTimeMillis());
-
-            cartEntity = mongoTemplate.insert(cartEntity);
-            if (StringUtils.isEmpty(cartEntity.getId())) {
-                cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(cartReqVo.getUserId(), cartReqVo.getSpuId(), cartReqVo.getSkuId());
-            }
-            return cartEntity.getId();
-
-        } else {
-            //修改购物车信息
-            Query query = new Query().addCriteria(Criteria.where("_id").is(cartEntity.getId()));
-            Update update = new Update();
-            update.set("buyNum", cartEntity.getBuyNum() + cartReqVo.getBuyNum());
-            update.set("totalSkuPrice", cartEntity.getSkuPrice().multiply(new BigDecimal(cartReqVo.getBuyNum())));
-            mongoTemplate.updateMulti(query, update, CartEntity.class);
-            return cartEntity.getId();
         }
+
+        return cartIds;
+    }
+
+    /**
+     * 根据用户id和商品id删除购物车信息
+     *
+     * @param userId 用户id
+     * @param skuIds 商品id
+     */
+    @Override
+    public void deleteCartBySkuId(Long userId, List<Long> skuIds) {
+        skuIds.forEach(skuId -> cartRepository.deleteBySkuIdAndUserId(userId, skuId));
     }
 
     /**
@@ -133,16 +151,18 @@ public class CartServiceImpl implements CartService {
     /**
      * 修改购物车信息
      *
+     *
+     * @param userId 用户id
      * @param cartReqVo 新的购物车信息
      * @return true：修改成功。false：修改失败
      */
     //@Transactional
     @Override
-    public String updateCart(CartReqVo cartReqVo) throws MallCartException {
+    public String updateCart(Long userId, CartReqVo cartReqVo) throws MallCartException {
 
         CartEntity cartEntity;
         if (StringUtils.isEmpty(cartReqVo.getId())) {
-            cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(cartReqVo.getUserId(), cartReqVo.getSpuId(), cartReqVo.getSkuId());
+            cartEntity = cartRepository.findByUserIdAndSpuIdAndSkuId(userId, cartReqVo.getSpuId(), cartReqVo.getSkuId());
         } else {
             //如果查询出来的数据为空，就将值设置为传入的值
             cartEntity = cartRepository.findById(cartReqVo.getId()).orElse(null);
@@ -175,9 +195,10 @@ public class CartServiceImpl implements CartService {
      * @return 返回对应的购物车信息
      */
     @Override
-    public CartEntity queryCartInfoById(String id) {
-        return mongoTemplate.findById(id, CartEntity.class);
-        //return cartRepository.findById(id).get();
+    public List<CartEntity> queryCartInfoById(String id) {
+        List<String> cartIds = Arrays.asList(id.split(","));
+        Query query = Query.query(Criteria.where("_id").in(cartIds));
+        return mongoTemplate.find(query,CartEntity.class);
     }
 
     /**

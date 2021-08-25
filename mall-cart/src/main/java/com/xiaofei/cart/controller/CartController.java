@@ -31,11 +31,12 @@ public class CartController {
 
     @ApiOperation(value = "添加购物车", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
     @PostMapping("/auth")
-    public ResponseResult<String> addCart(@RequestBody CartReqVo cartReqVo) throws MallCartException {
+    public ResponseResult<List<String>> addCart(@RequestHeader(CacheConstants.DETAILS_USER_ID) Long userId,
+                                                @RequestBody List<CartReqVo> cartReqVos) throws MallCartException {
 
-        String id = cartService.addCart(cartReqVo);
+        List<String> items = cartService.addCart(userId, cartReqVos);
 
-        return new ResponseResult<String>().success(id);
+        return new ResponseResult<List<String>>().success(items);
     }
 
     @ApiOperation(value = "删除购物车信息", httpMethod = "DELETE", response = ResponseResult.class, produces = "application/json")
@@ -48,11 +49,21 @@ public class CartController {
         return new ResponseResult<Boolean>().success();
     }
 
+    @ApiOperation(value = "根据用户id和skuIds删除购物车信息", httpMethod = "DELETE", response = ResponseResult.class, produces = "application/json")
+    @DeleteMapping("/auth/byskuids")
+    public ResponseResult<Boolean> deleteCartBySkuId(@RequestHeader(CacheConstants.DETAILS_USER_ID) Long userId,
+                                                     @RequestBody List<Long> skuIds) {
+        cartService.deleteCartBySkuId(userId, skuIds);
+
+        return new ResponseResult<Boolean>().success();
+    }
+
     @ApiOperation(value = "修改购物车信息", httpMethod = "PUT", response = ResponseResult.class, produces = "application/json")
     @PutMapping("/auth")
-    public ResponseResult<String> updateCart(@RequestBody CartReqVo cartReqVo) throws MallCartException {
+    public ResponseResult<String> updateCart(@RequestHeader(CacheConstants.DETAILS_USER_ID) Long userId,
+                                             @RequestBody CartReqVo cartReqVo) throws MallCartException {
 
-        String id = cartService.updateCart(cartReqVo);
+        String id = cartService.updateCart(userId, cartReqVo);
 
         return new ResponseResult<String>().success(id);
     }
@@ -69,9 +80,9 @@ public class CartController {
     @ApiOperation(value = "根据购物车id查询购物车信息数据", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @ApiImplicitParam(name = "id", value = "id", paramType = "path", required = true, dataType = "String")
     @GetMapping("/auth/{id}")
-    public ResponseResult<CartEntity> queryCartInfoById(@PathVariable("id") String id) {
-        CartEntity item = cartService.queryCartInfoById(id);
-        return new ResponseResult<CartEntity>().success("查询成功", item);
+    public ResponseResult<List<CartEntity>> queryCartInfoById(@PathVariable("id") String id) {
+        List<CartEntity> items = cartService.queryCartInfoById(id);
+        return new ResponseResult<List<CartEntity>>().success("查询成功", items);
     }
 
     @ApiOperation(value = "根据用户id查询购物车信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")

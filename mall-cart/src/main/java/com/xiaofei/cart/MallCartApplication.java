@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableFeignClients(basePackages = "com.xiaofei.cart.feign")
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.xiaofei.common.exception", "com.xiaofei.cart"})//扫描Spring的资源在哪里
+@ComponentScan(basePackages = {"com.xiaofei.common", "com.xiaofei.cart"})//扫描Spring的资源在哪里
 @EnableDiscoveryClient
 public class MallCartApplication {
 

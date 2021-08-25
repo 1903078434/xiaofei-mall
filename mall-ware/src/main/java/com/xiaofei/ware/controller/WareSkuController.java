@@ -4,6 +4,7 @@ import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.exception.OrderException;
 import com.xiaofei.common.order.dto.OrderSkuDto;
+import com.xiaofei.common.order.vo.OrderReqVo;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
@@ -53,6 +54,13 @@ public class WareSkuController {
         return AjaxResult.success(isUpdate ? "修改成功" : "修改失败").put("data", isUpdate);
     }
 
+    @ApiOperation(value = "支付成功修改库存信息", httpMethod = "PUT", response = ResponseResult.class, produces = "application/json")
+    @PutMapping("/auth/paysuccess/updatestock")
+    public ResponseResult<Boolean> paySuccess(@RequestBody List<OrderReqVo.OrderReqSkuInfo> skuInfos) throws OrderException {
+        boolean isUpdate = wareSkuService.paySuccess(skuInfos);
+        return new ResponseResult<Boolean>().success(isUpdate);
+    }
+
     @ApiOperation(value = "分页和搜索查询库存信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @GetMapping("/internal")
     public AjaxResult queryWareSkuByPage(WareSkuVo wareSkuVo) {
@@ -78,9 +86,8 @@ public class WareSkuController {
 
     @ApiOperation(value = "判断购买的商品库存是否足够", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @PutMapping("/auth/hasStock")
-    public ResponseResult<Boolean> updateStock(@RequestBody List<OrderSkuDto> orderSkuDtos)  throws OrderException {
-       boolean isUpdate = wareSkuService.updateStock(orderSkuDtos);
-        return new ResponseResult<Boolean>().success(isUpdate?"库存充足":"库存不足", isUpdate);
+    public ResponseResult<Object> updateStock(@RequestBody List<OrderSkuDto> orderSkuDtos) {
+        return wareSkuService.updateStock(orderSkuDtos);
     }
 
 }

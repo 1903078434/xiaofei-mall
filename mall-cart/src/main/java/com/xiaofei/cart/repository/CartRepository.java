@@ -15,6 +15,12 @@ import java.util.List;
 public interface CartRepository extends MongoRepository<CartEntity, String> {
 
     /**
+     * 根据skuId和用户id删除
+     */
+    void deleteBySkuIdAndUserId(Long skuId,Long userId);
+
+
+    /**
      * 根据用户id和购物车项id查询购物车信息
      *
      * @param userId 用户id

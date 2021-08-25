@@ -85,17 +85,17 @@ public class OrderEntity implements Serializable {
     /**
      * 支付方式【1->支付宝；2->微信；3->银联； 4->货到付款；】
      */
-    private Integer payType;
+    private Byte payType;
 
     /**
      * 订单来源[0->PC订单；1->app订单]
      */
-    private Integer sourceType;
+    private Byte sourceType;
 
     /**
      * 订单状态【0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单】
      */
-    private Integer status;
+    private Byte status;
 
     /**
      * 物流公司(配送方式)

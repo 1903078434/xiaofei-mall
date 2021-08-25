@@ -2,8 +2,7 @@ package com.xiaofei.order.controller;
 
 import com.ruoyi.common.core.constant.CacheConstants;
 import com.xiaofei.common.exception.OrderException;
-import com.xiaofei.common.order.vo.OrderInfoResp;
-import com.xiaofei.common.order.vo.OrderVo;
+import com.xiaofei.common.order.vo.*;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.order.service.OrderService;
 import io.swagger.annotations.Api;
@@ -35,11 +34,38 @@ public class OrderController {
 
     @ApiOperation(value = "生成订单", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
     @PostMapping("/auth/crate")
-    public ResponseResult<Object> crateOrder(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId,
+    public ResponseResult<OrderRespVo> crateOrder(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId,
+                                                  @RequestHeader(name = CacheConstants.DETAILS_USERNAME) String username,
+                                                  @RequestBody OrderVo orderVo) throws OrderException {
+        OrderRespVo orderRespVo = orderService.crateOrder(userId, username, orderVo);
+        return new ResponseResult<OrderRespVo>().success(orderRespVo);
+    }
+
+    @ApiOperation(value = "修改订单", httpMethod = "PUT", response = ResponseResult.class, produces = "application/json")
+    @PutMapping("/auth")
+    public ResponseResult<Boolean> updateOrder(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId,
+                                               @RequestHeader(name = CacheConstants.DETAILS_USERNAME) String username,
+                                               @RequestBody OrderUpdateVo orderUpdateVo) {
+        boolean isUpdate = orderService.updateOrder(userId, username, orderUpdateVo);
+        return new ResponseResult<Boolean>().success(isUpdate);
+    }
+
+    @ApiOperation(value = "订单支付", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
+    @PostMapping("/auth/orderpay")
+    public ResponseResult<Boolean> orderPay(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId,
                                             @RequestHeader(name = CacheConstants.DETAILS_USERNAME) String username,
-                                            @RequestBody OrderVo orderVo) throws OrderException {
-        orderService.crateOrder(userId,username,orderVo);
-        return new ResponseResult<>();
+                                            @RequestBody OrderReqVo orderReqVo) throws OrderException {
+        boolean isSuccess = orderService.orderPay(userId, username, orderReqVo);
+        return new ResponseResult<Boolean>().success(isSuccess ? "支付成功" : "支付失败", isSuccess);
+    }
+
+    @ApiOperation(value = "查询付款的订单信息", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
+    @GetMapping("/auth/orderpay")
+    public ResponseResult<OrderItemResp> payOrderInfo(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId,
+                                                      @RequestHeader(name = CacheConstants.DETAILS_USERNAME) String username,
+                                                      OrderRespVo orderRespVo) throws OrderException {
+        OrderItemResp item = orderService.payOrderInfo(userId, username, orderRespVo);
+        return new ResponseResult<OrderItemResp>().success(item);
     }
 
 }

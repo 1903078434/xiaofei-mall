@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaofei.order.mapper.OrderMapper">
 
-    <resultMap id="BaseResultMap" type="com.xiaofei.order.entity.OrderEntity">
+    <resultMap id="BaseResultMap" type="com.xiaofei.common.order.entity.OrderEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="memberId" column="member_id" jdbcType="BIGINT"/>
             <result property="orderSn" column="order_sn" jdbcType="CHAR"/>

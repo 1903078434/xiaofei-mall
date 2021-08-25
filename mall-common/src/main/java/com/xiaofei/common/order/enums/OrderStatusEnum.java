@@ -1,4 +1,4 @@
-package com.xiaofei.common.order.constant;
+package com.xiaofei.common.order.enums;
 
 /**
  * 订单状态
@@ -11,7 +11,7 @@ public enum OrderStatusEnum {
     TO_BE_SHIPPED((byte) 1, "待发货"),
     SHIPPED((byte) 2, "已发货"),
     COMPLETED((byte) 3, "已完成"),
-    CLOSE((byte) 4, "已关闭"),
+    CLOSE((byte) 4, "已取消"),
     INVALID_ORDER((byte) 5, "无效订单");
 
 
@@ -22,6 +22,23 @@ public enum OrderStatusEnum {
 
     private Byte statusId;
     private String statusName;
+
+    public static OrderStatusEnum getStatus(Byte statusId) {
+        if (statusId == 0) {
+            return PENDING_PAYMENT;
+        } else if (statusId == 1) {
+            return TO_BE_SHIPPED;
+        } else if (statusId == 2) {
+            return SHIPPED;
+        } else if (statusId == 3) {
+            return COMPLETED;
+        } else if (statusId == 4) {
+            return CLOSE;
+        } else if (statusId == 5) {
+            return INVALID_ORDER;
+        }
+        return null;
+    }
 
     public Byte getStatusId() {
         return statusId;

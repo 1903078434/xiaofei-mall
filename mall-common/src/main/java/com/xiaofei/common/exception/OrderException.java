@@ -1,11 +1,14 @@
 package com.xiaofei.common.exception;
 
+import org.springframework.stereotype.Component;
+
 /**
  * User: 李飞
  * Date: 2021/8/23
  * Time: 21:31
  */
-public class OrderException extends Exception{
+@Component
+public class OrderException extends Exception {
 
     public OrderException() {
         super();

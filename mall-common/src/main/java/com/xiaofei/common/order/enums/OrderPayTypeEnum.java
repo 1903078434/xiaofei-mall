@@ -1,4 +1,4 @@
-package com.xiaofei.common.order.constant;
+package com.xiaofei.common.order.enums;
 
 /**
  * 支付方式
@@ -6,14 +6,14 @@ package com.xiaofei.common.order.constant;
  * Date: 2021/8/23
  * Time: 22:38
  */
-public enum PayTypeEnum {
+public enum OrderPayTypeEnum {
     ALI_PAY((byte) 1,"支付宝"),
     WATCH_PAY((byte)2,"微信"),
     UNION_PAY((byte)3,"银联"),
     FACE_TO_FACE_PAY((byte)4,"货到付款"),
     BANK_PAY((byte)5,"银行卡支付");
 
-    PayTypeEnum(Byte payId, String payName) {
+    OrderPayTypeEnum(Byte payId, String payName) {
         this.payId = payId;
         this.payName = payName;
     }

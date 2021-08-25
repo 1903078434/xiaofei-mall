@@ -4,6 +4,7 @@ import com.ruoyi.common.core.constant.CacheConstants;
 import com.xiaofei.common.cart.entity.CartEntity;
 import com.xiaofei.common.utils.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -23,4 +24,8 @@ public interface CartFeignService {
 
     @PostMapping("/cart/auth/querycheckcart")
     ResponseResult<List<CartEntity>> queryCheckCart(@RequestHeader(name = CacheConstants.DETAILS_USER_ID) Long userId);
+
+    @DeleteMapping("/cart/auth/byskuids")
+    ResponseResult<Boolean> deleteCartBySkuId(@RequestHeader(CacheConstants.DETAILS_USER_ID) Long userId,
+                                                     @RequestBody List<Long> skuIds);
 }
