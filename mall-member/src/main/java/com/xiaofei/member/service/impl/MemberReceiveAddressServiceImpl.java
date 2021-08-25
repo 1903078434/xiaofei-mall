@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaofei.common.product.entity.ProvincesEntity;
 import com.xiaofei.common.utils.ResponseResult;
-import com.xiaofei.member.entity.MemberReceiveAddressEntity;
+import com.xiaofei.common.member.entity.MemberReceiveAddressEntity;
 import com.xiaofei.member.feign.ProductFeign;
 import com.xiaofei.member.mapper.MemberReceiveAddressMapper;
 import com.xiaofei.member.service.MemberReceiveAddressService;

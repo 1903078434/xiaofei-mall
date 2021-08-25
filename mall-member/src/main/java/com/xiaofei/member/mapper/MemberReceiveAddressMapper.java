@@ -1,6 +1,6 @@
 package com.xiaofei.member.mapper;
 
-import com.xiaofei.member.entity.MemberReceiveAddressEntity;
+import com.xiaofei.common.member.entity.MemberReceiveAddressEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

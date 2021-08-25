@@ -17,11 +17,18 @@ public interface OrderItemService extends IService<OrderItemEntity> {
     /**
      * 根据查询条件查询订单信息
      *
-     *
-     * @param userId 用户id
-     * @param username 用户名
+     * @param userId           用户id
+     * @param username         用户名
      * @param orderItemQueryVo 订单项查询条件
      * @return 返回订单项查询结果
      */
     PageVo<OrderItemResp> queryOrderItemInfo(Long userId, String username, OrderItemQueryVo orderItemQueryVo);
+
+    /**
+     * 内部系统查询所有订单信息
+     *
+     * @param orderItemQueryVo 订单项的检索条件
+     * @return 返回检索到的信息
+     */
+    PageVo<OrderItemResp> queryAllByPage(OrderItemQueryVo orderItemQueryVo);
 }

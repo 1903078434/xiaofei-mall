@@ -2,8 +2,8 @@ package com.xiaofei.member.controller;
 
 import com.ruoyi.common.core.constant.CacheConstants;
 import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.member.entity.MemberReceiveAddressEntity;
 import com.xiaofei.common.utils.ResponseResult;
-import com.xiaofei.member.entity.MemberReceiveAddressEntity;
 import com.xiaofei.member.service.MemberReceiveAddressService;
 import com.xiaofei.member.vo.MemberReceiveAddressVo;
 import io.swagger.annotations.Api;

@@ -3,7 +3,10 @@ package com.xiaofei.member.controller;
 import com.ruoyi.common.core.constant.CacheConstants;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.member.entity.MemberEntity;
+import com.xiaofei.common.member.vo.MemberQueryRespVo;
+import com.xiaofei.common.member.vo.MemberQueryVo;
 import com.xiaofei.common.utils.ResponseResult;
+import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +35,13 @@ public class MemberController {
         //因为在网关处做了处理，所以token的值已经解析了
         MemberEntity item = memberService.getByToken(userId);
         return new ResponseResult<MemberEntity>().success(item);
+    }
+
+    @ApiOperation(value = "管理员获取所有的用户列表", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @GetMapping("/internal")
+    public ResponseResult<PageVo<MemberQueryRespVo>> queryMemberByPage(MemberQueryVo memberQueryVo) {
+        PageVo<MemberQueryRespVo> page = memberService.queryMemberByPage(memberQueryVo);
+        return new ResponseResult<PageVo<MemberQueryRespVo>>().success(page);
     }
 
 }

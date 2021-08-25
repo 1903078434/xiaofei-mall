@@ -37,5 +37,13 @@ public class OrderItemController {
         return new ResponseResult<PageVo<OrderItemResp>>().success(page);
     }
 
+    @ApiOperation(value = "内部管理员查询所有订单信息", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
+    @GetMapping("/internal/orderitems")
+    public ResponseResult<PageVo<OrderItemResp>> queryAllByPage(OrderItemQueryVo orderItemQueryVo) {
+        PageVo<OrderItemResp> page = orderItemService.queryAllByPage(orderItemQueryVo);
+
+        return new ResponseResult<PageVo<OrderItemResp>>().success(page);
+    }
+
 
 }

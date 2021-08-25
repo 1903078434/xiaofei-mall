@@ -40,11 +40,38 @@ public class OrderItemServiceImpl extends ServiceImpl<OrderItemMapper, OrderItem
     @Override
     public PageVo<OrderItemResp> queryOrderItemInfo(Long userId, String username, OrderItemQueryVo orderItemQueryVo) {
 
-        PageHelper.startPage(orderItemQueryVo.getPageNo(), orderItemQueryVo.getPageSize());
-
         QueryWrapper<OrderEntity> orderQuery = new QueryWrapper<>();
 
         orderQuery.eq("member_id", userId).eq("member_username", username);
+
+        return orderBaseQuery(orderQuery, orderItemQueryVo);
+    }
+
+    /**
+     * 内部系统查询所有订单信息
+     *
+     * @param orderItemQueryVo 订单项的检索条件
+     * @return 返回检索到的信息
+     */
+    @Override
+    public PageVo<OrderItemResp> queryAllByPage(OrderItemQueryVo orderItemQueryVo) {
+
+
+
+        return orderBaseQuery(new QueryWrapper<>(), orderItemQueryVo);
+
+    }
+
+    /**
+     * 内部订单查询条件和外部订单查询的公共部分
+     *
+     * @param orderQuery       各自不同的查询条件
+     * @param orderItemQueryVo 订单项查询条件
+     * @return 返回订单项目的查询条件
+     */
+    private PageVo<OrderItemResp> orderBaseQuery(QueryWrapper<OrderEntity> orderQuery, OrderItemQueryVo orderItemQueryVo) {
+
+        PageHelper.startPage(orderItemQueryVo.getPageNo(), orderItemQueryVo.getPageSize());
 
         if (!StringUtils.isEmpty(orderItemQueryVo.getOrderSn())) {
             orderQuery.eq("order_sn", orderItemQueryVo.getOrderSn());
@@ -81,6 +108,7 @@ public class OrderItemServiceImpl extends ServiceImpl<OrderItemMapper, OrderItem
         }).collect(Collectors.toList());
 
         return new PageVo<>(pageInfo.getPageNum(), pageInfo.getPageSize(), pageInfo.getPages(), pageInfo.getTotal(), items);
+
     }
 }
 

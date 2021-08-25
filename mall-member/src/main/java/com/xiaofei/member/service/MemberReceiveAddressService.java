@@ -1,7 +1,7 @@
 package com.xiaofei.member.service;
 
-import com.xiaofei.member.entity.MemberReceiveAddressEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xiaofei.common.member.entity.MemberReceiveAddressEntity;
 import com.xiaofei.member.vo.MemberReceiveAddressVo;
 
 import java.util.List;
