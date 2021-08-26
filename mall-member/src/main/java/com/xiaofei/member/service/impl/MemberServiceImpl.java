@@ -6,12 +6,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiaofei.common.member.entity.MemberEntity;
 import com.xiaofei.common.member.entity.MemberReceiveAddressEntity;
+import com.xiaofei.common.member.enums.MemberStatusEnum;
 import com.xiaofei.common.member.vo.MemberQueryRespVo;
 import com.xiaofei.common.member.vo.MemberQueryVo;
+import com.xiaofei.common.member.vo.MemberUpdateVo;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.member.mapper.MemberDao;
 import com.xiaofei.member.service.MemberReceiveAddressService;
 import com.xiaofei.member.service.MemberService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,25 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         MemberEntity memberEntity = this.getById(userId);
         memberEntity.setPassword("");//将密码设置为空
         return memberEntity;
+    }
+
+    /**
+     * 修改会员的状态
+     *
+     * @param memberUpdateVo 修改信息
+     * @return true：修改成功。false：修改失败
+     */
+    @Override
+    public boolean updateMemberStatus(MemberUpdateVo memberUpdateVo) {
+        MemberStatusEnum memberStatusEnum = MemberStatusEnum.getStatus(memberUpdateVo.getStatus());
+        if(memberStatusEnum!=null){
+            MemberEntity memberEntity = new MemberEntity();
+            BeanUtils.copyProperties(memberUpdateVo,memberEntity);
+            memberEntity.setStatus(memberStatusEnum.getStatus());
+            return this.update(memberEntity,new QueryWrapper<MemberEntity>().eq("id",memberEntity.getId()));
+        }else{
+            return false;
+        }
     }
 
     /**

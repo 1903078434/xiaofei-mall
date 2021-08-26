@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
  * Date: 2021/8/21
  * Time: 14:14
  */
-@Api(tags = "属性和属性分组关联接口")
+@Api(tags = "订单信息修该")
 @RequestMapping("/order/order")
 @RestController
 public class OrderController {
@@ -47,6 +47,13 @@ public class OrderController {
                                                @RequestHeader(name = CacheConstants.DETAILS_USERNAME) String username,
                                                @RequestBody OrderUpdateVo orderUpdateVo) {
         boolean isUpdate = orderService.updateOrder(userId, username, orderUpdateVo);
+        return new ResponseResult<Boolean>().success(isUpdate);
+    }
+
+    @ApiOperation(value = "管理员修改订单", httpMethod = "PUT", response = ResponseResult.class, produces = "application/json")
+    @PutMapping("/internal")
+    public ResponseResult<Boolean> updateOrder(@RequestBody OrderUpdateVo orderUpdateVo) {
+        boolean isUpdate = orderService.updateOrder(orderUpdateVo);
         return new ResponseResult<Boolean>().success(isUpdate);
     }
 

@@ -22,7 +22,6 @@ public interface OrderService extends IService<OrderEntity> {
      */
     OrderRespVo crateOrder(Long userId, String username, OrderVo orderVo) throws OrderException;
 
-
     /**
      * 确认订单信息
      *
@@ -40,6 +39,14 @@ public interface OrderService extends IService<OrderEntity> {
      * @return true：修改成功。false：修改失败
      */
     boolean updateOrder(Long userId, String username, OrderUpdateVo orderUpdateVo);
+
+    /**
+     * 管理员修改订单信息
+     *
+     * @param orderUpdateVo 订单修改的信息
+     * @return true：修改成功。false：修改失败
+     */
+    boolean updateOrder(OrderUpdateVo orderUpdateVo);
 
     /**
      * 订单支付

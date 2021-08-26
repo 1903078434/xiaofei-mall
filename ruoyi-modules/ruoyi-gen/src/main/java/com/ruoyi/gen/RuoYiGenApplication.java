@@ -1,16 +1,18 @@
 package com.ruoyi.gen;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.ruoyi.common.security.annotation.EnableCustomConfig;
 import com.ruoyi.common.security.annotation.EnableRyFeignClients;
 import com.ruoyi.common.swagger.annotation.EnableCustomSwagger2;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 代码生成
  *
  * @author ruoyi
  */
+@ComponentScan(basePackages = {"com.ruoyi.gen","com.ruoyi.common"})
 @EnableCustomConfig
 @EnableCustomSwagger2
 @EnableRyFeignClients

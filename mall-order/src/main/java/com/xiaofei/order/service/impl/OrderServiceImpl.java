@@ -234,13 +234,40 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
      */
     @Override
     public boolean updateOrder(Long userId, String username, OrderUpdateVo orderUpdateVo) {
+        //判断修改订单状态是否为发货状态，如果为发货状态，直接返回false
+        if(orderUpdateVo.getStatus().equals(OrderStatusEnum.SHIPPED.getStatusId())){
+            return false;
+        }
+
+        QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<OrderEntity>()
+                .eq("member_id", userId).eq("member_username", username)
+                .eq("id", orderUpdateVo.getId()).eq("order_sn", orderUpdateVo.getOrderSn());
+
+        return updateOrder(queryWrapper,orderUpdateVo);
+    }
+
+    /**
+     * 普通用户和管理员修改订单的通用部分
+     * @return true：修改成功。false：修改失败
+     */
+    private boolean updateOrder(QueryWrapper<OrderEntity> queryWrapper ,OrderUpdateVo orderUpdateVo ){
         OrderEntity orderEntity = new OrderEntity();
 
         BeanUtils.copyProperties(orderUpdateVo,orderEntity);
 
-        return this.update(orderEntity,new QueryWrapper<OrderEntity>()
-        .eq("member_id",userId).eq("member_username",username)
-        .eq("id",orderUpdateVo.getId()).eq("order_sn",orderUpdateVo.getOrderSn()));
+        return this.update(orderEntity,queryWrapper);
+    }
+
+    /**
+     * 管理员修改订单信息
+     *
+     * @param orderUpdateVo 订单修改的信息
+     * @return true：修改成功。false：修改失败
+     */
+    @Override
+    public boolean updateOrder(OrderUpdateVo orderUpdateVo) {
+        QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<OrderEntity>().eq("id", orderUpdateVo.getId()).eq("order_sn", orderUpdateVo.getOrderSn());
+        return updateOrder(queryWrapper,orderUpdateVo);
     }
 
     /**
