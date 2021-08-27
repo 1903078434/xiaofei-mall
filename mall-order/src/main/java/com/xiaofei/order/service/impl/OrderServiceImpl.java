@@ -167,13 +167,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
         orderEntity.setUseIntegration(0);//TODO 下单使用的积分
         orderEntity.setModifyTime(LocalDateTime.now());
 
-        //保存订单信息
+        //保存订单信息，这里可能会发生订单id没有的情况
         if (!this.save(orderEntity)) {
             throw new OrderException("订单生成失败，请重新提交订单");
         }
 
+        //判断帝订单id和订单编号是否为空
+
         //设置订单项信息，获取所有的spuId
-        Set<Long> spuIds = orderVo.getOrderItemInfos().stream().map(OrderVo.OrderItemInfo::getSkuId).collect(Collectors.toSet());
+        Set<Long> spuIds = orderVo.getOrderItemInfos().stream().map(OrderVo.OrderItemInfo::getSpuId).collect(Collectors.toSet());
 
         Map<Long, SpuInfoEntity> spuInfoMap = productFeignService.querySpuInfoByIds(spuIds).getData()
                 .stream().collect(Collectors.toMap(SpuInfoEntity::getId, spuInfoEntity -> spuInfoEntity));
@@ -185,8 +187,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
             if (spuInfoEntity != null) {
                 orderItemEntity.setOrderId(orderEntity.getId());
                 orderItemEntity.setOrderSn(orderEntity.getOrderSn());
-                orderItemEntity.setSpuName(spuInfoEntity.getSpuName() + "  " + spuInfoEntity.getSpuDescription() + "  " + orderItemInfo.getSkuName());
-                orderItemEntity.setSpuPic(orderItemInfo.getSkuPic());
+                orderItemEntity.setSpuName(spuInfoEntity.getSpuName() + "  " + spuInfoEntity.getSpuDescription());
                 orderItemEntity.setSpuPic(orderItemInfo.getSkuPic());
                 orderItemEntity.setSpuBrand(spuInfoEntity.getBrandId() + "");
                 orderItemEntity.setCategoryId(spuInfoEntity.getCatalogId());
