@@ -60,9 +60,9 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         //TODO 商家删除操作，需完善
 
         List<String> brandIds = Arrays.stream(brandId.split(",")).collect(Collectors.toList());
-        //this.baseMapper.deleteBatchIds(brandIds);
+        return this.baseMapper.deleteBatchIds(brandIds)>0;
 
-        return false;
+        //return false;
     }
 
     /**

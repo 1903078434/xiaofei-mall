@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  * Time: 20:23
  */
 @EnableDiscoveryClient //将服务注册到nacos中,需要设置spring.application.name的值
-@ComponentScan(basePackages = {"com.xiaofei.common","com.xiaofei.coupon"})
+@ComponentScan(basePackages = {"com.xiaofei.common","com.xiaofei.coupon","com.ruoyi"})
 @SpringBootApplication
 public class MallCouponApplication {
 

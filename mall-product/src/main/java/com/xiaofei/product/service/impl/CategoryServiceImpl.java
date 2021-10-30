@@ -63,8 +63,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public boolean deleteCategoryById(Long categoryId) {
         //TODO 商品类别删除操作，未完善
-        //this.removeById(categoryId);
-        return false;
+        return this.removeById(categoryId);
+        //return false;
     }
 
     /**
@@ -78,10 +78,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public boolean updateCategory(CategoryVo categoryVo) {
         //TODO 商品类别修改操作，未完善
-        /*CategoryEntity categoryEntity = new CategoryEntity();
+        CategoryEntity categoryEntity = new CategoryEntity();
         BeanUtils.copyProperties(categoryVo, categoryEntity);
-        return this.updateById(categoryEntity);*/
-        return false;
+        return this.updateById(categoryEntity);
+        //return false;
     }
 
     /**
@@ -172,5 +172,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public List<CategoryEntity> queryCacheCategory() {
         return this.queryAllCategory();
+    }
+
+
+    /**
+     * 根据父id子类别
+     *
+     * @return 返回查询到的数据
+     */
+    @Override
+    public List<CategoryEntity> queryByParentId(Long parentId) {
+        return this.baseMapper.queryByParentId(parentId);
     }
 }

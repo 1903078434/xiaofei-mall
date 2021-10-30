@@ -81,9 +81,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         //TODO　属性的删除功能，未完善
         List<String> attrIds = Arrays.stream(attrId.split(",")).collect(Collectors.toList());
 
-        //return this.removeByIds(attrIds);
+        return this.removeByIds(attrIds);
 
-        return true;
+        //return true;
     }
 
     /**

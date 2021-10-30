@@ -62,5 +62,10 @@ public interface CategoryService extends IService<CategoryEntity> {
      */
     List<CategoryEntity> queryCacheCategory();
 
-
+    /**
+     * 根据父id子类别
+     *
+     * @return 返回查询到的数据
+     */
+    List<CategoryEntity> queryByParentId(Long parentId);
 }

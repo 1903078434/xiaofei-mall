@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableFeignClients(basePackages = "com.xiaofei.product.feign")//开去远程调用功能
 @EnableDiscoveryClient //将服务注册到nacos中,需要设置spring.application.name的值
-@ComponentScan(basePackages = {"com.xiaofei.common","com.xiaofei.product"})
+@ComponentScan(basePackages = {"com.xiaofei.common","com.xiaofei.product","com.ruoyi.common"})
 @SpringBootApplication
 public class MallProductApplication {
     public static void main(String[] args) {
