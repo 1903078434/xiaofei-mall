@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.ruoyi</groupId>
         <artifactId>ruoyi-common</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ruoyi-common-core</artifactId>
-
+    
     <description>
         ruoyi-common-core核心模块
     </description>
@@ -22,7 +22,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
+        
         <!-- SpringCloud Loadbalancer -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -41,13 +41,19 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
+        <!-- Transmittable ThreadLocal -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
+
         <!-- Apache Commons Pool2 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
-        <!-- PageHelper -->
+        <!-- Pagehelper -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -69,6 +75,18 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!-- Jwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
+        <!-- Jaxb -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
         </dependency>
 
         <!-- Apache Lang3 -->
@@ -106,18 +124,6 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
-
-        <!--用于解决seata+nacos出现的序列化问题-->
-        <!--<dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>4.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>de.javakaffee</groupId>
-            <artifactId>kryo-serializers</artifactId>
-            <version>0.44</version>
-        </dependency>-->
 
     </dependencies>
 

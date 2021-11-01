@@ -1,7 +1,6 @@
 package com.ruoyi.common.security.annotation;
 
 import org.springframework.cloud.openfeign.EnableFeignClients;
-
 import java.lang.annotation.*;
 
 /**
@@ -14,10 +13,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @EnableFeignClients
-public @interface EnableRyFeignClients {
+public @interface EnableRyFeignClients
+{
     String[] value() default {};
 
-    String[] basePackages() default {"com.ruoyi"};
+    String[] basePackages() default { "com.ruoyi","com.xiaofei" };
 
     Class<?>[] basePackageClasses() default {};
 

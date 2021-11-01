@@ -10,9 +10,11 @@ import feign.RequestInterceptor;
  * @author ruoyi
  **/
 @Configuration
-public class FeignAutoConfiguration {
+public class FeignAutoConfiguration
+{
     @Bean
-    public RequestInterceptor requestInterceptor() {
+    public RequestInterceptor requestInterceptor()
+    {
         return new FeignRequestInterceptor();
     }
 }

@@ -2,10 +2,11 @@ package com.ruoyi.auth.form;
 
 /**
  * 用户登录对象
- *
+ * 
  * @author ruoyi
  */
-public class LoginBody {
+public class LoginBody
+{
     /**
      * 用户名
      */
@@ -16,19 +17,23 @@ public class LoginBody {
      */
     private String password;
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 }

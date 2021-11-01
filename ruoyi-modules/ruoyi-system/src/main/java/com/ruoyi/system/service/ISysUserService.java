@@ -98,12 +98,27 @@ public interface ISysUserService
     public void checkUserAllowed(SysUser user);
 
     /**
+     * 校验用户是否有数据权限
+     * 
+     * @param userId 用户id
+     */
+    public void checkUserDataScope(Long userId);
+
+    /**
      * 新增用户信息
      * 
      * @param user 用户信息
      * @return 结果
      */
     public int insertUser(SysUser user);
+
+    /**
+     * 注册用户信息
+     * 
+     * @param user 用户信息
+     * @return 结果
+     */
+    public boolean registerUser(SysUser user);
 
     /**
      * 修改用户信息

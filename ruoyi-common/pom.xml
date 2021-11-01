@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.ruoyi</groupId>
         <artifactId>ruoyi</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,6 +16,7 @@
         <module>ruoyi-common-security</module>
         <module>ruoyi-common-datascope</module>
 		<module>ruoyi-common-datasource</module>
+		<module>mall-common</module>
     </modules>
 
     <artifactId>ruoyi-common</artifactId>
