@@ -1,0 +1,111 @@
+    {
+        "settings": {
+            "analysis": {
+                "analyzer": {
+                    "text_anlyzer": {
+                        "tokenizer": "ik_max_word",
+                        "filter": "py"
+                    },
+                    "completion_analyzer": {
+                        "tokenizer": "keyword",
+                        "filter": "py"
+                    }
+                },
+                "filter": {
+                    "py": {
+                        "type": "pinyin",
+                        "keep_full_pinyin": false,
+                        "keep_joined_full_pinyin": true,
+                        "keep_original": true,
+                        "limit_first_letter_length": 16,
+                        "remove_duplicated_term": true,
+                        "none_chinese_pinyin_tokenize": false
+                    }
+                }
+            }
+        },
+        "mappings": {
+            "properties": {
+                "skuId": {
+                    "type": "long"
+                },
+                "spuId": {
+                    "type": "long"
+                },
+                "skuTitle": {
+                    "type": "text",
+                    "analyzer": "text_anlyzer",
+                    "search_analyzer": "ik_smart",
+                    "copy_to": "all"
+                },
+                "skuPrice": {
+                    "type": "double"
+                },
+                "skuImg": {
+                    "type": "keyword",
+                    "index": false
+                },
+                "saleCount": {
+                    "type": "long"
+                },
+                "hasStock": {
+                    "type": "boolean"
+                },
+                "hotScore": {
+                    "type": "long"
+                },
+                "brandId": {
+                    "type": "long"
+                },
+                "categoryId": {
+                    "type": "long"
+                },
+                "categoryName": {
+                    "type": "keyword",
+                    "copy_to": "all"
+                },
+                "brandName": {
+                    "type": "keyword",
+                    "copy_to": "all"
+                },
+                "brandImg": {
+                    "type": "keyword",
+                    "index": false
+                },
+                "attrs": {
+                    "type": "nested",
+                    "properties": {
+                        "attrId": {
+                            "type": "long"
+                        },
+                        "attrName": {
+                            "type": "keyword"
+                        },
+                        "attrValue": {
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "addTime": {
+                    "type": "date"
+                },
+                "commentNum": {
+                    "type": "long"
+                },
+                "all": {
+                    "type": "text",
+                    "analyzer": "text_anlyzer",
+                    "search_analyzer": "ik_smart"
+                },
+                "suggestion": {
+                    "type": "completion",
+                    "analyzer": "completion_analyzer"
+                }
+            }
+        }
+    }
+
+
+
+
+

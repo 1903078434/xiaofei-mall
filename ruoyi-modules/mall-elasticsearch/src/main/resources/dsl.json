@@ -1,0 +1,149 @@
+GET /product/_search
+{
+    "query": {
+        "match_all": {}
+    },
+    "sort": [
+        {
+            "hotScore": {
+                "order": "desc"
+            }
+        }
+    ],
+    "from": 0,
+    "size": 2
+}
+
+GET /product
+
+# 对非nested类型的数据做聚合
+GET /product/_search
+{
+"size": 0,
+"aggs": {
+"brandName":{
+"terms": {
+"field": "brandName",
+"size": 10
+}
+}
+}
+}
+
+# 对nested类型的数据做聚合
+GET /product/_search
+{
+"size": 0
+}
+
+GET /product/_search
+{
+"size": 0,
+"aggs": {
+"attrAgg": {
+"nested": {
+"path": "attrs"
+},
+"aggs": {
+"attrNameAgg": {
+"terms": {
+"field": "attrs.attrName",
+"size": 10
+},
+"aggs": {
+"aggrIdAgg": {
+"terms": {
+"field": "attrs.attrId",
+"size": 10
+},
+"aggs": {
+"attrValueAgg": {
+"terms": {
+"field": "attrs.attrValue",
+"size": 10
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+
+
+GET /product/_search
+{
+"query": {
+"bool": {
+"must": [
+{
+"match": {
+"all": "手机"
+}
+}
+],
+"filter": [
+{
+"range": {
+"skuPrice": {
+"gte": 1,
+"lte": 10000
+}
+}
+},
+{
+"term": {
+"categoryId": 126
+}
+}
+]
+}
+},
+"aggs": {
+"brandAgg":{
+"terms": {
+"field": "brandName",
+"size": 10
+}
+},
+"attrAgg": {
+"nested": {
+"path": "attrs"
+},
+"aggs": {
+"attrNameAgg": {
+"terms": {
+"field": "attrs.attrName",
+"size": 10
+},
+"aggs": {
+"attrValueAgg": {
+"terms": {
+"field": "attrs.attrValue",
+"size": 10
+}
+}
+}
+}
+}
+}
+},
+"highlight": {
+"fields": {
+"all": {
+"require_field_match": "false"
+}
+}
+},
+"sort": [
+{
+"hotScore": {
+"order": "desc"
+}
+}
+],
+"from": 0,
+"size": 1
+}
