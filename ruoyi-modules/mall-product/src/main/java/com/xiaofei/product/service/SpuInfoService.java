@@ -6,6 +6,8 @@ import com.xiaofei.common.product.vo.SpuInfoVo;
 import com.xiaofei.common.product.vo.spu.SpuVo;
 import com.xiaofei.common.vo.PageVo;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * spu信息
  * User: 李飞
@@ -43,4 +45,11 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
      */
     PageVo<SpuInfoVo> querySpuInfoById(Long spuId);
 
+    /**
+     * 根据spuId查询spu的全部商品信息【商品图片，优惠信息等】
+     *
+     * @param spuId 商品id
+     * @return 返回指定spu下的所有商品信息
+     */
+    SpuVo internalQuerySpuInfoById(Long spuId) throws ExecutionException, InterruptedException;
 }

@@ -1,5 +1,6 @@
 package com.xiaofei.auth.service;
 
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.common.core.exception.mall.MallLoginException;
 import com.xiaofei.common.auth.entity.MemberEntity;

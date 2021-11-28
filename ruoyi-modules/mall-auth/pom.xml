@@ -12,19 +12,20 @@
     <groupId>com.xiaofei</groupId>
     <artifactId>mall-auth</artifactId>
 
+    <description>mall-auth认证</description>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <mysql.version>8.0.19</mysql.version>
+        <seata.version>1.4.2</seata.version>
     </properties>
-
-    <description>mall-auth权限服务</description>
 
     <dependencies>
 
-        <!-- spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- SpringCloud Alibaba Nacos -->
@@ -39,49 +40,18 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        <!-- SpringCloud Alibaba Sentinel -->
-        <!--<dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>-->
-
-        <!-- SpringBoot Actuator -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
         <!-- Mysql Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
-        <!-- Ruoyi Common Security -->
+        <!-- spring-boot-starter-test -->
         <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-security</artifactId>
-        </dependency>
-
-        <!-- Ruoyi Common Redis -->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-redis</artifactId>
-        </dependency>
-
-        <!-- RuoYi Common Log -->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-log</artifactId>
-        </dependency>
-
-        <!-- 下面为自己加的依赖 -->
-
-        <!-- mall-common -->
-        <dependency>
-            <groupId>com.xiaofei</groupId>
-            <artifactId>mall-common</artifactId>
-            <version>3.2.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!--spring-boot-starter-mail-->
@@ -97,9 +67,18 @@
             <optional>true</optional>
         </dependency>
 
+        <!--mall-common-feign【里面包含了mall-common模块】-->
+        <dependency>
+            <groupId>com.xiaofei</groupId>
+            <artifactId>mall-common-feign</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <!--Java包最终打包的名字-->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

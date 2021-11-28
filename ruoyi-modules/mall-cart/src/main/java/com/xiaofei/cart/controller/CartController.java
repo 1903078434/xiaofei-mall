@@ -3,10 +3,10 @@ package com.xiaofei.cart.controller;
 import com.ruoyi.common.core.constant.SecurityConstants;
 import com.ruoyi.common.core.exception.mall.MallCartException;
 import com.ruoyi.common.core.web.domain.AjaxResult;
-import com.xiaofei.cart.entity.CartEntity;
 import com.xiaofei.cart.service.CartService;
-import com.xiaofei.cart.vo.CartReqVo;
-import com.xiaofei.cart.vo.CartRespVo;
+import com.xiaofei.common.cart.entity.CartEntity;
+import com.xiaofei.common.cart.vo.CartReqVo;
+import com.xiaofei.common.cart.vo.CartRespVo;
 import com.xiaofei.common.utils.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,41 +32,41 @@ public class CartController {
 
     @ApiOperation(value = "添加购物车", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
     @PostMapping("/auth")
-    public ResponseResult<List<String>> addCart(@RequestHeader(SecurityConstants.DETAILS_USER_ID) Long userId,
-                                                @RequestBody List<CartReqVo> cartReqVos) throws MallCartException {
+    public ResponseResult<List<Long>> addCart(@RequestHeader(SecurityConstants.DETAILS_USER_ID) Long userId,
+                                              @RequestBody List<CartReqVo> cartReqVos) throws MallCartException {
 
-        List<String> items = cartService.addCart(userId, cartReqVos);
+        List<Long> items = cartService.addCart(userId, cartReqVos);
 
-        return new ResponseResult<List<String>>().success(items);
+        return new ResponseResult<List<Long>>().success(items);
     }
 
     @ApiOperation(value = "删除购物车信息", httpMethod = "DELETE", response = ResponseResult.class, produces = "application/json")
     @ApiImplicitParam(name = "id", value = "购物车id", paramType = "path", required = true, dataType = "String")
     @DeleteMapping("/auth")
-    public ResponseResult<Boolean> deleteCart(@RequestBody String id) {
+    public ResponseResult<String> deleteCart(@RequestBody String id) {
 
-        cartService.deleteCart(id);
+        boolean isSuccess = cartService.deleteCart(id);
 
-        return new ResponseResult<Boolean>().success();
+        return new ResponseResult<String>().success(isSuccess ? "删除成功" : "删除失败");
     }
 
     @ApiOperation(value = "根据用户id和skuIds删除购物车信息", httpMethod = "DELETE", response = ResponseResult.class, produces = "application/json")
     @DeleteMapping("/auth/byskuids")
-    public ResponseResult<Boolean> deleteCartBySkuId(@RequestHeader(SecurityConstants.DETAILS_USER_ID) Long userId,
-                                                     @RequestBody List<Long> skuIds) {
-        cartService.deleteCartBySkuId(userId, skuIds);
+    public ResponseResult<String> deleteCartBySkuId(@RequestHeader(SecurityConstants.DETAILS_USER_ID) Long userId,
+                                                    @RequestBody List<Long> skuIds) {
+        boolean isSuccess = cartService.deleteCartBySkuId(userId, skuIds);
 
-        return new ResponseResult<Boolean>().success();
+        return new ResponseResult<String>().success(isSuccess ? "删除成功" : "删除失败");
     }
 
     @ApiOperation(value = "修改购物车信息", httpMethod = "PUT", response = ResponseResult.class, produces = "application/json")
     @PutMapping("/auth")
-    public ResponseResult<String> updateCart(@RequestHeader(SecurityConstants.DETAILS_USER_ID) Long userId,
-                                             @RequestBody CartReqVo cartReqVo) throws MallCartException {
+    public ResponseResult<Long> updateCart(@RequestHeader(SecurityConstants.DETAILS_USER_ID) Long userId,
+                                           @RequestBody CartReqVo cartReqVo) throws MallCartException {
 
-        String id = cartService.updateCart(userId, cartReqVo);
+        Long id = cartService.updateCart(userId, cartReqVo);
 
-        return new ResponseResult<String>().success(id);
+        return new ResponseResult<Long>().success(id);
     }
 
     @ApiOperation(value = "全选和全不选", httpMethod = "PUT", response = ResponseResult.class, produces = "application/json")

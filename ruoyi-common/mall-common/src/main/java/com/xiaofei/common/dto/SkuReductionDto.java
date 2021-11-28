@@ -16,12 +16,12 @@ import java.util.List;
 @ApiModel("满减信息和折扣信息")
 public class SkuReductionDto {
     private Long skuId;
-    private int fullCount;
-    private BigDecimal discount;
-    private int countStatus;
-    private BigDecimal skuPrice;
-    private BigDecimal fullPrice;
-    private BigDecimal reducePrice;
-    private int priceStatus;
-    private List<MemberPrice> memberPrice;
+    private Integer fullCount;//满几件
+    private BigDecimal discount;//打几折
+    private Integer countStatus;//满几件打几折，是否可叠加优惠
+    private BigDecimal skuPrice;//商品价格
+    private BigDecimal fullPrice;//满多少
+    private BigDecimal reducePrice;//减多少
+    private Integer priceStatus;//满多少减多少中的是否可叠加优惠
+    private List<MemberPrice> memberPrice;//会员价格
 }

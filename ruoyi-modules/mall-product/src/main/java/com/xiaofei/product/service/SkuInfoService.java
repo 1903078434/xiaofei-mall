@@ -16,6 +16,14 @@ import java.util.concurrent.ExecutionException;
 public interface SkuInfoService extends IService<SkuInfoEntity> {
 
     /**
+     * 商品修改
+     *
+     * @param skuInfo 商品信息
+     * @return true：修改成功。false：修改失败
+     */
+    Boolean skuEdit(SkuInfoEntity skuInfo);
+
+    /**
      * 分页查询sku信息
      *
      * @param skuInfoVo 查询条件
@@ -30,4 +38,6 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
      * @return 商品详情页面的信息
      */
     SkuDetailInfoVo querySkuItemInfo(Long skuId) throws ExecutionException, InterruptedException;
+
+
 }

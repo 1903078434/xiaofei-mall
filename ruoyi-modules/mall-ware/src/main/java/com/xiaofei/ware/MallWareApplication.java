@@ -2,11 +2,11 @@ package com.xiaofei.ware;
 
 import com.ruoyi.common.security.annotation.EnableCustomConfig;
 import com.ruoyi.common.security.annotation.EnableRyFeignClients;
+import com.ruoyi.common.security.handler.GlobalExceptionHandler;
 import com.ruoyi.common.swagger.annotation.EnableCustomSwagger2;
+import com.xiaofei.feign.ProductFeignService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -18,9 +18,11 @@ import org.springframework.context.annotation.ComponentScan;
 //@EnableDiscoveryClient //将服务注册到nacos中,需要设置spring.application.name的值
 //@ComponentScan(basePackages = {"com.xiaofei.common","com.xiaofei.ware"})
 //@SpringBootApplication
+@ComponentScan(basePackages = {"com.xiaofei.**", "com.ruoyi.**"})
 @EnableCustomConfig
 @EnableCustomSwagger2
-@EnableRyFeignClients
+@EnableRyFeignClients(clients =
+        {ProductFeignService.class})
 @SpringBootApplication
 public class MallWareApplication {
 

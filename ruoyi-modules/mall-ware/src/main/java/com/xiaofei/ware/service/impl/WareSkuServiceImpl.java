@@ -9,11 +9,12 @@ import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.order.dto.OrderSkuDto;
 import com.xiaofei.common.order.vo.OrderReqVo;
+import com.xiaofei.common.product.entity.SkuInfoEntity;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.common.ware.entity.WareSkuEntity;
 import com.xiaofei.common.ware.vo.WareSkuVo;
-import com.xiaofei.ware.feign.ProductFeignService;
+import com.xiaofei.feign.ProductFeignService;
 import com.xiaofei.ware.mapper.WareSkuDao;
 import com.xiaofei.ware.service.WareSkuService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -52,8 +53,9 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     public Map<String, Object> addWareSku(WareSkuVo wareSkuVo) {
 
         //查询指定sku是否存在
-        AjaxResult response = productFeignService.querySpuInfoById(wareSkuVo.getSkuId());
-        Map<String, Object> skuInfoEntity = (Map<String, Object>) response.get("data");
+        ResponseResult<SkuInfoEntity> response = productFeignService.querySkuInfoById(wareSkuVo.getSkuId());
+        SkuInfoEntity skuInfoEntity = response.getData();
+        //Map<String, Object> skuInfoEntity = (Map<String, Object>) response.get("data");
 
         Map<String, Object> resp = new HashMap<>();//需要返回的信息
         if (skuInfoEntity != null) {
@@ -65,7 +67,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
                 //添加操作
                 WareSkuEntity wareSkuEntity = new WareSkuEntity();
                 BeanUtils.copyProperties(wareSkuVo, wareSkuEntity);
-                wareSkuEntity.setSkuName((String) skuInfoEntity.get("skuName"));
+                wareSkuEntity.setSkuName(skuInfoEntity.getSkuName());
                 boolean isSuccess = this.save(wareSkuEntity);
                 resp.put("isSuccess", isSuccess);
                 resp.put("msg", isSuccess ? "添加成功" : "添加失败");

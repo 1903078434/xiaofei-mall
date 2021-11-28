@@ -17,4 +17,12 @@ public interface SkuFullReductionService extends IService<SkuFullReductionEntity
      * @param skuReductionDto 商品的优惠信息
      */
     boolean saveSkuReduction(SkuReductionDto skuReductionDto);
+
+    /**
+     * 根据skuId查询商品的所有折扣信息
+     *
+     * @param skuId 商品id
+     * @return 返回指定商品的所有优惠信息
+     */
+    SkuReductionDto querySkuDiscountBySkuId(Long skuId);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * User: 李飞
@@ -49,6 +50,14 @@ public class SpuInfoController {
     public AjaxResult queryByPage(SpuInfoVo spuInfoVo) {
         PageVo<SpuInfoVo> page = spuInfoService.queryByPage(spuInfoVo);
         return AjaxResult.success().put("data", page);
+    }
+
+    @ApiOperation(value = "根据spuId查询spu的全部商品信息【商品图片，优惠信息等】", httpMethod = "GET", response = ResponseResult.class, produces = "application/json")
+    @ApiImplicitParam(name = "spuId", value = "商品id", paramType = "path", required = true, dataType = "Long")
+    @GetMapping("/internal/{spuId}")
+    public ResponseResult<SpuVo> internalQuerySpuInfoById(@PathVariable("spuId") Long spuId) throws ExecutionException, InterruptedException {
+        SpuVo item = spuInfoService.internalQuerySpuInfoById(spuId);
+        return new ResponseResult<SpuVo>().success(item);
     }
 
     @ApiOperation(value = "根据spuId查询spu信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")

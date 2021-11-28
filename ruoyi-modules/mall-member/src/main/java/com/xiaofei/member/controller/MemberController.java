@@ -3,9 +3,7 @@ package com.xiaofei.member.controller;
 import com.ruoyi.common.core.constant.SecurityConstants;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.xiaofei.common.member.entity.MemberEntity;
-import com.xiaofei.common.member.vo.MemberQueryRespVo;
-import com.xiaofei.common.member.vo.MemberQueryVo;
-import com.xiaofei.common.member.vo.MemberUpdateVo;
+import com.xiaofei.common.member.vo.*;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.member.service.MemberService;
@@ -43,6 +41,26 @@ public class MemberController {
         return new ResponseResult<Boolean>().success(isUpdate ? "修改成功" : "修改失败", isUpdate);
     }
 
+    @ApiOperation(value = "修改密码", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
+    @PutMapping("/auth/update/password")
+    public ResponseResult<Boolean> updateMemberPassword(@RequestHeader(name = SecurityConstants.DETAILS_USER_ID) Long userId,
+                                                    @RequestHeader(name = SecurityConstants.DETAILS_USERNAME) String username,
+                                                    @RequestBody MemberPasswordVo memberPasswordVo) {
+        boolean isUpdate = memberService.updateMemberPassword(userId, username, memberPasswordVo);
+
+        return new ResponseResult<Boolean>().success(isUpdate ? "修改成功" : "修改失败", isUpdate);
+    }
+
+    @ApiOperation(value = "修改用户信息", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
+    @PutMapping("/auth")
+    public ResponseResult<Boolean> updateMemberInfo(@RequestHeader(name = SecurityConstants.DETAILS_USER_ID) Long userId,
+                                                    @RequestHeader(name = SecurityConstants.DETAILS_USERNAME) String username,
+                                                    @RequestBody MemberUpdateVo memberUpdateVo) {
+        boolean isUpdate = memberService.updateMemberInfo(userId, username, memberUpdateVo);
+
+        return new ResponseResult<Boolean>().success(isUpdate ? "修改成功" : "修改失败", isUpdate);
+    }
+
     @ApiOperation(value = "管理员获取所有的用户列表", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @GetMapping("/internal")
     public ResponseResult<PageVo<MemberQueryRespVo>> queryMemberByPage(MemberQueryVo memberQueryVo) {
@@ -51,10 +69,12 @@ public class MemberController {
     }
 
     @ApiOperation(value = "用户查询用户的具体信息和其他的订单、优惠券等信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
-    @GetMapping("/querymemberdetailinfo")
-    public ResponseResult<MemberQueryRespVo> queryMemberDetailInfo() {
-        //TODO 用户详细信息页面
-        return null;
+    @GetMapping("/auth/querymemberdetailinfo")
+    public ResponseResult<MemberPageRespVo> queryMemberDetailInfo(@RequestHeader(name = SecurityConstants.DETAILS_USER_ID) Long userId,
+                                                                  @RequestHeader(name = SecurityConstants.DETAILS_USERNAME) String username) {
+        MemberPageRespVo resp = memberService.queryMemberDetailInfo(userId, username);
+
+        return new ResponseResult<MemberPageRespVo>().success(resp);
     }
 
 }

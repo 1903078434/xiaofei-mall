@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -59,7 +60,7 @@ public class MemberEntity implements Serializable {
 	/**
 	 * 生日
 	 */
-	private Date birth;
+	private LocalDate birth;
 	/**
 	 * 所在城市
 	 */

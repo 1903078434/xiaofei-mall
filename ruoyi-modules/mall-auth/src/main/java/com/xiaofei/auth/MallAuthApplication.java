@@ -7,7 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = {"com.xiaofei.**","com.ruoyi.**"})
+@ComponentScan(basePackages = {"com.xiaofei.**", "com.ruoyi.**"})
+//@ComponentScan(basePackages = {"com.ruoyi.common.redis"})
 @EnableCustomConfig
 @EnableRyFeignClients
 @EnableCustomSwagger2

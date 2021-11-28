@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit;
  * Date: 2021/8/14
  * Time: 19:58
  */
+@Order(-1)
 @Component
 public class MallAuthFilter implements GlobalFilter, Ordered {
     private static final Logger log = LoggerFactory.getLogger(MallAuthFilter.class);
@@ -86,15 +88,14 @@ public class MallAuthFilter implements GlobalFilter, Ordered {
             addHeader(mutate, SecurityConstants.DETAILS_USER_ID, userId);
             addHeader(mutate, SecurityConstants.DETAILS_USERNAME, userName);
             // 内部请求来源参数清除
-            removeHeader(mutate, SecurityConstants.FROM_SOURCE);
+            removeHeader(mutate);
             return chain.filter(exchange.mutate().request(mutate.build()).build());
         }
 
         // 内部请求来源参数清除
-        removeHeader(mutate, SecurityConstants.FROM_SOURCE);
+        removeHeader(mutate);
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
-
 
 
     private void addHeader(ServerHttpRequest.Builder mutate, String name, Object value) {
@@ -106,8 +107,8 @@ public class MallAuthFilter implements GlobalFilter, Ordered {
         mutate.header(name, valueEncode);
     }
 
-    private void removeHeader(ServerHttpRequest.Builder mutate, String name) {
-        mutate.headers(httpHeaders -> httpHeaders.remove(name)).build();
+    private void removeHeader(ServerHttpRequest.Builder mutate) {
+        mutate.headers(httpHeaders -> httpHeaders.remove(SecurityConstants.FROM_SOURCE)).build();
     }
 
     private Mono<Void> unauthorizedResponse(ServerWebExchange exchange, String msg) {
@@ -128,8 +129,11 @@ public class MallAuthFilter implements GlobalFilter, Ordered {
     private String getToken(ServerHttpRequest request) {
         String token = request.getHeaders().getFirst(TokenConstants.AUTHENTICATION);
         // 如果前端设置了令牌前缀，则裁剪掉前缀
-        if (StringUtils.isNotEmpty(token) && token.startsWith(TokenConstants.PREFIX)) {
-            token = token.replaceFirst(TokenConstants.PREFIX, StringUtils.EMPTY);
+        if (StringUtils.isNotEmpty(token)) {
+            assert token != null;
+            if (token.startsWith(TokenConstants.PREFIX)) {
+                token = token.replaceFirst(TokenConstants.PREFIX, StringUtils.EMPTY);
+            }
         }
         return token;
     }

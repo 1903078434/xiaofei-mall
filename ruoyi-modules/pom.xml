@@ -15,6 +15,16 @@
         <module>ruoyi-file</module>
         <module>mall-product</module>
         <module>mall-ware</module>
+        <module>mall-cart</module>
+        <module>mall-coupon</module>
+        <module>mall-member</module>
+        <module>mall-order</module>
+        <module>mall-third-part</module>
+        <module>mall-elasticsearch</module>
+        <module>mall-auth</module>
+        <!--
+		<module>mall-product</module>
+        <module>mall-ware</module>
         <module>mall-auth</module>
         <module>mall-cart</module>
         <module>mall-coupon</module>
@@ -22,6 +32,7 @@
         <module>mall-member</module>
         <module>mall-order</module>
         <module>mall-third-part</module>
+		-->
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>

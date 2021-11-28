@@ -13,10 +13,10 @@ import com.xiaofei.common.order.enums.*;
 import com.xiaofei.common.order.vo.*;
 import com.xiaofei.common.product.entity.SpuInfoEntity;
 import com.xiaofei.common.utils.ResponseResult;
-import com.xiaofei.order.feign.CartFeignService;
-import com.xiaofei.order.feign.MemberFeignService;
-import com.xiaofei.order.feign.ProductFeignService;
-import com.xiaofei.order.feign.WareFeignService;
+import com.xiaofei.feign.CartFeignService;
+import com.xiaofei.feign.MemberFeignService;
+import com.xiaofei.feign.ProductFeignService;
+import com.xiaofei.feign.WareFeignService;
 import com.xiaofei.order.mapper.OrderMapper;
 import com.xiaofei.order.service.OrderItemService;
 import com.xiaofei.order.service.OrderService;
@@ -172,9 +172,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
             throw new OrderException("订单生成失败，请重新提交订单");
         }
 
-        //设置订单项信息，获取所有的spuId
-        Set<Long> spuIds = orderVo.getOrderItemInfos().stream().map(OrderVo.OrderItemInfo::getSkuId).collect(Collectors.toSet());
+        // 判断是否生成了订单id
+        if (orderEntity.getId() == null || orderEntity.getId() < 1) {
+            throw new OrderException("订单生成失败，请重新提交订单");
+        }
 
+
+        //设置订单项信息，获取所有的spuId
+        Set<Long> spuIds = orderVo.getOrderItemInfos().stream().map(OrderVo.OrderItemInfo::getSpuId).collect(Collectors.toSet());
+
+        // 根据订单id远程调用商品服务，获取spu的信息，组成Map形式，key：spuId。value：spuInfo
         Map<Long, SpuInfoEntity> spuInfoMap = productFeignService.querySpuInfoByIds(spuIds).getData()
                 .stream().collect(Collectors.toMap(SpuInfoEntity::getId, spuInfoEntity -> spuInfoEntity));
 
@@ -186,7 +193,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
                 orderItemEntity.setOrderId(orderEntity.getId());
                 orderItemEntity.setOrderSn(orderEntity.getOrderSn());
                 orderItemEntity.setSpuName(spuInfoEntity.getSpuName() + "  " + spuInfoEntity.getSpuDescription() + "  " + orderItemInfo.getSkuName());
-                orderItemEntity.setSpuPic(orderItemInfo.getSkuPic());
                 orderItemEntity.setSpuPic(orderItemInfo.getSkuPic());
                 orderItemEntity.setSpuBrand(spuInfoEntity.getBrandId() + "");
                 orderItemEntity.setCategoryId(spuInfoEntity.getCatalogId());
@@ -235,7 +241,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
     @Override
     public boolean updateOrder(Long userId, String username, OrderUpdateVo orderUpdateVo) {
         //判断修改订单状态是否为发货状态，如果为发货状态，直接返回false
-        if(orderUpdateVo.getStatus().equals(OrderStatusEnum.SHIPPED.getStatusId())){
+        if (orderUpdateVo.getStatus().equals(OrderStatusEnum.SHIPPED.getStatusId())) {
             return false;
         }
 
@@ -243,19 +249,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
                 .eq("member_id", userId).eq("member_username", username)
                 .eq("id", orderUpdateVo.getId()).eq("order_sn", orderUpdateVo.getOrderSn());
 
-        return updateOrder(queryWrapper,orderUpdateVo);
+        return updateOrder(queryWrapper, orderUpdateVo);
     }
 
     /**
      * 普通用户和管理员修改订单的通用部分
+     *
      * @return true：修改成功。false：修改失败
      */
-    private boolean updateOrder(QueryWrapper<OrderEntity> queryWrapper ,OrderUpdateVo orderUpdateVo ){
+    private boolean updateOrder(QueryWrapper<OrderEntity> queryWrapper, OrderUpdateVo orderUpdateVo) {
         OrderEntity orderEntity = new OrderEntity();
 
-        BeanUtils.copyProperties(orderUpdateVo,orderEntity);
+        BeanUtils.copyProperties(orderUpdateVo, orderEntity);
 
-        return this.update(orderEntity,queryWrapper);
+        return this.update(orderEntity, queryWrapper);
     }
 
     /**
@@ -267,7 +274,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
     @Override
     public boolean updateOrder(OrderUpdateVo orderUpdateVo) {
         QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<OrderEntity>().eq("id", orderUpdateVo.getId()).eq("order_sn", orderUpdateVo.getOrderSn());
-        return updateOrder(queryWrapper,orderUpdateVo);
+        return updateOrder(queryWrapper, orderUpdateVo);
     }
 
     /**
@@ -289,7 +296,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
 
         //调用仓库服务，修改库存信息
         ResponseResult<Boolean> wareResp = wareFeignService.paySuccess(orderReqVo.getSkuInfos());
-        if(wareResp.getCode()!=200){
+        if (wareResp.getCode() != 200) {
             throw new OrderException("支付失败，请重新支付");
         }
 

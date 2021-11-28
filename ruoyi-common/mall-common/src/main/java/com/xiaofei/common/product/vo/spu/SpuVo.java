@@ -11,6 +11,9 @@ import java.util.List;
 @Data
 public class SpuVo {
 
+    @ApiModelProperty("spuId")
+    private Long spuId;
+
     @ApiModelProperty("spu名称")
     private String spuName;
 

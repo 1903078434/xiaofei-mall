@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaofei.common.product.entity.ProvincesEntity;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.member.entity.MemberReceiveAddressEntity;
-import com.xiaofei.member.feign.ProductFeign;
+import com.xiaofei.feign.ProductFeignService;
 import com.xiaofei.member.mapper.MemberReceiveAddressMapper;
 import com.xiaofei.member.service.MemberReceiveAddressService;
 import com.xiaofei.member.vo.MemberReceiveAddressVo;
@@ -25,7 +25,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAddressMapper, MemberReceiveAddressEntity> implements MemberReceiveAddressService {
 
     @Autowired
-    private ProductFeign productFeign;
+    private ProductFeignService productFeignService;
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
 
@@ -44,7 +44,7 @@ public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAd
         //远程调用地区信息
         CompletableFuture<Void> getProvinces = CompletableFuture.runAsync(() -> {
             //远程调用，获取地区信息
-            ResponseResult<ProvincesEntity> resp = productFeign.queryProvincesById(memberReceiveAddressVo.getProvincesId());
+            ResponseResult<ProvincesEntity> resp = productFeignService.queryProvincesById(memberReceiveAddressVo.getProvincesId());
             ProvincesEntity provincesEntity = resp.getData();
             //设置地区信息
             String[] split = provincesEntity.getMergerName().split(",");
@@ -125,7 +125,7 @@ public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAd
                 .eq("id", id).eq("member_id", userId));
 
         //远程调用获取地区的全路径信息
-        ResponseResult<List<Integer>> resp = productFeign.findProvincesPath(memberReceiveAddressEntity.getProvincesId());
+        ResponseResult<List<Integer>> resp = productFeignService.findProvincesPath(memberReceiveAddressEntity.getProvincesId());
         memberReceiveAddressEntity.setProvincesPath(resp.getData());
 
         return memberReceiveAddressEntity;
@@ -136,7 +136,7 @@ public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAd
      */
     private MemberReceiveAddressEntity queryProvincesById(Integer provincesId) {
         MemberReceiveAddressEntity memberReceiveAddressEntity = new MemberReceiveAddressEntity();
-        ResponseResult<ProvincesEntity> resp = productFeign.queryProvincesById(provincesId);
+        ResponseResult<ProvincesEntity> resp = productFeignService.queryProvincesById(provincesId);
         ProvincesEntity provincesEntity = resp.getData();
         //设置地区信息
         String[] split = provincesEntity.getMergerName().split(",");

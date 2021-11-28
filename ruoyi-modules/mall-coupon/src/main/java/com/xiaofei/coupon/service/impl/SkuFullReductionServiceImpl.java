@@ -1,5 +1,6 @@
 package com.xiaofei.coupon.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaofei.common.coupon.entity.MemberPriceEntity;
 import com.xiaofei.common.coupon.entity.SkuFullReductionEntity;
@@ -32,6 +33,9 @@ public class SkuFullReductionServiceImpl extends ServiceImpl<SkuFullReductionDao
 
     @Autowired
     private MemberPriceService memberPriceService;
+
+    @Autowired
+    private SkuFullReductionService skuFullReductionService;
 
     /**
      * 保存商品的折扣信息和优惠信息
@@ -80,5 +84,45 @@ public class SkuFullReductionServiceImpl extends ServiceImpl<SkuFullReductionDao
 
         //如果有会员价格的时候才添加
         return memberPriceService.saveBatch(memberPriceEntities);
+    }
+
+
+    /**
+     * 根据skuId查询商品的所有折扣信息
+     *
+     * @param skuId 商品id
+     * @return 返回指定商品的所有优惠信息
+     */
+    @Override
+    public SkuReductionDto querySkuDiscountBySkuId(Long skuId) {
+        SkuReductionDto skuReductionDto = new SkuReductionDto();
+
+        // 1、查询满减
+        SkuLadderEntity skuLadder = skuLadderService.getOne(new QueryWrapper<SkuLadderEntity>().eq("sku_id", skuId));
+        skuReductionDto.setSkuId(skuId);
+        skuReductionDto.setFullCount(skuLadder.getFullCount());
+        skuReductionDto.setDiscount(skuLadder.getDiscount());
+        skuReductionDto.setCountStatus(skuLadder.getAddOther());
+
+        // 2、查询满减
+        SkuFullReductionEntity skuFullReductionEntity = skuFullReductionService
+                .getOne(new QueryWrapper<SkuFullReductionEntity>().eq("sku_id", skuId));
+        BeanUtils.copyProperties(skuFullReductionEntity, skuReductionDto);
+        skuReductionDto.setPriceStatus(skuFullReductionEntity.getAddOther());
+
+
+        // 4、查询会员价格
+        List<MemberPriceEntity> memberPriceEntities = memberPriceService.list(new QueryWrapper<MemberPriceEntity>()
+                .eq("sku_id", skuId));
+        List<MemberPrice> memberPrices = memberPriceEntities.stream().map(memberPriceEntity -> {
+            MemberPrice memberPrice = new MemberPrice();
+            memberPrice.setId(memberPriceEntity.getId());
+            memberPrice.setPrice(memberPriceEntity.getMemberPrice());
+            memberPrice.setName(memberPriceEntity.getMemberLevelName());
+            return memberPrice;
+        }).collect(Collectors.toList());
+        skuReductionDto.setMemberPrice(memberPrices);
+
+        return skuReductionDto;
     }
 }

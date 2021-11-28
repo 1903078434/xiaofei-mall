@@ -1,7 +1,5 @@
-# Tomcat
 server:
-  port: 9000
-
+  port: 9004
 # Spring
 spring:
   application:
@@ -16,11 +14,45 @@ spring:
         # 服务注册地址
         server-addr: 127.0.0.1:8848
       config:
-        namespace: cb183fe3-4ad3-40f8-afde-4fb9e810e592 # 指定命名空间
-        # 配置中心地址
-        server-addr: 127.0.0.1:8848
-        # 配置文件格式
-        file-extension: yml
-        # 共享配置
-        shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        file-extension: yaml
+
+seata:
+  registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址
+    # 参考tc服务自己的registry.conf中的配置
+    type: nacos
+    nacos: # tc
+      server-addr: 127.0.0.1:8848
+      namespace: ""
+      group: DEFAULT_GROUP
+      application: seata-server # seata服务在nacos中的服务名称
+      username: nacos
+      password: nacos
+      cluster: default
+  tx-service-group: ${spring.application.name} # 事务组，根据这个获取seata服务的cluster名称
+  service:
+    vgroup-mapping: # 事务组与seata服务cluster的映射关系
+      mall-member: default
+  data-source-proxy-mode: AT # 开启数据源代理模式，默认为AT
+
+feign:
+  client:
+    config:
+      default: # default全局的配置
+        loggerLevel: BASIC # 日志级别，BASIC就是基本的请求和响应信息
+  httpclient:
+    enabled: true # 开启feign对HttpClient的支持
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+
+
+
+
+
+
+
+
+
+
+
+
+

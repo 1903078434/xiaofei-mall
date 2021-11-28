@@ -23,7 +23,7 @@ public class OrderItemQueryVo extends BasePage {
     @ApiModelProperty("订单号")
     private String orderSn;
 
-    @ApiModelProperty("订单状态")
+    @ApiModelProperty("订单状态【0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单】")
     private Byte orderStatus;
 
     @ApiModelProperty("订单产生时间")

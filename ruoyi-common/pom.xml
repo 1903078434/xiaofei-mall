@@ -16,7 +16,9 @@
         <module>ruoyi-common-security</module>
         <module>ruoyi-common-datascope</module>
 		<module>ruoyi-common-datasource</module>
-		<module>mall-common</module>
+        <module>mall-common</module>
+        <module>mall-common-feign</module>
+        <!--<module>mall-common</module>-->
     </modules>
 
     <artifactId>ruoyi-common</artifactId>

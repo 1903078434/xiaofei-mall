@@ -2,37 +2,41 @@ package com.xiaofei.es.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.xiaofei.common.dto.SkuESDto;
-import com.xiaofei.common.es.vo.ProductRespVo;
 import com.xiaofei.common.es.vo.SearchVo;
 import com.xiaofei.common.vo.PageVo;
-import com.xiaofei.es.constant.EsSearchConstant;
+import com.xiaofei.es.constant.ESSearchConstant;
 import com.xiaofei.es.entity.Product;
 import com.xiaofei.es.repository.ProductRepository;
 import com.xiaofei.es.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 /**
  * User: 李飞
@@ -49,6 +53,20 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
+
+    /**
+     * 根据skuId删除商品信息
+     *
+     * @param skuId 商品id
+     */
+    @Override
+    public void deleteProduct(Long skuId) throws IOException {
+        DeleteRequest request = new DeleteRequest("product", skuId.toString());
+        restHighLevelClient.delete(request, RequestOptions.DEFAULT);
+    }
+
     /**
      * 将商品信息保存到ES中
      *
@@ -56,14 +74,19 @@ public class ProductServiceImpl implements ProductService {
      * @return true：保存成功。false：保存失败
      */
     @Override
-    public boolean saveProduct(List<SkuESDto> skuESDtos) {
+    public boolean saveProduct(List<SkuESDto> skuESDtos) throws IOException {
+
+        BulkRequest bulkRequest = new BulkRequest();
         try {
-            List<Product> products = skuESDtos.stream().map(skuESDto -> {
+            /*elasticsearchRestTemplate.save(skuESDtos);*/
+            skuESDtos.forEach(skuESDto -> {
                 Product product = new Product();
                 BeanUtils.copyProperties(skuESDto, product);
-                return product;
-            }).collect(Collectors.toList());
-            productRepository.saveAll(products);
+                bulkRequest.add(new IndexRequest("product").id(skuESDto.getSkuId().toString())
+                        .source(JSON.toJSONString(product), XContentType.JSON));
+            });
+
+            restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
         } catch (Exception e) {
             log.error("ES保存商品失败，错误信息为：{}", e);
             return false;
@@ -79,13 +102,26 @@ public class ProductServiceImpl implements ProductService {
      * @return 返回推荐的数据
      */
     @Override
-    public List<Product> getProductRandom(Long brandId, Long categoryId) {
-        //构建查询条件
-        NativeSearchQuery query = new NativeSearchQueryBuilder().build();
+    public List<Product> getProductRandom(Long brandId, Long categoryId) throws IOException {
+        SearchRequest request = new SearchRequest("product");
+        request.source()
+                .query(QueryBuilders.matchAllQuery())
+                .from(0)
+                .size(60)
+                .sort("hotScore", SortOrder.DESC);
+        SearchResponse response = restHighLevelClient.search(request, RequestOptions.DEFAULT);
+        return getHits(response);
+    }
 
-        Pageable pageable = PageRequest.of(0, 100);
-        Page<Product> page = productRepository.findAll(pageable);
-        return page.getContent();
+    /**
+     * 根据skuId查询商品信息
+     *
+     * @param skuId 商品id
+     * @return 返回商品信息
+     */
+    @Override
+    public Product getProductById(Long skuId) {
+        return elasticsearchRestTemplate.get(skuId.toString(), Product.class);
     }
 
     /**
@@ -94,10 +130,10 @@ public class ProductServiceImpl implements ProductService {
      * @param searchVo 搜索条件
      */
     @Override
-    public PageVo<ProductRespVo> searchProduct(SearchVo searchVo) {
+    public PageVo<Product> searchProduct(SearchVo searchVo) throws IOException {
+        SearchRequest request = new SearchRequest("product");
 
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-
+        // 创建布尔查询的条件
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
         //价格区间判断
@@ -112,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
         boolQueryBuilder.filter(QueryBuilders.rangeQuery("skuPrice").gte(minPrice).lte(maxPrice));//价格区间
         //判断搜素条件是否为空
         if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("skuTitle", searchVo.getSearchValue()))  ;//匹配查询，需要分词和评分
+            boolQueryBuilder.must(QueryBuilders.matchQuery("all", searchVo.getSearchValue()));//匹配查询，需要分词和评分
         }
 
         //判断类别id
@@ -130,104 +166,58 @@ public class ProductServiceImpl implements ProductService {
             boolQueryBuilder.filter(QueryBuilders.termsQuery("brandId", searchVo.getBrandId()));
         }
 
-        queryBuilder.withQuery(boolQueryBuilder);
-
-        //TODO 属性查询，以后再整合
-
-        queryBuilder.withPageable(PageRequest.of(searchVo.getPageNo() - 1, searchVo.getPageSize()));//分页查询
-
-        HighlightBuilder highlightBuilder = new HighlightBuilder();//高亮查询构建
-        highlightBuilder.preTags("<span style='color:red;'>");//样式前缀
-        highlightBuilder.postTags("</span>");//样式后缀
-        highlightBuilder.field("skuTitle");//设置需要高亮的属性
-        queryBuilder.withHighlightBuilder(highlightBuilder);//设置高亮查询
-
-        //排序查询
+        // 设置排序
+        FieldSortBuilder sortBuilder = null;
         if (searchVo.getSort() != null) {
-            EsSearchConstant.SortStatus sortStatus = EsSearchConstant.SortStatus.getSortStatus(searchVo.getSort());
-            queryBuilder.withSort(new FieldSortBuilder(sortStatus.getField()).order(sortStatus.getSortOrder()));
+            ESSearchConstant.SortStatus sortStatus = ESSearchConstant.SortStatus.getSortStatus(searchVo.getSort());
+            sortBuilder = SortBuilders.fieldSort(sortStatus.getField()).order(sortStatus.getSortOrder());
+        } else {
+            sortBuilder = SortBuilders.fieldSort("hotScore").order(SortOrder.DESC);
         }
 
-        // TODO 聚合信息已经完成，以后再整合
 
-        //聚合品牌信息
-        TermsAggregationBuilder brandAgg = AggregationBuilders.terms("brandId");
-        brandAgg.field("brandId").size(50);
-        brandAgg.subAggregation(AggregationBuilders.terms("brandName").field("brandName.keyword").size(1));
-        brandAgg.subAggregation(AggregationBuilders.terms("brandImg").field("brandImg.keyword").size(1));
-        queryBuilder.addAggregation(brandAgg);
+        // 布尔查询
+        request.source()
+                .query(boolQueryBuilder)
+                .from((searchVo.getPageNo() - 1) * searchVo.getPageSize())
+                .size(searchVo.getPageSize())
+                .highlighter(new HighlightBuilder().field("all").requireFieldMatch(false))
+                .sort(sortBuilder);
 
-        //聚合类别信息
-        TermsAggregationBuilder categoryAgg = AggregationBuilders.terms("categoryId");
-        categoryAgg.field("categoryId").size(50);
-        categoryAgg.subAggregation(AggregationBuilders.terms("categoryName").field("categoryName.keyword")).size(50);
-        queryBuilder.addAggregation(categoryAgg);
 
-        //属性聚合
-        TermsAggregationBuilder attrsAgg = AggregationBuilders.terms("attrId");
-        attrsAgg.field("attrs.attrId").size(100);
-        attrsAgg.subAggregation(AggregationBuilders.terms("attrName").field("attrs.attrName.keyword"));
-        attrsAgg.subAggregation(AggregationBuilders.terms("attrValue").field("attrs.attrValue.keyword"));
-        queryBuilder.addAggregation(attrsAgg);
+        SearchResponse response = restHighLevelClient.search(request, RequestOptions.DEFAULT);
 
-        Query query = queryBuilder.build();
+        //算总共的页数
+        long count = response.getHits().getTotalHits().value;
+        Integer pageTotal = Math.toIntExact(count % searchVo.getPageSize() == 0 ?
+                count / searchVo.getPageSize() :
+                count / searchVo.getPageSize() + 1);
 
-        SearchHits<Product> search = elasticsearchRestTemplate.search(query, Product.class);
 
-        System.out.println(JSON.toJSONString(search.getTotalHitsRelation()));
+        List<Product> items = getHits(response);
 
-        List<ProductRespVo> items = new ArrayList<>();
-        //封装信息
-        search.getSearchHits().forEach(item -> {
-            ProductRespVo productRespVo = new ProductRespVo();
-            BeanUtils.copyProperties(item.getContent(), productRespVo);
-            //如果搜索值没有，则没有高亮
-            if (!StringUtils.isEmpty(searchVo.getSearchValue())) {
-                List<String> skuTitle = item.getHighlightField("skuTitle");
-                if (skuTitle.size() > 0) {
-                    productRespVo.setHighlightFields(skuTitle.get(0));
-                } else {
-                    productRespVo.setHighlightFields("");
+        return new PageVo<>(searchVo.getPageNo(), searchVo.getPageSize(), pageTotal, count, items);
+    }
+
+    /**
+     * 提取SearchResponse中的hits里面的数据【查询结果，高亮结果】
+     */
+    private List<Product> getHits(SearchResponse response) {
+        List<Product> items = new ArrayList<>();
+
+        for (SearchHit hit : response.getHits()) {
+            Product product = JSON.parseObject(hit.getSourceAsString(), Product.class);
+            // 设置高亮
+            Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+            if (CollectionUtils.isEmpty(highlightFields)) {
+                HighlightField highlightField = highlightFields.get("all");
+                if (highlightField != null) {
+                    String all = highlightField.getFragments()[0].string();
+                    product.setSkuTitle(all);
                 }
-            } else {
-                productRespVo.setHighlightFields("");
             }
-            items.add(productRespVo);
-            System.out.println(JSON.toJSONString(productRespVo));
-        });
-
-        Integer pageTotal = Math.toIntExact(search.getTotalHits() % searchVo.getPageSize() == 0 ?
-                search.getTotalHits() / searchVo.getPageSize() :
-                search.getTotalHits() / searchVo.getPageSize() + 1);
-
-        return new PageVo<>(searchVo.getPageNo(), searchVo.getPageSize(), pageTotal, search.getTotalHits(), items);
-
+            items.add(product);
+        }
+        return items;
     }
-
-    /**
-     * 高亮查询测试1
-     */
-    @Override
-    public List<Product> test1(String skuTitle) {
-        return productRepository.queryBySkuTitle(skuTitle);
-    }
-
-    /**
-     * 高亮查询测试1
-     */
-    @Override
-    public SearchHits<Product> test2(String searchValue) {
-        NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
-                //查询条件
-                .withQuery(QueryBuilders.queryStringQuery(searchValue).defaultField("skuTitle"))
-                //分页
-                .withPageable(PageRequest.of(0, 5))
-                .addAggregation(AggregationBuilders.terms("price"))
-                //高亮字段显示
-                .withHighlightFields(new HighlightBuilder.Field("skuTitle"))
-                .build();
-        return elasticsearchRestTemplate.search(nativeSearchQuery, Product.class);
-    }
-
-
 }

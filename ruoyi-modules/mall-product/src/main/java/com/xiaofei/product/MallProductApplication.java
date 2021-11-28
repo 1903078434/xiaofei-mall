@@ -1,20 +1,23 @@
 package com.xiaofei.product;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.ruoyi.common.security.annotation.EnableCustomConfig;
 import com.ruoyi.common.security.annotation.EnableRyFeignClients;
-import com.ruoyi.common.swagger.annotation.EnableCustomSwagger2;
+import com.xiaofei.feign.CouponFeignService;
+import com.xiaofei.feign.SearchFeignService;
+import com.xiaofei.feign.WareFeignService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
- * 商品模块
  * User: 李飞
- * Date: 2021/10/30
- * Time: 10:44
+ * Date: 2021/11/23
+ * Time: 11:15
  */
+@ComponentScan(basePackages = {"com.xiaofei.**", "com.ruoyi.**"})
 @EnableCustomConfig
-@EnableCustomSwagger2
-@EnableRyFeignClients
+@EnableRyFeignClients(clients =
+        {CouponFeignService.class, WareFeignService.class, SearchFeignService.class})
 @SpringBootApplication
 public class MallProductApplication {
     public static void main(String[] args) {

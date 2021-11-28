@@ -16,6 +16,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <description>
         mall-gateway网关模块
     </description>
@@ -46,6 +47,7 @@
             <artifactId>ruoyi-common-redis</artifactId>
         </dependency>
 
+        <!--jjwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -69,4 +71,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

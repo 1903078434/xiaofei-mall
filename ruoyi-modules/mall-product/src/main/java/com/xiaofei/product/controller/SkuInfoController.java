@@ -11,10 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
 
@@ -30,6 +27,14 @@ public class SkuInfoController {
 
     @Autowired
     private SkuInfoService skuInfoService;
+
+    /**
+     * 修改sku信息
+     */
+    @PutMapping
+    public ResponseResult<Boolean> skuEdit(@RequestBody SkuInfoEntity skuInfo) {
+        return new ResponseResult<Boolean>().success(skuInfoService.skuEdit(skuInfo));
+    }
 
     @ApiOperation(value = "根据分页信息查询sku信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @GetMapping

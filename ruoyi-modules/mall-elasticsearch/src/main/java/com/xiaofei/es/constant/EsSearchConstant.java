@@ -10,14 +10,14 @@ import org.springframework.data.domain.Sort;
  * Date: 2021/8/11
  * Time: 0:19
  */
-public class EsSearchConstant {
+public class ESSearchConstant {
 
     /**
      * NativeSearchQueryBuilder的商品排序状态
      */
     public enum SortStatus {
 
-        NORMAL_SORT(0, "skuId", "正常排序", SortOrder.ASC),
+        NORMAL_SORT(0, "hotScore", "正常排序", SortOrder.ASC),
         PRICE_ASC(1, "skuPrice", "价格升序", SortOrder.ASC),
         PRICE_DESC(-1, "skuPrice", "价格降序", SortOrder.DESC),
         SALES_ASC(2, "saleCount", "销量升序", SortOrder.ASC),

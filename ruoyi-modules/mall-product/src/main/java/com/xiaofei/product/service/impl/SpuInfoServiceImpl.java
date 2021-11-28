@@ -1,10 +1,12 @@
 package com.xiaofei.product.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.coupon.entity.SpuBoundsEntity;
 import com.xiaofei.common.dto.SkuESDto;
 import com.xiaofei.common.dto.SkuHasStockDto;
 import com.xiaofei.common.dto.SkuReductionDto;
@@ -14,13 +16,14 @@ import com.xiaofei.common.product.vo.SpuInfoVo;
 import com.xiaofei.common.product.vo.spu.*;
 import com.xiaofei.common.utils.ResponseResult;
 import com.xiaofei.common.vo.PageVo;
-import com.xiaofei.product.feign.CouponFeignService;
-import com.xiaofei.product.feign.SearchFeignService;
-import com.xiaofei.product.feign.WareFeignService;
+import com.xiaofei.feign.CouponFeignService;
+import com.xiaofei.feign.SearchFeignService;
+import com.xiaofei.feign.WareFeignService;
 import com.xiaofei.product.mapper.SpuInfoDao;
 import com.xiaofei.product.service.*;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 /**
@@ -44,38 +52,31 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     @Autowired
     private SpuImagesService spuImagesService;
-
     @Autowired
     private AttrService attrService;
-
     @Autowired
     private CouponFeignService couponFeignService;
-
     @Autowired
     private ProductAttrValueService productAttrValueService;
-
     @Autowired
     private SkuInfoService skuInfoService;
-
     @Autowired
     private SkuImagesService skuImagesService;
-
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
-
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
     private BrandService brandService;
-
     @Autowired
     private WareFeignService wareFeignService;
-
     @Autowired
     private SpuInfoDescService spuInfoDescService;
     @Autowired
     private SearchFeignService searchFeignService;
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
+
 
     /**
      * 添加spu的信息和sku的信息
@@ -215,32 +216,40 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Override
     public Boolean spuUp(Long spuId) {
 
-        //查询所有的基本属性
+        //1.1、查询指定spu商品下面的所有商品属性
         List<ProductAttrValueEntity> productAttrValueEntities = productAttrValueService.getBySpuId(spuId);
-        List<Long> attrIds = productAttrValueEntities.stream().map(ProductAttrValueEntity::getAttrId).collect(Collectors.toList());
-        //可以被检索的属性
-        List<AttrEntity> attrs = attrService.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds).eq("search_type", 1));
 
-        //可检索的属性id
+        //1.2、将所有的属性id提取出来
+        List<Long> attrIds = productAttrValueEntities.stream()
+                .map(ProductAttrValueEntity::getAttrId)
+                .collect(Collectors.toList());
+
+        //1.3、获取可以被检索的属性（检索页可以根据属性搜索商品的属性）
+        List<AttrEntity> attrs = attrService.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds)
+                .eq("search_type", 1));
+
+        //1.4、提取可检索属性的id
         List<Long> searchAttrIds = attrs.stream().map(AttrEntity::getAttrId).collect(Collectors.toList());
-        //过滤出来可查询的销售属性
+        //1.5、根据提取出来的可检索属性的id过滤掉其他不可查询的商品属性
         productAttrValueEntities =
                 productAttrValueEntities.stream().filter(productAttrValueEntity ->
                         searchAttrIds.contains(productAttrValueEntity.getAttrId()))
                         .collect(Collectors.toList());
 
-        //sku的所有基本属性
+        //1.5、提取可检索属性——将过滤出来的可检索的属性组装成为所需要的格式
         List<SkuESDto.Attr> skuESAttrs = productAttrValueEntities.stream().map(item -> {
             SkuESDto.Attr skuESAttr = new SkuESDto.Attr();
             BeanUtils.copyProperties(item, skuESAttr);
             return skuESAttr;
         }).collect(Collectors.toList());
 
-        //根据spu查询所有的sku
+        //2.1、sku查询——根据spuId查询该spu下的所有sku
         List<SkuInfoEntity> skus = skuInfoService.list(new QueryWrapper<SkuInfoEntity>().eq("spu_id", spuId));
 
+        //2.2、提取skuId——将所有sku的id提取出来
         List<Long> skuIds = skus.stream().map(SkuInfoEntity::getSkuId).collect(Collectors.toList());
-        //hasStock 库存查询
+
+        //2.3、库存查询——根据提取出来的skuId调用库存服务。库存查询
         Map<Long, Boolean> skuHasStocks = null;
         try {
             ResponseResult<List<SkuHasStockDto>> wareResponse = wareFeignService.hasStock(skuIds);
@@ -249,7 +258,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             log.error("库存服务调用失败：，异常原因{}", e);
         }
 
-        //需要封装的数据
+        //3、封装数据
         Map<Long, Boolean> finalSkuHasStocks = skuHasStocks;
         List<SkuESDto> items = skus.stream().map(sku -> {
             SkuESDto skuESDto = new SkuESDto();
@@ -259,14 +268,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             skuESDto.setSkuImg(sku.getSkuDefaultImg());
 
             //设置库存
-            if (finalSkuHasStocks != null) {
+            /*if (finalSkuHasStocks != null) {
                 skuESDto.setHasStock(finalSkuHasStocks.get(sku.getSkuId()));
             } else {
                 skuESDto.setHasStock(true);
-            }
+            }*/
+            skuESDto.setHasStock(true);
 
-            // TODO hotScore热度评分设置，该操作优点复杂，比如置顶的商品，热度设置为最高。但是，这里先全部上架的商品热度设置为0，以后再来补全
-            skuESDto.setHotScore(0L);
+            // TODO hotScore热度评分设置，该操作优点复杂，应该设置为后台可控，比如置顶的商品，热度设置为最高。但是，这里先全部上架的商品热度设置为随机数，以后再来补全
+            skuESDto.setHotScore(RandomUtils.nextLong(0L, 999L));
 
             //查询商家和类别的信息
             CategoryEntity categoryEntity = categoryService.getById(sku.getCatalogId());
@@ -281,14 +291,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             skuESDto.setAttrs(skuESAttrs);
 
             //设置上架时间
-            skuESDto.setAddTime(System.currentTimeMillis());
+            skuESDto.setAddTime(LocalDateTime.now());
 
             //设置评论数量
-            skuESDto.setCommentNum(0L);
+            skuESDto.setCommentNum(sku.getSaleCount());
 
             return skuESDto;
         }).collect(Collectors.toList());
 
+        System.out.println(JSON.toJSONString(items));
 
         //将数据发送给mall-elasticsearch模块，保存在ElasticSearch
         ResponseResult<Boolean> addProductResp = searchFeignService.addProduct(items);
@@ -339,6 +350,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             });
         }
 
+
         //根据搜索条件查询
         List<SpuInfoEntity> spuInfos = this.list(queryWrapper);
 
@@ -368,11 +380,108 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Override
     public PageVo<SpuInfoVo> querySpuInfoById(Long spuId) {
         PageVo<SpuInfoVo> page = new PageVo<>();
-
-
         this.getById(spuId);
-
-
         return page;
+    }
+
+    /**
+     * 根据spuId查询spu的全部商品信息【商品图片，优惠信息等】
+     *
+     * @param spuId 商品id
+     * @return 返回指定spu下的所有商品信息
+     */
+    @Override
+    public SpuVo internalQuerySpuInfoById(Long spuId) throws ExecutionException, InterruptedException {
+        SpuVo spuVo = new SpuVo();
+
+        // 1、设置spu的基本信息
+        CompletableFuture<Void> spuInfoFuture = CompletableFuture.runAsync(() -> {
+            SpuInfoEntity spuInfoEntity = getById(spuId);
+            BeanUtils.copyProperties(spuInfoEntity, spuVo);
+            spuVo.setSpuId(spuInfoEntity.getId());
+        }, threadPoolExecutor);
+
+        // 2、设置spu详情图片
+        CompletableFuture<Void> spuDescImgFuture = CompletableFuture.runAsync(() -> {
+            SpuInfoDescEntity spuInfoDescEntity = spuInfoDescService.getOne(new QueryWrapper<SpuInfoDescEntity>().eq("spu_id", spuId));
+            List<String> decript = Arrays.asList(spuInfoDescEntity.getDecript().split(","));
+            spuVo.setDecript(decript);
+        }, threadPoolExecutor);
+
+        // 3、设置商品图片集合
+        CompletableFuture<Void> spuImagesFuture = CompletableFuture.runAsync(() -> {
+            List<SpuImagesEntity> spuImagesEntities = spuImagesService.list(new QueryWrapper<SpuImagesEntity>().eq("spu_id", spuId));
+            List<String> images = spuImagesEntities.stream().map(SpuImagesEntity::getImgUrl).collect(Collectors.toList());
+            spuVo.setImages(images);
+        }, threadPoolExecutor);
+
+        // 4、设置购买所得积分
+        CompletableFuture<Void> spuBountsFuture = CompletableFuture.runAsync(() -> {
+            ResponseResult<SpuBoundsEntity> response = couponFeignService.queryBoundInfoById(spuId);
+            if (response.getCode() == 200) {
+                Bounds bounds = new Bounds();
+                BeanUtils.copyProperties(response.getData(), bounds);
+                spuVo.setBounds(bounds);
+            }
+        }, threadPoolExecutor);
+
+        // 5、设置基本属性
+        CompletableFuture<Void> baseAttrFuture = CompletableFuture.runAsync(() -> {
+            List<ProductAttrValueEntity> productAttrs = productAttrValueService.list(
+                    new QueryWrapper<ProductAttrValueEntity>()
+                            .eq("spu_id", spuId));
+            List<BaseAttr> baseAttrs = productAttrs.stream().map(productAttr -> {
+                BaseAttr baseAttr = new BaseAttr();
+                BeanUtils.copyProperties(productAttr, baseAttr);
+                baseAttr.setAttrValues(productAttr.getAttrValue());
+                baseAttr.setShowDesc(productAttr.getQuickShow());
+                return baseAttr;
+            }).collect(Collectors.toList());
+            spuVo.setBaseAttrs(baseAttrs);
+        }, threadPoolExecutor);
+
+        // 6、设置sku信息
+        CompletableFuture<Void> skuInfoFuture = CompletableFuture.runAsync(() -> {
+            // 6.1、获取指定spu下面的所有销售属性
+            List<SkuInfoEntity> skus = skuInfoService.list(new QueryWrapper<SkuInfoEntity>().eq("spu_id", spuId));
+            //6.2、遍历所有的sku，组合所需格式的sku信息
+            List<Sku> respSkus = skus.stream().map(sku -> {
+                Sku respSku = new Sku();
+                // 6.3、将sku的信息复制给需要返回的sku中
+                BeanUtils.copyProperties(sku, respSku);
+                //6、4、查询指定sku下面的图片信息
+                List<SkuImagesEntity> skuImages = skuImagesService.list(new QueryWrapper<SkuImagesEntity>().eq("sku_id", sku.getSkuId()));
+                List<Image> respImages = skuImages.stream().map(skuImage -> {
+                    Image respImage = new Image();
+                    BeanUtils.copyProperties(skuImage, respImage);
+                    return respImage;
+                }).collect(Collectors.toList());
+                respSku.setImages(respImages);
+                // 6.5、设置销售属性
+                List<SkuSaleAttrValueEntity> saleAttrs = skuSaleAttrValueService.list(new QueryWrapper<SkuSaleAttrValueEntity>().eq("sku_id", sku.getSkuId()));
+                List<SaleAttr> respSaleAttrs = saleAttrs.stream().map(saleAttr -> {
+                    SaleAttr respSaleAttr = new SaleAttr();
+                    BeanUtils.copyProperties(saleAttr, respSaleAttr);
+                    return respSaleAttr;
+                }).collect(Collectors.toList());
+                respSku.setAttr(respSaleAttrs);
+                //6.6、提取出所有销售属性的值
+                List<String> attrValues = saleAttrs.stream().map(SkuSaleAttrValueEntity::getAttrValue).collect(Collectors.toList());
+                respSku.setDescar(attrValues);
+
+                //6.7、设置商品的折扣信息
+                ResponseResult<SkuReductionDto> discountResponse = couponFeignService.querySkuDiscountBySkuId(sku.getSkuId());
+                BeanUtils.copyProperties(discountResponse, respSku);
+
+                return respSku;
+            }).collect(Collectors.toList());
+            spuVo.setSkus(respSkus);
+        }, threadPoolExecutor);
+
+        // 7、等所有线程完成之后再返回
+        CompletableFuture.allOf(spuInfoFuture, spuDescImgFuture, spuImagesFuture, spuBountsFuture, baseAttrFuture, skuInfoFuture).get();
+
+
+        return spuVo;
     }
 }

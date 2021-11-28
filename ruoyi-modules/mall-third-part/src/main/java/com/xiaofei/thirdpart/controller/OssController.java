@@ -4,7 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
-import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.xiaofei.common.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,7 @@ public class OssController {
 
 
     @GetMapping("/oss/policy")
-    public AjaxResult policy() {
+    public ResponseResult<Map<String, String>> policy() {
 
         String host = "https://" + bucket + "." + endpoint;
         String format = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//用于每天创建每天上传的文件
@@ -71,6 +71,6 @@ public class OssController {
             System.out.println(e.getMessage());
         }
 
-        return AjaxResult.success().put("data", respMap);
+        return new ResponseResult<Map<String, String>>().success("data", respMap);
     }
 }

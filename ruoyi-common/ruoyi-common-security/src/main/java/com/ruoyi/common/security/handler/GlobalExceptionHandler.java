@@ -128,6 +128,9 @@ public class GlobalExceptionHandler {
         return AjaxResult.error("演示模式，不允许操作");
     }
 
+    /**
+     * 商城登录异常处理
+     */
     @ExceptionHandler(MallLoginException.class)
     @ResponseBody
     public AjaxResult mallLoginException(MallLoginException e) {
@@ -135,6 +138,9 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(org.springframework.http.HttpStatus.UNAUTHORIZED.value(), e.getMessage());
     }
 
+    /**
+     * 商城购物车异常
+     */
     @ExceptionHandler(MallCartException.class)
     @ResponseBody
     public AjaxResult mallCartException(MallCartException e) {
@@ -142,6 +148,9 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(503, e.getMessage());
     }
 
+    /**
+     * 商城订单异常
+     */
     @ExceptionHandler(OrderException.class)
     @ResponseBody
     public AjaxResult mallOrderException(OrderException e) {

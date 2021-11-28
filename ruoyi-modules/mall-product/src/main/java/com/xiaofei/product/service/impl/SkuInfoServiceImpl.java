@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xiaofei.common.constant.MQConstants;
 import com.xiaofei.common.product.entity.SkuImagesEntity;
 import com.xiaofei.common.product.entity.SkuInfoEntity;
 import com.xiaofei.common.product.entity.SpuInfoDescEntity;
@@ -13,6 +14,7 @@ import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.product.mapper.SkuInfoDao;
 import com.xiaofei.product.service.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +46,25 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
-
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
+
+    /**
+     * 商品修改
+     *
+     * @param skuInfo 商品信息
+     * @return true：修改成功。false：修改失败
+     */
+    @Override
+    public Boolean skuEdit(SkuInfoEntity skuInfo) {
+        boolean isSuccess = this.updateById(skuInfo);
+        //TODO 修改之后，需要发布MQ，修改ES中的商品信息
+        rabbitTemplate.convertAndSend(MQConstants.PRODUCT_EXCHANGE, MQConstants.PRODUCT_DELETE_KEY, skuInfo.getSkuId());
+        //return true;
+        return isSuccess;
+    }
 
     /**
      * 分页查询sku信息
@@ -102,7 +120,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         queryWrapper.ge("price", finalMinPrice).le("price", finalMaxPrice);
 
 
-        List<SkuInfoEntity> items = this.list(queryWrapper);
+        List<SkuInfoEntity> items = this.list(queryWrapper.orderByDesc("sku_id"));
 
         PageInfo<SkuInfoEntity> pageInfo = new PageInfo<>(items);
         return new PageVo<>(pageInfo.getPageNum(), pageInfo.getPageSize(), pageInfo.getPages(), pageInfo.getTotal(), pageInfo.getList());
@@ -172,7 +190,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         //TODO 查询商品是否有货
 
         //等待所有的异步任务都完成之后再返回数据
-        CompletableFuture.allOf(skuImgFuture, skuSaleAttrFuture, randSkuInfoFuture, skuDescFuture, skuBaseAttrFuture,brandFuture).get();
+        CompletableFuture.allOf(skuImgFuture, skuSaleAttrFuture, randSkuInfoFuture, skuDescFuture, skuBaseAttrFuture, brandFuture).get();
 
         return skuDetailInfoVo;
     }

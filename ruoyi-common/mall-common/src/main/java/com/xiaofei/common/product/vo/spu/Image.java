@@ -13,5 +13,5 @@ public class Image {
     private String imgUrl;
 
     @ApiModelProperty("是否为默认图片：1，默认图片。0，不是默认图片")
-    private int defaultImg;
+    private Integer defaultImg;
 }

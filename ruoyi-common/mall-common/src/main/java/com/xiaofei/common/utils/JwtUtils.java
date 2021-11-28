@@ -54,7 +54,7 @@ public class JwtUtils {
 
     //根据token字符串得到用户名称
     public static String getUserName(String token) {
-        if (org.apache.commons.lang3.StringUtils.isEmpty(token)) {
+        if (StringUtils.isEmpty(token)) {
             return "";
         }
 

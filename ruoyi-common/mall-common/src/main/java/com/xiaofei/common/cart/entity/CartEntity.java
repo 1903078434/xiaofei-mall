@@ -1,8 +1,14 @@
 package com.xiaofei.common.cart.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 购物车的每一项
@@ -10,10 +16,12 @@ import java.math.BigDecimal;
  * Date: 2021/8/18
  * Time: 21:58
  */
+@TableName(value ="mall_cart")
 @Data
-public class CartEntity {
+public class CartEntity implements Serializable {
 
-    private String id;//购物车id
+    @TableId(type = IdType.AUTO)
+    private Long id;//购物车id
 
 
     private Long userId;//用户id-
@@ -46,6 +54,9 @@ public class CartEntity {
     private BigDecimal totalSkuPrice;//商品总价格
 
 
-    private Long addTime;//添加时间，保存时间戳
+    private LocalDateTime addTime;//添加时间，保存时间戳
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 
 }

@@ -1,7 +1,5 @@
-# Tomcat
 server:
-  port: 7004
-
+  port: 9007
 # Spring
 spring:
   application:
@@ -16,11 +14,4 @@ spring:
         # 服务注册地址
         server-addr: 127.0.0.1:8848
       config:
-        namespace: cf829bd9-e68f-4fbd-bdf4-c4a83a776578 # 指定命名空间
-        # 配置中心地址
-        server-addr: 127.0.0.1:8848
-        # 配置文件格式
-        file-extension: yml
-        # 共享配置
-        shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        file-extension: yaml

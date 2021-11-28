@@ -18,7 +18,9 @@ import com.xiaofei.product.service.HomeAdvService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -29,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 @Service
-public class HomeAdvServiceImpl extends ServiceImpl<HomeAdvMapper, HomeAdvEntity>implements HomeAdvService {
+public class HomeAdvServiceImpl extends ServiceImpl<HomeAdvMapper, HomeAdvEntity> implements HomeAdvService {
     @Autowired
     private ThreadPoolExecutor thread;
 
@@ -39,6 +41,42 @@ public class HomeAdvServiceImpl extends ServiceImpl<HomeAdvMapper, HomeAdvEntity
     @Autowired
     private RedisService redisService;
 
+
+    /**
+     * 添加
+     *
+     * @param homeAdv 广告信息
+     * @return true：添加成功。false：添加失败
+     */
+    @Transactional
+    @Override
+    public Boolean insertHomeAdv(HomeAdvEntity homeAdv) {
+        return this.save(homeAdv);
+    }
+
+    /**
+     * 删除
+     *
+     * @param advIds id集合
+     * @return true：成功。false：失败
+     */
+    @Transactional
+    @Override
+    public Boolean removeHomeAdv(Long[] advIds) {
+        return this.baseMapper.deleteBatchIds(Arrays.asList(advIds)) == advIds.length;
+    }
+
+    /**
+     * 修改
+     *
+     * @param homeAdv 广告信息
+     * @return true：成功。false：失败
+     */
+    @Transactional
+    @Override
+    public Boolean updateHomeAdv(HomeAdvEntity homeAdv) {
+        return this.updateById(homeAdv);
+    }
 
     /**
      * 根据查询条件
@@ -124,7 +162,9 @@ public class HomeAdvServiceImpl extends ServiceImpl<HomeAdvMapper, HomeAdvEntity
 
         return homeRespVo;
     }
+
 }
+
 
 
 
