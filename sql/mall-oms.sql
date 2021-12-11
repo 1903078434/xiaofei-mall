@@ -14,7 +14,7 @@
  Date: 11/12/2021 10:10:14
 */
 
-CREATE DATABASE `mall-oms` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `mall-oms` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 USE `mall-oms`;
 

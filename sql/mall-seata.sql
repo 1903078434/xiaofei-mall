@@ -14,7 +14,7 @@
  Date: 11/12/2021 10:10:29
 */
 
-CREATE DATABASE `mall-seata` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `mall-seata` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 USE `mall-seata`;
 

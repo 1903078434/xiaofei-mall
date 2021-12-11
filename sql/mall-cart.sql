@@ -14,7 +14,7 @@
  Date: 11/12/2021 10:09:56
 */
 
-CREATE DATABASE `mall-cart` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `mall-cart` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 USE `mall-cart`;
 
