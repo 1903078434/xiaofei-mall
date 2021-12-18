@@ -3,29 +3,25 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.ruoyi</groupId>
-        <artifactId>ruoyi-api</artifactId>
+        <groupId>com.xiaofei</groupId>
+        <artifactId>mall-common</artifactId>
         <version>3.3.0</version>
     </parent>
 
-    <artifactId>ruoyi-api-system</artifactId>
+    <groupId>com.ruoyi</groupId>
+    <artifactId>ruoyi-common-log</artifactId>
 
     <modelVersion>4.0.0</modelVersion>
 
-
-
-    <description>
-        ruoyi-api-system系统接口模块
-    </description>
+    <description>ruoyi-common-log日志记录</description>
 
     <dependencies>
 
-        <!-- RuoYi Common Core-->
+        <!-- RuoYi Common Security -->
         <dependency>
             <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-core</artifactId>
+            <artifactId>ruoyi-common-security</artifactId>
         </dependency>
 
     </dependencies>
-
 </project>

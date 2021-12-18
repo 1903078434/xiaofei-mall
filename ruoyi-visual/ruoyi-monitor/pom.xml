@@ -4,15 +4,14 @@
     <parent>
         <groupId>com.ruoyi</groupId>
         <artifactId>ruoyi-visual</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
     </parent>
+
+    <artifactId>ruoyi-monitor</artifactId>
+
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ruoyi-visual-monitor</artifactId>
-
-    <description>
-        ruoyi-visual-monitor监控中心
-    </description>
+    <description>ruoyi-visual-monitor监控中心</description>
 
     <dependencies>
 
