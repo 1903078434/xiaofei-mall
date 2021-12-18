@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 /**
  * 跨站脚本过滤器
  *
- * @author ruoyi
+ * @author 李飞
  */
 @Component
 @ConditionalOnProperty(value = "security.xss.enabled", havingValue = "true")
@@ -103,7 +103,7 @@ public class XssFilter implements GlobalFilter, Ordered
 
     /**
      * 是否是Json请求
-     * 
+     *
      * @param request
      */
     public boolean isJsonRequest(ServerWebExchange exchange)

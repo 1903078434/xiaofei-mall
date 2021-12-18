@@ -14,8 +14,8 @@ import com.ruoyi.common.core.utils.file.MimeTypeUtils;
 
 /**
  * 文件上传工具类
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class FileUploadUtils
 {
@@ -180,7 +180,7 @@ public class FileUploadUtils
 
     /**
      * 获取文件名的后缀
-     * 
+     *
      * @param file 表单文件
      * @return 后缀名
      */

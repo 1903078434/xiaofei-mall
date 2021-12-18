@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * XSS跨站脚本配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 @RefreshScope

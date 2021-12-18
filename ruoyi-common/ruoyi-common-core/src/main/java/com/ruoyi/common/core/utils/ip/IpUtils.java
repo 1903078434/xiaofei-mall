@@ -7,8 +7,8 @@ import com.ruoyi.common.core.utils.StringUtils;
 
 /**
  * 获取IP方法
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class IpUtils
 {
@@ -103,7 +103,7 @@ public class IpUtils
 
     /**
      * 将IPv4地址转换成字节
-     * 
+     *
      * @param text IPv4地址
      * @return byte 字节
      */

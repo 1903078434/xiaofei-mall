@@ -30,8 +30,8 @@ import com.ruoyi.job.util.CronUtils;
 
 /**
  * 调度任务信息操作处理
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/job")

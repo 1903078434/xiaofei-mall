@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 验证码配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 @RefreshScope

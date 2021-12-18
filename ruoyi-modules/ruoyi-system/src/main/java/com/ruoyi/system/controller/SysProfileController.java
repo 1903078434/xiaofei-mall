@@ -27,8 +27,8 @@ import com.ruoyi.system.service.ISysUserService;
 
 /**
  * 个人信息 业务处理
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/user/profile")
@@ -36,10 +36,10 @@ public class SysProfileController extends BaseController
 {
     @Autowired
     private ISysUserService userService;
-    
+
     @Autowired
     private TokenService tokenService;
-    
+
     @Autowired
     private RemoteFileService remoteFileService;
 
@@ -119,7 +119,7 @@ public class SysProfileController extends BaseController
         }
         return AjaxResult.error("修改密码异常，请联系管理员");
     }
-    
+
     /**
      * 头像上传
      */

@@ -19,8 +19,8 @@ import com.ruoyi.system.api.model.LoginUser;
 
 /**
  * token验证处理
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Component
 public class TokenService

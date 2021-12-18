@@ -13,8 +13,8 @@ import com.ruoyi.common.security.annotation.InnerAuth;
 
 /**
  * 内部服务调用验证处理
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Aspect
 @Component

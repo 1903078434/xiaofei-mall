@@ -8,8 +8,8 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 /**
  * 定时任务配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 public class ScheduleConfig

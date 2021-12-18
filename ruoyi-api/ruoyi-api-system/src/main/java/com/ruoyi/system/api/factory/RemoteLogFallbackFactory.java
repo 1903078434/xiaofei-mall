@@ -11,8 +11,8 @@ import com.ruoyi.system.api.domain.SysOperLog;
 
 /**
  * 日志服务降级处理
- * 
- * @author ruoyi
+ *
+ *
  */
 @Component
 public class RemoteLogFallbackFactory implements FallbackFactory<RemoteLogService>

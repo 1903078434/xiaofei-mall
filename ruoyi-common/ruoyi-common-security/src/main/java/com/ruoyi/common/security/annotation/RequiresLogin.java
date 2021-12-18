@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 /**
  * 登录认证：只有登录之后才能进入该方法
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

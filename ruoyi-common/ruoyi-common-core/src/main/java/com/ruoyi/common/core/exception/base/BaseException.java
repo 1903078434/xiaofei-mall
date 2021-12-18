@@ -2,8 +2,8 @@ package com.ruoyi.common.core.exception.base;
 
 /**
  * 基础异常
- * 
- * @author ruoyi
+ *
+ *
  */
 public class BaseException extends RuntimeException
 {

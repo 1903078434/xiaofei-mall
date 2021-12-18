@@ -10,8 +10,8 @@ import io.minio.PutObjectArgs;
 
 /**
  * Minio 文件存储
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Service
 public class MinioSysFileServiceImpl implements ISysFileService
@@ -24,7 +24,7 @@ public class MinioSysFileServiceImpl implements ISysFileService
 
     /**
      * 本地文件上传接口
-     * 
+     *
      * @param file 上传的文件
      * @return 访问地址
      * @throws Exception

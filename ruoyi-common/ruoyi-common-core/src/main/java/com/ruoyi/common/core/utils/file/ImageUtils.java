@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 图片处理工具类
  *
- * @author ruoyi
+ * @author 李飞
  */
 public class ImageUtils
 {
@@ -54,7 +54,7 @@ public class ImageUtils
 
     /**
      * 读取文件为字节数据
-     * 
+     *
      * @param key 地址
      * @return 字节数据
      */

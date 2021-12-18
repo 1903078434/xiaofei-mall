@@ -10,8 +10,8 @@ import com.ruoyi.common.log.enums.OperatorType;
 
 /**
  * 自定义操作日志记录注解
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  *
  */
 @Target({ ElementType.PARAMETER, ElementType.METHOD })

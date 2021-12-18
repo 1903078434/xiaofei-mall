@@ -2,8 +2,8 @@ package com.ruoyi.common.core.exception;
 
 /**
  * 业务异常
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public final class ServiceException extends RuntimeException
 {

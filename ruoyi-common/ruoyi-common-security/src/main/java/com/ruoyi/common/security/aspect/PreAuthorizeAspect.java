@@ -14,8 +14,8 @@ import com.ruoyi.common.security.auth.AuthUtil;
 
 /**
  * 基于 Spring Aop 的注解鉴权
- * 
- * @author kong
+ *
+ * @author 李飞
  */
 @Aspect
 @Component
@@ -45,7 +45,7 @@ public class PreAuthorizeAspect
 
     /**
      * 环绕切入
-     * 
+     *
      * @param joinPoint 切面对象
      * @return 底层方法执行后的返回值
      * @throws Throwable 底层方法抛出的异常

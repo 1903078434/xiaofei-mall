@@ -25,8 +25,8 @@ import com.ruoyi.system.service.ISysUserOnlineService;
 
 /**
  * 在线用户监控
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/online")

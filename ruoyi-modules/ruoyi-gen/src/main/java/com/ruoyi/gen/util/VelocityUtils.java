@@ -13,8 +13,8 @@ import com.ruoyi.gen.domain.GenTableColumn;
 
 /**
  * 模板工具类
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class VelocityUtils
 {
@@ -233,7 +233,7 @@ public class VelocityUtils
 
     /**
      * 根据列类型获取导入包
-     * 
+     *
      * @param genTable 业务表对象
      * @return 返回需要导入的包列表
      */
@@ -263,7 +263,7 @@ public class VelocityUtils
 
     /**
      * 根据列类型获取字典组
-     * 
+     *
      * @param genTable 业务表对象
      * @return 返回字典组
      */

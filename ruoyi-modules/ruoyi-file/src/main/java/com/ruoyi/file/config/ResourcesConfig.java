@@ -9,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 通用映射配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 public class ResourcesConfig implements WebMvcConfigurer
@@ -34,7 +34,7 @@ public class ResourcesConfig implements WebMvcConfigurer
         registry.addResourceHandler(localFilePrefix + "/**")
                 .addResourceLocations("file:" + localFilePath + File.separator);
     }
-    
+
     /**
      * 开启跨域
      */

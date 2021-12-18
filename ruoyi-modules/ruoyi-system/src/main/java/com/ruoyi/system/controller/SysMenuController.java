@@ -24,8 +24,8 @@ import com.ruoyi.system.service.ISysMenuService;
 
 /**
  * 菜单信息
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/menu")
@@ -146,7 +146,7 @@ public class SysMenuController extends BaseController
 
     /**
      * 获取路由信息
-     * 
+     *
      * @return 路由信息
      */
     @GetMapping("getRouters")

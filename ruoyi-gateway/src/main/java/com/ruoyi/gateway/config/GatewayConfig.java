@@ -8,8 +8,8 @@ import com.ruoyi.gateway.handler.SentinelFallbackHandler;
 
 /**
  * 网关限流配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 public class GatewayConfig

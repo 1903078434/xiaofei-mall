@@ -4,8 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * 未能通过的权限认证异常
- * 
- * @author ruoyi
+ *
+ *
  */
 public class NotPermissionException extends RuntimeException
 {

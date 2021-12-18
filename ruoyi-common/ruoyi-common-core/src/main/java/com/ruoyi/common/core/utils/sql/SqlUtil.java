@@ -5,8 +5,8 @@ import com.ruoyi.common.core.utils.StringUtils;
 
 /**
  * sql操作工具类
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class SqlUtil
 {

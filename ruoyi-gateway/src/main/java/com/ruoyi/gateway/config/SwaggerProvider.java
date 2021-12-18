@@ -14,8 +14,8 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 /**
  * 聚合系统接口
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Component
 public class SwaggerProvider implements SwaggerResourcesProvider, WebFluxConfigurer
@@ -35,7 +35,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider, WebFluxConfigu
 
     /**
      * 聚合其他服务接口
-     * 
+     *
      * @return
      */
     @Override

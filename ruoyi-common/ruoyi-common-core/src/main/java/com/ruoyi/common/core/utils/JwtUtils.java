@@ -12,7 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * Jwt工具类
  *
- * @author ruoyi
+ * @author 李飞
  */
 public class JwtUtils {
     public static String secret = TokenConstants.SECRET;

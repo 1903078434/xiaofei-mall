@@ -15,8 +15,8 @@ import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator
 
 /**
  * redis配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 @EnableCaching

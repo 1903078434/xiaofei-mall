@@ -14,8 +14,8 @@ import com.ruoyi.system.api.model.LoginUser;
 
 /**
  * 数据过滤处理
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Aspect
 @Component
@@ -76,7 +76,7 @@ public class DataScopeAspect
 
     /**
      * 数据范围过滤
-     * 
+     *
      * @param joinPoint 切点
      * @param user 用户
      * @param deptAlias 部门别名

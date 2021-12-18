@@ -11,8 +11,8 @@ import com.ruoyi.system.api.domain.SysFile;
 
 /**
  * 文件服务降级处理
- * 
- * @author ruoyi
+ *
+ *
  */
 @Component
 public class RemoteFileFallbackFactory implements FallbackFactory<RemoteFileService>

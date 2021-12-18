@@ -20,8 +20,8 @@ import com.ruoyi.system.api.model.LoginUser;
 
 /**
  * 登录校验方法
- * 
- * @author ruoyi
+ *
+ *
  */
 @Component
 public class SysLoginService
@@ -133,7 +133,7 @@ public class SysLoginService
 
     /**
      * 记录登录信息
-     * 
+     *
      * @param username 用户名
      * @param status 状态
      * @param message 消息内容
