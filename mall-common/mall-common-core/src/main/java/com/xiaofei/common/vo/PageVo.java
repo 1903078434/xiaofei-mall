@@ -40,6 +40,9 @@ public class PageVo<T> implements Serializable {
     @ApiModelProperty("当前页数据")
     private T item;
 
+    /**
+     * 没有聚合信息构造函数
+     */
     public PageVo(Integer pageNo, Integer pageSize, Integer pageTotal, Long itemCount, List<T> items) {
         this.pageNo = pageNo;
         this.pageSize = pageSize;

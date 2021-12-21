@@ -1,4 +1,4 @@
-package com.xiaofei.common.es.vo;
+package com.xiaofei.es.vo;
 
 import com.xiaofei.common.vo.BasePage;
 import io.swagger.annotations.ApiModel;
@@ -37,6 +37,6 @@ public class SearchVo extends BasePage {
     private List<Long> brandId;
 
     @ApiModelProperty("属性id集合")
-    private List<Long> attrs;
+    private List<Long> attrId;
 
 }

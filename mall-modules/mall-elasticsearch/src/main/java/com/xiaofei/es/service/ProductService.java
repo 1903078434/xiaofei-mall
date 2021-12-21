@@ -1,7 +1,8 @@
 package com.xiaofei.es.service;
 
 import com.xiaofei.common.dto.SkuESDto;
-import com.xiaofei.common.es.vo.SearchVo;
+import com.xiaofei.es.vo.ProductRespVo;
+import com.xiaofei.es.vo.SearchVo;
 import com.xiaofei.common.vo.PageVo;
 import com.xiaofei.es.entity.Product;
 
@@ -51,5 +52,41 @@ public interface ProductService {
      *
      * @param searchVo 搜索条件
      */
-    PageVo<Product> searchProduct(SearchVo searchVo) throws IOException;
+    PageVo<ProductRespVo> searchProduct(SearchVo searchVo) throws IOException;
+
+    /**
+     * 获取最新上架的物件商品
+     *
+     * @return 返回最新上架的五件商品
+     */
+    List<Product> getNewProduct() throws IOException;
+
+    /**
+     * 获取销量最高的物件商品
+     *
+     * @return 返回销量最高的物件商品
+     */
+    List<Product> getHotProduct() throws IOException;
+
+    /**
+     * 根据指定字段排序
+     *
+     * @param pageNo     当前页
+     * @param pageSize   每页显示数量
+     * @param orderField 排序字段
+     * @param sortOrder  0：升序。1：降序
+     * @return 返回查询到商品信息
+     */
+    List<Product> getProductByOrder(Integer pageNo, Integer pageSize, String orderField, int sortOrder) throws IOException;
+
+    /**
+     * 滚动加载商品信息
+     *
+     * @param pageNo     当前页
+     * @param pageSize   每页显示大小
+     * @param brandId    品牌id
+     * @param categoryId 类别id
+     * @return 返回指定页面的数据
+     */
+    List<Product> scrollLoadingProducts(Integer pageNo, Integer pageSize, Long brandId, Long categoryId) throws IOException;
 }

@@ -8,10 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 商品的检索信息
@@ -42,6 +39,7 @@ public class Product {
     private Long commentNum = 0L;//评论数量 ，如果不传入评论数量，默认为0条评论
     private List<String> suggestion;//自动补全提示功能
     private List<SkuESDto.Attr> attrs;//属性集合
+
     /**
      * 商品属性
      */
@@ -77,13 +75,13 @@ public class Product {
             this.suggestion = new ArrayList<>();
             this.suggestion.add(this.brandName);
             for (String s : arr) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     this.suggestion.add(s);
                 }
             }
             Collections.addAll(this.suggestion, arr);
         } else {
-            this.suggestion = Arrays.asList(this.brandName, this.skuTitle,this.categoryName);
+            this.suggestion = Arrays.asList(this.brandName, this.skuTitle, this.categoryName);
         }
     }
 }
