@@ -278,7 +278,7 @@
         <module>ruoyi-api</module>
         <module>mall-common</module>
         <module>mall-gateway</module>
-        <!-- <module>mall-gateway</module> -->
+        <module>mall-auth</module>
     </modules>
 
     <packaging>pom</packaging>

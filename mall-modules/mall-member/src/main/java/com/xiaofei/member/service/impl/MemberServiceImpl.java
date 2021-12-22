@@ -42,6 +42,17 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     private OrderFeignService orderFeignService;
 
     /**
+     * 用户注册
+     *
+     * @param memberEntity 用户注册信息
+     * @return 返回用户注册是否成功
+     */
+    @Override
+    public boolean userRegister(MemberEntity memberEntity) {
+        return this.save(memberEntity);
+    }
+
+    /**
      * 通过token获取用户信息
      *
      * @param userId 用户用户id
@@ -102,7 +113,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         }
         //旧密码不正确
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        boolean matches = passwordEncoder.matches(memberPasswordVo.getOldPassword(),memberEntity.getPassword());
+        boolean matches = passwordEncoder.matches(memberPasswordVo.getOldPassword(), memberEntity.getPassword());
         if (!matches) {
             return false;
         }
@@ -194,5 +205,29 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
         return memberInfoResp;
 
+    }
+
+    /**
+     * 根据用户名或邮箱查询用户信息
+     *
+     * @param username 用户名
+     * @param email    邮箱
+     * @return 返回用户信息
+     */
+    @Override
+    public MemberEntity queryMemberByUserNameOrEmail(String username, String email) {
+        return this.getOne(new QueryWrapper<MemberEntity>().eq("username", username)
+                .or().eq("email", email));
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     *
+     * @param username 用户名
+     * @return 返回用户信息
+     */
+    @Override
+    public MemberEntity queryMemberByUserName(String username) {
+        return this.getOne(new QueryWrapper<MemberEntity>().eq("username", username));
     }
 }

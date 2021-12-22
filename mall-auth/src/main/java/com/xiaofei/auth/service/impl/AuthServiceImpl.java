@@ -1,40 +1,53 @@
 package com.xiaofei.auth.service.impl;
 
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ruoyi.common.core.exception.mall.MallLoginException;
+import cn.hutool.core.util.RandomUtil;
 import com.ruoyi.common.redis.service.RedisService;
-import com.xiaofei.auth.mapper.MemberMapper;
-import com.xiaofei.auth.service.UserService;
-import com.xiaofei.common.auth.entity.MemberEntity;
-import com.xiaofei.common.auth.vo.UserInfoVo;
+import com.xiaofei.auth.service.AuthService;
+import com.xiaofei.auth.vo.UserInfoVo;
+import com.xiaofei.common.member.entity.MemberEntity;
 import com.xiaofei.common.utils.JwtUtils;
-import lombok.extern.slf4j.Slf4j;
+import com.xiaofei.common.utils.ResponseResult;
+import com.xiaofei.feign.MemberFeignService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
  * User: 李飞
- * Date: 2021/8/14
- * Time: 21:22
+ * Date: 2021/12/22
+ * Time: 13:48
  */
 @Service
-@Slf4j
-public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> implements UserService {
+public class AuthServiceImpl implements AuthService {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
     private RedisService redisService;
-//    @Autowired
-//    private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private MemberFeignService memberFeignService;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Value("${spring.mail.username}")
+    private String mallUsername;
 
     /**
      * 用户注册
@@ -55,8 +68,8 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
         }
 
         //判断用户是否已经注册
-        MemberEntity memberEntity = this.getOne(new QueryWrapper<MemberEntity>().eq("username", userInfoVo.getUsername())
-                .or().eq("email", userInfoVo.getEmail()));
+        ResponseResult<MemberEntity> memberResp = memberFeignService.queryMemberByUserNameOrEmail(userInfoVo.getUsername(), userInfoVo.getEmail());
+        MemberEntity memberEntity = memberResp.getData();
 
         //已经被注册
         if (memberEntity != null) {
@@ -66,7 +79,6 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
         }
 
         //判断验证码是否过期
-        //Object redisCode = redisTemplate.opsForValue().get(userInfoVo.getEmail() + "registercode");
         Object redisCode = redisService.getCacheObject(userInfoVo.getEmail() + "registercode");
         if (redisCode == null) {
             resp.put("isSuccess", false);
@@ -93,10 +105,10 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
         memberEntity.setGrowth(0);//设置成长值
         memberEntity.setStatus(1);//设置账号启用状态
         memberEntity.setCreateTime(new Date());//设置注册时间
-        this.save(memberEntity);
+        ResponseResult<Boolean> registerResp = memberFeignService.registerLogin(memberEntity);
 
-        resp.put("isSuccess", true);
-        resp.put("message", "注册成功");
+        resp.put("isSuccess", registerResp.getData());
+        resp.put("message", registerResp.getData() ? "注册成功" : "注册失败");
         return resp;
     }
 
@@ -107,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
      * @return 返回token和用户名
      */
     @Override
-    public Map<String, Object> userLogin(UserInfoVo userInfoVo) throws MallLoginException {
+    public Map<String, Object> userLogin(UserInfoVo userInfoVo) {
 
         String username = userInfoVo.getUsername();
         String password = userInfoVo.getPassword();
@@ -130,7 +142,8 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
         }
 
         //查询用户信息
-        MemberEntity memberEntity = this.getOne(new QueryWrapper<MemberEntity>().eq("username", username));
+        ResponseResult<MemberEntity> memberResp = memberFeignService.queryMemberByUserName(username);
+        MemberEntity memberEntity = memberResp.getData();
         if (memberEntity == null) {
             resp.put("isSuccess", false);
             resp.put("message", "用户不存在");
@@ -178,6 +191,57 @@ public class UserServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> imp
 
         //redisTemplate.delete(username + "token");
         redisService.deleteObject(username + "token");
+        return resp;
+    }
+
+    /**
+     * 发送简单的邮件
+     *
+     * @param registerEmail 用户注册的邮箱
+     * @return true：发送成功。false：发送失败
+     */
+    @Override
+    public Map<String, Object> sendSimpleEmail(String registerEmail) {
+        Map<String, Object> resp = new HashMap<>();
+        try {
+
+            //判断redis中是否已经存在了
+            String key = redisService.getCacheObject(registerEmail);
+            if (key != null) {
+                resp.put("isSuccess", false);
+                resp.put("message", "请2分钟后再发送");
+                return resp;
+            }
+
+            Random random = new Random();
+            //生成一个六位数的随机数
+            key = RandomUtil.randomInt(100000, 999999) + "";
+
+            //将key保存到redis中
+            redisService.setCacheObject(registerEmail + "registercode"
+                    , key, 120L, TimeUnit.SECONDS);
+
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false);
+
+            helper.setSubject("通知");
+            helper.setText("你的注册验证码为：【 " + key + " 】", true);
+
+            helper.setTo(registerEmail);
+            helper.setFrom(mallUsername);
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            log.error("邮件发送错误，错误信息为：{}", e.getMessage());
+
+            //删除redis中的验证码
+            redisService.deleteObject(registerEmail);
+
+            resp.put("isSuccess", false);
+            resp.put("message", "发送失败，系统发生错误");
+            return resp;
+        }
+        resp.put("isSuccess", true);
+        resp.put("message", "发送成功");
         return resp;
     }
 }

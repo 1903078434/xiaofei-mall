@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mall-modules</artifactId>
+        <artifactId>xiaofei</artifactId>
         <groupId>com.xiaofei</groupId>
         <version>3.3.0</version>
     </parent>
@@ -11,7 +11,8 @@
 
     <artifactId>mall-auth</artifactId>
 
-    <description>mall-auth认证</description>
+
+    <description>mall-auth会员认证模块认证</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -22,6 +23,7 @@
 
     <dependencies>
 
+        <!--spring-boot-starter-web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -39,13 +41,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        <!-- Mysql Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-
         <!-- spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,19 +54,40 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!--spring-boot-configuration-processor-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!--mall-common-feign【里面包含了mall-common模块】-->
+        <!--mall-common-feign-->
         <dependency>
             <groupId>com.xiaofei</groupId>
             <artifactId>mall-common-feign</artifactId>
-            <version>${xiaofei.version}</version>
         </dependency>
+
+        <!--mall-common-->
+        <dependency>
+            <groupId>com.xiaofei</groupId>
+            <artifactId>mall-common-core</artifactId>
+            <version>${xiaofei.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>druid-spring-boot-starter</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <groupId>com.baomidou</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ruoyi-common-swagger</artifactId>
+                    <groupId>com.ruoyi</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--mall-redis-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-common-redis</artifactId>
+        </dependency>
+
+
 
     </dependencies>
 

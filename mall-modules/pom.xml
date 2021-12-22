@@ -27,7 +27,6 @@
         <module>mall-order</module>
         <module>mall-third-part</module>
         <module>mall-elasticsearch</module>
-        <module>mall-auth</module>
     </modules>
 
 

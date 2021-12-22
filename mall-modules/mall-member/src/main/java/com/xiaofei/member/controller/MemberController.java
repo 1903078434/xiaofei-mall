@@ -25,6 +25,13 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @ApiOperation(value = "用户注册", httpMethod = "POST", response = ResponseResult.class, produces = "application/json")
+    @PostMapping("/register")
+    public ResponseResult<Boolean> registerLogin(@RequestBody MemberEntity memberEntity) {
+        Boolean resp = memberService.userRegister(memberEntity);
+        return new ResponseResult<Boolean>().success(resp);
+    }
+
     @ApiOperation(value = "根据token获取用户信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
     @GetMapping("/auth")
     public ResponseResult<MemberEntity> queryMemberById(@RequestHeader(name = SecurityConstants.DETAILS_USER_ID, defaultValue = "", required = false) Long userId) {
@@ -32,6 +39,21 @@ public class MemberController {
         MemberEntity item = memberService.getByToken(userId);
         return new ResponseResult<MemberEntity>().success(item);
     }
+
+    @ApiOperation(value = "根据用户名或邮箱获取用户信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @GetMapping("/auth/username/email")
+    public ResponseResult<MemberEntity> queryMemberByUserNameOrEmail(String username, String email) {
+        MemberEntity item = memberService.queryMemberByUserNameOrEmail(username, email);
+        return new ResponseResult<MemberEntity>().success(item);
+    }
+
+    @ApiOperation(value = "根据用户名获取用户信息", httpMethod = "GET", response = AjaxResult.class, produces = "application/json")
+    @GetMapping("/auth/username")
+    public ResponseResult<MemberEntity> queryMemberByUserName(String username) {
+        MemberEntity item = memberService.queryMemberByUserName(username);
+        return new ResponseResult<MemberEntity>().success(item);
+    }
+
 
     @ApiOperation(value = "修改会员的启用状态", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
     @PutMapping("/internal")
@@ -44,8 +66,8 @@ public class MemberController {
     @ApiOperation(value = "修改密码", httpMethod = "PUT", response = AjaxResult.class, produces = "application/json")
     @PutMapping("/auth/update/password")
     public ResponseResult<Boolean> updateMemberPassword(@RequestHeader(name = SecurityConstants.DETAILS_USER_ID) Long userId,
-                                                    @RequestHeader(name = SecurityConstants.DETAILS_USERNAME) String username,
-                                                    @RequestBody MemberPasswordVo memberPasswordVo) {
+                                                        @RequestHeader(name = SecurityConstants.DETAILS_USERNAME) String username,
+                                                        @RequestBody MemberPasswordVo memberPasswordVo) {
         boolean isUpdate = memberService.updateMemberPassword(userId, username, memberPasswordVo);
 
         return new ResponseResult<Boolean>().success(isUpdate ? "修改成功" : "修改失败", isUpdate);

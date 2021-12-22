@@ -1,20 +1,16 @@
 package com.xiaofei.auth.service;
 
-
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.common.core.exception.mall.MallLoginException;
-import com.xiaofei.common.auth.entity.MemberEntity;
-import com.xiaofei.common.auth.vo.UserInfoVo;
+import com.xiaofei.auth.vo.UserInfoVo;
 
 import java.util.Map;
 
 /**
  * User: 李飞
- * Date: 2021/8/14
- * Time: 21:22
+ * Date: 2021/12/22
+ * Time: 13:48
  */
-public interface UserService extends IService<MemberEntity> {
-
+public interface AuthService {
     /**
      * 用户注册
      *
@@ -38,5 +34,13 @@ public interface UserService extends IService<MemberEntity> {
      * @return 返回退出信息
      */
     Map<String, Object> loginOut(String username);
-}
 
+    /**
+     * 发送简单的邮件
+     *
+     * @param registerEmail 注册的邮箱
+     * @return true：发送成功。false：发送失败
+     */
+    Map<String, Object> sendSimpleEmail(String registerEmail);
+
+}

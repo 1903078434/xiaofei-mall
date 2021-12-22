@@ -1,4 +1,4 @@
-package com.xiaofei.common.auth.vo;
+package com.xiaofei.auth.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("邮箱注册")
-public class MallInfoVo {
+public class EmailVo {
 
     @ApiModelProperty("需要注册的邮箱")
     private String registerEmail;

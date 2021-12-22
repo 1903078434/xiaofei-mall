@@ -1,4 +1,4 @@
-package com.xiaofei.common.auth.vo;
+package com.xiaofei.member.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

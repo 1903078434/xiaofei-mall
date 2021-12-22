@@ -11,6 +11,13 @@ import com.xiaofei.common.vo.PageVo;
  * Time: 15:57
  */
 public interface MemberService extends IService<MemberEntity> {
+    /**
+     * 用户注册
+     *
+     * @param memberEntity 用户注册信息
+     * @return 返回用户注册是否成功
+     */
+    boolean userRegister(MemberEntity memberEntity);
 
     /**
      * 通过token获取用户信息
@@ -64,4 +71,20 @@ public interface MemberService extends IService<MemberEntity> {
      */
     MemberPageRespVo queryMemberDetailInfo(Long userId, String username);
 
+    /**
+     * 根据用户名或邮箱查询用户信息
+     *
+     * @param username 用户名
+     * @param email    邮箱
+     * @return 返回用户信息
+     */
+    MemberEntity queryMemberByUserNameOrEmail(String username, String email);
+
+    /**
+     * 根据用户名查询用户信息
+     *
+     * @param username 用户名
+     * @return 返回用户信息
+     */
+    MemberEntity queryMemberByUserName(String username);
 }
