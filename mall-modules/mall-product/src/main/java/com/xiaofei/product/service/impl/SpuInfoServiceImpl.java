@@ -225,8 +225,15 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 .collect(Collectors.toList());
 
         //1.3、获取可以被检索的属性（检索页可以根据属性搜索商品的属性）
-        List<AttrEntity> attrs = attrService.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds)
-                .eq("search_type", 1));
+        List<AttrEntity> attrs = null;
+        if (attrIds.size() > 0) {
+            attrs = attrService.list(new QueryWrapper<AttrEntity>().in("attr_id", attrIds)
+                    .eq("search_type", 1));
+        } else {
+            attrs = attrService.list(new QueryWrapper<AttrEntity>()
+                    .eq("search_type", 1));
+        }
+
 
         //1.4、提取可检索属性的id
         List<Long> searchAttrIds = attrs.stream().map(AttrEntity::getAttrId).collect(Collectors.toList());
