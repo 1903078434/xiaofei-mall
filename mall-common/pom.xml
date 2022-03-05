@@ -4,31 +4,25 @@
     <parent>
         <groupId>com.xiaofei</groupId>
         <artifactId>xiaofei</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.0</version>
     </parent>
-
-    <artifactId>mall-common</artifactId>
-
-    <packaging>pom</packaging>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <description>mall-common通用模块</description>
-
-
     <modules>
-        <module>ruoyi-common-log</module>
-        <module>ruoyi-common-core</module>
-        <module>ruoyi-common-redis</module>
-        <module>ruoyi-common-swagger</module>
-        <module>ruoyi-common-security</module>
-        <module>ruoyi-common-datascope</module>
-        <module>ruoyi-common-datasource</module>
+        <module>mall-common-log</module>
         <module>mall-common-core</module>
-        <module>mall-common-feign</module>
-        <module>mall-common-thread-pool</module>
-        <!--<module>mall-common</module>-->
+        <module>mall-common-redis</module>
+        <module>mall-common-swagger</module>
+        <module>mall-common-security</module>
+        <module>mall-common-datascope</module>
+		<module>mall-common-datasource</module>
     </modules>
 
+    <artifactId>xiaofei-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+	    mall-common通用模块
+    </description>
 
 </project>

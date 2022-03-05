@@ -1,98 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>xiaofei</artifactId>
         <groupId>com.xiaofei</groupId>
-        <version>3.3.0</version>
+        <artifactId>xiaofei</artifactId>
+        <version>3.4.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>mall-auth</artifactId>
-
-
-    <description>mall-auth会员认证模块认证</description>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <mysql.version>8.0.19</mysql.version>
-        <seata.version>1.4.2</seata.version>
-    </properties>
-
+    
+    <artifactId>xiaofei-auth</artifactId>
+	
+    <description>
+        mall-auth认证授权中心
+    </description>
+    
     <dependencies>
-
-        <!--spring-boot-starter-web-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
+        
         <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-
+        
         <!-- SpringCloud Alibaba Nacos Config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
-        <!-- spring-boot-starter-test -->
+        
+        <!-- SpringCloud Alibaba Sentinel -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+		
+        <!-- SpringBoot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!--spring-boot-starter-mail-->
+        
+        <!-- SpringBoot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!--mall-common-feign-->
+		
+        <!-- RuoYi Common Security-->
         <dependency>
             <groupId>com.xiaofei</groupId>
-            <artifactId>mall-common-feign</artifactId>
+            <artifactId>xiaofei-common-security</artifactId>
         </dependency>
-
-        <!--mall-common-->
-        <dependency>
-            <groupId>com.xiaofei</groupId>
-            <artifactId>mall-common-core</artifactId>
-            <version>${xiaofei.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>druid-spring-boot-starter</artifactId>
-                    <groupId>com.alibaba</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>mybatis-plus-boot-starter</artifactId>
-                    <groupId>com.baomidou</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>ruoyi-common-swagger</artifactId>
-                    <groupId>com.ruoyi</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!--mall-redis-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-redis</artifactId>
-        </dependency>
-
-
-
+        
     </dependencies>
-
+	
     <build>
-        <!--Java包最终打包的名字-->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
@@ -108,5 +70,5 @@
             </plugin>
         </plugins>
     </build>
-
+   
 </project>

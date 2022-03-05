@@ -6,39 +6,37 @@
 
     <groupId>com.xiaofei</groupId>
     <artifactId>xiaofei</artifactId>
-    <version>3.3.0</version>
+    <version>3.4.0</version>
 
-    <name>xiaofei</name>
-    <url>https://gitee.com/Li_Fei_git/xiaofei-mall</url>
-    <description>小飞微服务系统</description>
+    <name>mall</name>
+    <url>http://www.mall.vip</url>
+    <description>小飞商城</description>
 
     <properties>
-        <xiaofei.version>3.3.0</xiaofei.version>
+        <xiaofei.version>3.4.0</xiaofei.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.5.6</spring-boot.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <spring-boot.version>2.6.4</spring-boot.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <alibaba.nacos.version>2.0.3</alibaba.nacos.version>
-        <spring-boot-admin.version>2.5.2</spring-boot-admin.version>
-        <spring-boot.mybatis>2.2.0</spring-boot.mybatis>
-        <mybatis-plus>3.4.3</mybatis-plus>
+        <alibaba.nacos.version>2.0.4</alibaba.nacos.version>
+        <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
+        <spring-boot.mybatis>2.2.2</spring-boot.mybatis>
         <swagger.fox.version>3.0.0</swagger.fox.version>
         <swagger.core.version>1.6.2</swagger.core.version>
         <tobato.version>1.27.2</tobato.version>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
+        <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
         <druid.version>1.2.8</druid.version>
-        <dynamic-ds.version>3.4.1</dynamic-ds.version>
+        <dynamic-ds.version>3.5.0</dynamic-ds.version>
         <commons.io.version>2.11.0</commons.io.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
-        <velocity.version>1.7</velocity.version>
-        <fastjson.version>1.2.78</fastjson.version>
+        <velocity.version>2.3</velocity.version>
+        <fastjson.version>1.2.79</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
         <minio.version>8.2.2</minio.version>
         <poi.version>4.1.2</poi.version>
-        <common-pool.version>2.10.0</common-pool.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <transmittable-thread-local.version>2.12.2</transmittable-thread-local.version>
     </properties>
@@ -152,20 +150,14 @@
             <!-- 代码生成使用模板 -->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
+                <artifactId>velocity-engine-core</artifactId>
                 <version>${velocity.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-collections</groupId>
-                        <artifactId>commons-collections</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- Collection 增强Java集合框架 -->
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
+            <dependency> 
+                <groupId>commons-collections</groupId> 
+                <artifactId>commons-collections</artifactId> 
                 <version>${commons-collections.version}</version>
             </dependency>
 
@@ -190,80 +182,59 @@
                 <version>${transmittable-thread-local.version}</version>
             </dependency>
 
-            <!-- 公共资源池 -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${common-pool.version}</version>
-            </dependency>
-
             <!-- 核心模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-core</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-core</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 接口模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-swagger</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-swagger</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 安全模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-security</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-security</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 权限范围 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-datascope</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-datascope</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 多数据源 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-datasource</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-datasource</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 日志记录 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-log</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-log</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 缓存服务 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common-redis</artifactId>
+                <groupId>com.xiaofei</groupId>
+                <artifactId>xiaofei-common-redis</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
             <!-- 系统接口 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-api-system</artifactId>
-                <version>${xiaofei.version}</version>
-            </dependency>
-
-            <!-- 商城公共模块 -->
-            <dependency>
                 <groupId>com.xiaofei</groupId>
-                <artifactId>mall-common-core</artifactId>
-                <version>${xiaofei.version}</version>
-            </dependency>
-
-            <!-- 商城feign远程调用模块 -->
-            <dependency>
-                <groupId>com.xiaofei</groupId>
-                <artifactId>mall-common-feign</artifactId>
+                <artifactId>xiaofei-api-system</artifactId>
                 <version>${xiaofei.version}</version>
             </dependency>
 
@@ -271,16 +242,13 @@
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-auth</module>
-        <module>ruoyi-gateway</module>
-        <module>ruoyi-visual</module>
-        <module>mall-modules</module>
-        <module>ruoyi-api</module>
-        <module>mall-common</module>
-        <module>mall-gateway</module>
         <module>mall-auth</module>
+        <module>mall-gateway</module>
+        <module>mall-visual</module>
+        <module>mall-modules</module>
+        <module>mall-api</module>
+        <module>mall-common</module>
     </modules>
-
     <packaging>pom</packaging>
 
     <dependencies>
