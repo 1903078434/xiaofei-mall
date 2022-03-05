@@ -2,8 +2,8 @@ package com.xiaofei.system.domain;
 
 /**
  * 当前在线会话
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class SysUserOnline
 {

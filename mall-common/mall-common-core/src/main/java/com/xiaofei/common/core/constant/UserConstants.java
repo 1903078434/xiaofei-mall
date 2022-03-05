@@ -2,8 +2,8 @@ package com.xiaofei.common.core.constant;
 
 /**
  * 用户常量信息
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class UserConstants
 {

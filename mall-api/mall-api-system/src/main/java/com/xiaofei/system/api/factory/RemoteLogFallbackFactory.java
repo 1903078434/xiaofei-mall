@@ -12,7 +12,7 @@ import com.xiaofei.system.api.domain.SysOperLog;
 /**
  * 日志服务降级处理
  * 
- * @author ruoyi
+ * @author 李飞
  */
 @Component
 public class RemoteLogFallbackFactory implements FallbackFactory<RemoteLogService>

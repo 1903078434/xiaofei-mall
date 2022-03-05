@@ -11,7 +11,7 @@ import com.xiaofei.system.api.domain.SysDictData;
 /**
  * 字典工具类
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class DictUtils
 {

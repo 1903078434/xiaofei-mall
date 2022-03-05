@@ -2,8 +2,8 @@ package com.xiaofei.common.core.constant;
 
 /**
  * 通用常量信息
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class Constants
 {

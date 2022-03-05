@@ -9,8 +9,8 @@ import static com.google.code.kaptcha.Constants.*;
 
 /**
  * 验证码配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 public class CaptchaConfig
@@ -42,7 +42,7 @@ public class CaptchaConfig
         defaultKaptcha.setConfig(config);
         return defaultKaptcha;
     }
-    
+
     @Bean(name = "captchaProducerMath")
     public DefaultKaptcha getKaptchaBeanMath()
     {

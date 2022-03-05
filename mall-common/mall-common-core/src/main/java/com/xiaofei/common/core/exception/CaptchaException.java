@@ -2,8 +2,8 @@ package com.xiaofei.common.core.exception;
 
 /**
  * 验证码错误异常类
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class CaptchaException extends RuntimeException
 {

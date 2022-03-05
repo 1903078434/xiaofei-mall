@@ -11,8 +11,8 @@ import com.xiaofei.system.api.domain.SysFile;
 
 /**
  * 文件服务降级处理
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Component
 public class RemoteFileFallbackFactory implements FallbackFactory<RemoteFileService>

@@ -19,8 +19,8 @@ import com.xiaofei.system.api.model.LoginUser;
 
 /**
  * token 控制
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 public class TokenController

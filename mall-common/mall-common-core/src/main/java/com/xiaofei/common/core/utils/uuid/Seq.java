@@ -5,7 +5,7 @@ import com.xiaofei.common.core.utils.DateUtils;
 import com.xiaofei.common.core.utils.StringUtils;
 
 /**
- * @author ruoyi 序列生成类
+ * @author 李飞 序列生成类
  */
 public class Seq
 {

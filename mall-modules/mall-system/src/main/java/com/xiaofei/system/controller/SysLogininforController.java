@@ -23,8 +23,8 @@ import com.xiaofei.system.service.ISysLogininforService;
 
 /**
  * 系统访问记录
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/logininfor")

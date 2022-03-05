@@ -14,7 +14,7 @@ import com.xiaofei.system.api.factory.RemoteLogFallbackFactory;
 /**
  * 日志服务
  * 
- * @author ruoyi
+ * @author 李飞
  */
 @FeignClient(contextId = "remoteLogService", value = ServiceNameConstants.SYSTEM_SERVICE, fallbackFactory = RemoteLogFallbackFactory.class)
 public interface RemoteLogService

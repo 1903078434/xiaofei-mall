@@ -8,7 +8,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 /**
  * seata 在 springboot 2.6.x 存在循环引用问题的处理
  *
- * @author ruoyi
+ * @author 李飞
  */
 public class ApplicationSeataInitializer implements EnvironmentPostProcessor, Ordered
 {

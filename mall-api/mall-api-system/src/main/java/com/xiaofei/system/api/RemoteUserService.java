@@ -15,8 +15,8 @@ import com.xiaofei.system.api.model.LoginUser;
 
 /**
  * 用户服务
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.SYSTEM_SERVICE, fallbackFactory = RemoteUserFallbackFactory.class)
 public interface RemoteUserService

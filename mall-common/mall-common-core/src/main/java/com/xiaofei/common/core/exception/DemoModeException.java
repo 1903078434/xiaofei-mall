@@ -2,8 +2,8 @@ package com.xiaofei.common.core.exception;
 
 /**
  * 演示模式异常
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class DemoModeException extends RuntimeException
 {

@@ -9,7 +9,7 @@ import com.xiaofei.common.core.web.domain.BaseEntity;
 /**
  * 系统访问记录表 sys_logininfor
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class SysLogininfor extends BaseEntity
 {

@@ -8,8 +8,8 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 /**
  * 定时任务配置（单机部署建议删除此类和qrtz数据库表，默认走内存会最高效）
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 public class ScheduleConfig

@@ -12,7 +12,7 @@ import com.xiaofei.common.core.web.domain.BaseEntity;
 /**
  * 部门表 sys_dept
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class SysDept extends BaseEntity
 {

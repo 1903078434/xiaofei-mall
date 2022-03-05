@@ -19,8 +19,8 @@ import com.xiaofei.common.core.web.domain.AjaxResult;
 
 /**
  * 全局异常处理器
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler

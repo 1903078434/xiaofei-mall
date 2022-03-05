@@ -3,7 +3,7 @@ package com.xiaofei.common.core.constant;
 /**
  * 缓存的key 常量
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class CacheConstants
 {

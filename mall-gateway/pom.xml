@@ -64,7 +64,7 @@
             <artifactId>kaptcha</artifactId>
         </dependency>
 
-        <!-- RuoYi Common Redis-->
+        <!-- xiaofei-mall Common Redis-->
         <dependency>
             <groupId>com.xiaofei</groupId>
             <artifactId>xiaofei-common-redis</artifactId>

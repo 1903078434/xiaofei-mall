@@ -7,7 +7,7 @@ import feign.RequestInterceptor;
 /**
  * Feign 配置注册
  *
- * @author ruoyi
+ * @author 李飞
  **/
 @Configuration
 public class FeignAutoConfiguration

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * 代码生成相关配置
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Component
 @ConfigurationProperties(prefix = "gen")

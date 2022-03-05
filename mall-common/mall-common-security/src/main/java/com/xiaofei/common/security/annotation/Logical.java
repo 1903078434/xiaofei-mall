@@ -3,7 +3,7 @@ package com.xiaofei.common.security.annotation;
 /**
  * 权限注解的验证模式
  * 
- * @author ruoyi
+ * @author 李飞
  *
  */
 public enum Logical

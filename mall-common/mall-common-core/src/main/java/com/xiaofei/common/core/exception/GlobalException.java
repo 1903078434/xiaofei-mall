@@ -2,8 +2,8 @@ package com.xiaofei.common.core.exception;
 
 /**
  * 全局异常
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class GlobalException extends RuntimeException
 {

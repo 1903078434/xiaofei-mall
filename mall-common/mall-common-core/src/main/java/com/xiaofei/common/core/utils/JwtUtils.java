@@ -11,7 +11,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * Jwt工具类
  *
- * @author ruoyi
+ * @author 李飞
  */
 public class JwtUtils
 {
@@ -42,7 +42,7 @@ public class JwtUtils
 
     /**
      * 根据令牌获取用户标识
-     * 
+     *
      * @param token 令牌
      * @return 用户ID
      */
@@ -54,7 +54,7 @@ public class JwtUtils
 
     /**
      * 根据令牌获取用户标识
-     * 
+     *
      * @param claims 身份信息
      * @return 用户ID
      */
@@ -65,7 +65,7 @@ public class JwtUtils
 
     /**
      * 根据令牌获取用户ID
-     * 
+     *
      * @param token 令牌
      * @return 用户ID
      */
@@ -77,7 +77,7 @@ public class JwtUtils
 
     /**
      * 根据身份信息获取用户ID
-     * 
+     *
      * @param claims 身份信息
      * @return 用户ID
      */
@@ -88,7 +88,7 @@ public class JwtUtils
 
     /**
      * 根据令牌获取用户名
-     * 
+     *
      * @param token 令牌
      * @return 用户名
      */
@@ -100,7 +100,7 @@ public class JwtUtils
 
     /**
      * 根据身份信息获取用户名
-     * 
+     *
      * @param claims 身份信息
      * @return 用户名
      */
@@ -111,7 +111,7 @@ public class JwtUtils
 
     /**
      * 根据身份信息获取键值
-     * 
+     *
      * @param claims 身份信息
      * @param key 键
      * @return 值

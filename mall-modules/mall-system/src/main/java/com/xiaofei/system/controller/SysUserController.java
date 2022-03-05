@@ -40,8 +40,8 @@ import com.xiaofei.system.service.ISysUserService;
 
 /**
  * 用户信息
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/user")
@@ -147,7 +147,7 @@ public class SysUserController extends BaseController
 
     /**
      * 获取用户信息
-     * 
+     *
      * @return 用户信息
      */
     @GetMapping("getInfo")

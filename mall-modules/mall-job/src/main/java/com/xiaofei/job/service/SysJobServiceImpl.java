@@ -19,7 +19,7 @@ import com.xiaofei.job.util.ScheduleUtils;
 /**
  * 定时任务调度信息 服务层
  * 
- * @author ruoyi
+ * @author 李飞
  */
 @Service
 public class SysJobServiceImpl implements ISysJobService

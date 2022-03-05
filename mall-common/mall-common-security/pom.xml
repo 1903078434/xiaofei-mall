@@ -7,7 +7,7 @@
         <version>3.4.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    
+
     <artifactId>xiaofei-common-security</artifactId>
 
     <description>
@@ -22,13 +22,13 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
 
-        <!-- RuoYi Api System -->
+        <!-- xiaofei-mall Api System -->
         <dependency>
             <groupId>com.xiaofei</groupId>
             <artifactId>xiaofei-api-system</artifactId>
         </dependency>
 
-        <!-- RuoYi Common Redis-->
+        <!-- xiaofei-mall Common Redis-->
         <dependency>
             <groupId>com.xiaofei</groupId>
             <artifactId>xiaofei-common-redis</artifactId>

@@ -23,8 +23,8 @@ import com.xiaofei.system.service.ISysOperLogService;
 
 /**
  * 操作日志记录
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/operlog")

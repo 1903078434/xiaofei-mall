@@ -59,7 +59,7 @@ import com.xiaofei.common.core.utils.reflect.ReflectUtils;
 /**
  * Excel相关处理
  *
- * @author ruoyi
+ * @author 李飞
  */
 public class ExcelUtil<T>
 {
@@ -1159,7 +1159,7 @@ public class ExcelUtil<T>
 
     /**
      * 格式化不同类型的日期对象
-     * 
+     *
      * @param dateFormat 日期格式
      * @param val 被格式化的日期对象
      * @return 格式化后的日期字符

@@ -6,7 +6,7 @@ import com.xiaofei.common.core.constant.Constants;
 /**
  * 响应信息主体
  *
- * @author ruoyi
+ * @author 李飞
  */
 public class R<T> implements Serializable
 {

@@ -2,8 +2,8 @@ package com.xiaofei.auth.form;
 
 /**
  * 用户登录对象
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class LoginBody
 {

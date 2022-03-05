@@ -10,8 +10,8 @@ import com.xiaofei.common.core.web.domain.BaseEntity;
 
 /**
  * 字典类型表 sys_dict_type
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class SysDictType extends BaseEntity
 {
@@ -76,7 +76,7 @@ public class SysDictType extends BaseEntity
     {
         this.status = status;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

@@ -8,8 +8,8 @@ import com.xiaofei.common.core.utils.StringUtils;
 
 /**
  * 自定义xss校验注解实现
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class XssValidator implements ConstraintValidator<Xss, String>
 {

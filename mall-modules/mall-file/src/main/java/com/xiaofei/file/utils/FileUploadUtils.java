@@ -16,7 +16,7 @@ import com.xiaofei.common.core.utils.uuid.Seq;
 /**
  * 文件上传工具类
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class FileUploadUtils
 {

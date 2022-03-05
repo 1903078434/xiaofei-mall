@@ -11,8 +11,8 @@ import com.xiaofei.gateway.handler.ValidateCodeHandler;
 
 /**
  * 路由配置信息
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @Configuration
 public class RouterFunctionConfiguration

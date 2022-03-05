@@ -12,7 +12,7 @@ import com.xiaofei.common.core.web.domain.BaseEntity;
 /**
  * 菜单权限表 sys_menu
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class SysMenu extends BaseEntity
 {

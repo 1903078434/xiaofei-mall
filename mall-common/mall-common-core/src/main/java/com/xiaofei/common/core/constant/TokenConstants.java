@@ -2,8 +2,8 @@ package com.xiaofei.common.core.constant;
 
 /**
  * Token的Key常量
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class TokenConstants
 {

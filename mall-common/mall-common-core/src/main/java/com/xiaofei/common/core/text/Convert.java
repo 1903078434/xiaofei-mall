@@ -11,7 +11,7 @@ import com.xiaofei.common.core.utils.StringUtils;
 /**
  * 类型转换器
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public class Convert
 {

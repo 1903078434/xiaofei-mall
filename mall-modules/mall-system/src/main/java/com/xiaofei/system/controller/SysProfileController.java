@@ -28,7 +28,7 @@ import com.xiaofei.system.service.ISysUserService;
 /**
  * 个人信息 业务处理
  * 
- * @author ruoyi
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/user/profile")

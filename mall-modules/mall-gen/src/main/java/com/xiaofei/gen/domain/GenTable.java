@@ -10,8 +10,8 @@ import com.xiaofei.common.core.web.domain.BaseEntity;
 
 /**
  * 业务表 gen_table
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class GenTable extends BaseEntity
 {

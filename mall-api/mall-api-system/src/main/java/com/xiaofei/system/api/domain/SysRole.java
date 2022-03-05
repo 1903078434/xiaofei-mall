@@ -10,8 +10,8 @@ import com.xiaofei.common.core.web.domain.BaseEntity;
 
 /**
  * 角色表 sys_role
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 public class SysRole extends BaseEntity
 {

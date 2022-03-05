@@ -11,7 +11,7 @@ import com.xiaofei.common.core.utils.ServletUtils;
 /**
  * 黑名单过滤器
  * 
- * @author ruoyi
+ * @author 李飞
  */
 @Component
 public class BlackListUrlFilter extends AbstractGatewayFilterFactory<BlackListUrlFilter.Config>

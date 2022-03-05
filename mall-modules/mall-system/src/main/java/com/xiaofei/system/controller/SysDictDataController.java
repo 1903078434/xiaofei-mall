@@ -28,8 +28,8 @@ import com.xiaofei.system.service.ISysDictTypeService;
 
 /**
  * 数据字典信息
- * 
- * @author ruoyi
+ *
+ * @author 李飞
  */
 @RestController
 @RequestMapping("/dict/data")
@@ -37,7 +37,7 @@ public class SysDictDataController extends BaseController
 {
     @Autowired
     private ISysDictDataService dictDataService;
-    
+
     @Autowired
     private ISysDictTypeService dictTypeService;
 

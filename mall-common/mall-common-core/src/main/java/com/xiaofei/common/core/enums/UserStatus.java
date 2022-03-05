@@ -3,7 +3,7 @@ package com.xiaofei.common.core.enums;
 /**
  * 用户状态
  * 
- * @author ruoyi
+ * @author 李飞
  */
 public enum UserStatus
 {
