@@ -228,7 +228,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, CartEntity> impleme
      */
     @Override
     public List<CartEntity> queryCheckCart(Long userId) {
-        return this.list(new QueryWrapper<CartEntity>().eq("user_id", userId));
+        return this.list(new QueryWrapper<CartEntity>().eq("user_id", userId).eq("`check`", 1));
     }
 }
 
