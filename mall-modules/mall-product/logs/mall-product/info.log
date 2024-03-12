@@ -1,0 +1,368 @@
+18:32:30.987 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.0.Final
+18:32:31.209 [main] INFO  c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - [postProcessBeanFactory,44] - Post-processing PropertySource instances
+18:32:31.211 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,105] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+18:32:31.213 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:32:31.213 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Inlined Test Properties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:32:31.214 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+18:32:31.214 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+18:32:31.214 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+18:32:31.215 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+18:32:31.215 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:32:31.215 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Config resource 'class path resource [bootstrap.yml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+18:32:31.250 [main] INFO  c.u.j.f.DefaultLazyPropertyFilter - [lambda$new$2,45] - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+18:32:31.262 [main] INFO  c.u.j.r.DefaultLazyPropertyResolver - [lambda$new$2,46] - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+18:32:31.267 [main] INFO  c.u.j.d.DefaultLazyPropertyDetector - [lambda$new$2,44] - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+18:32:31.277 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:32:31.285 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:33:24.293 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.0.Final
+18:33:24.521 [main] INFO  c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - [postProcessBeanFactory,44] - Post-processing PropertySource instances
+18:33:24.522 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,105] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+18:33:24.523 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:33:24.523 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Inlined Test Properties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:33:24.524 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+18:33:24.524 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+18:33:24.524 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+18:33:24.524 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+18:33:24.524 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:33:24.525 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Config resource 'class path resource [bootstrap.yml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+18:33:24.559 [main] INFO  c.u.j.f.DefaultLazyPropertyFilter - [lambda$new$2,45] - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+18:33:24.571 [main] INFO  c.u.j.r.DefaultLazyPropertyResolver - [lambda$new$2,46] - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+18:33:24.575 [main] INFO  c.u.j.d.DefaultLazyPropertyDetector - [lambda$new$2,44] - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+18:33:24.585 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:33:24.593 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:49:10.386 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.0.Final
+18:49:10.623 [main] INFO  c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - [postProcessBeanFactory,44] - Post-processing PropertySource instances
+18:49:10.625 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,105] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+18:49:10.626 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:49:10.627 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Inlined Test Properties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:49:10.627 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+18:49:10.627 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+18:49:10.627 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+18:49:10.628 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+18:49:10.628 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:49:10.628 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Config resource 'class path resource [bootstrap.yml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+18:49:10.663 [main] INFO  c.u.j.f.DefaultLazyPropertyFilter - [lambda$new$2,45] - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+18:49:10.676 [main] INFO  c.u.j.r.DefaultLazyPropertyResolver - [lambda$new$2,46] - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+18:49:10.681 [main] INFO  c.u.j.d.DefaultLazyPropertyDetector - [lambda$new$2,44] - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+18:49:10.689 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:49:10.697 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:51:02.311 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.0.Final
+18:51:02.523 [main] INFO  c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - [postProcessBeanFactory,44] - Post-processing PropertySource instances
+18:51:02.524 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,105] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+18:51:02.526 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:02.526 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Inlined Test Properties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:02.526 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:02.526 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+18:51:02.527 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+18:51:02.527 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+18:51:02.527 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:02.527 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Config resource 'class path resource [bootstrap.yml]' via location 'optional:classpath:/' [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:02.561 [main] INFO  c.u.j.f.DefaultLazyPropertyFilter - [lambda$new$2,45] - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+18:51:02.573 [main] INFO  c.u.j.r.DefaultLazyPropertyResolver - [lambda$new$2,46] - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+18:51:02.576 [main] INFO  c.u.j.d.DefaultLazyPropertyDetector - [lambda$new$2,44] - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+18:51:02.588 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:51:02.613 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.algorithm, using default value: PBEWITHHMACSHA512ANDAES_256
+18:51:02.613 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.key-obtention-iterations, using default value: 1000
+18:51:02.614 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.pool-size, using default value: 1
+18:51:02.614 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.provider-name, using default value: null
+18:51:02.615 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.provider-class-name, using default value: null
+18:51:02.615 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.salt-generator-classname, using default value: org.jasypt.salt.RandomSaltGenerator
+18:51:02.641 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.iv-generator-classname, using default value: org.jasypt.iv.RandomIvGenerator
+18:51:02.644 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.string-output-type, using default value: base64
+18:51:04.629 [main] INFO  c.a.n.c.e.SearchableProperties - [sortPropertySourceDefaultOrder,197] - properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+18:51:06.692 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+18:51:06.692 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+18:51:10.318 [main] INFO  c.a.n.c.c.i.LocalConfigInfoProcessor - [<clinit>,68] - LOCAL_SNAPSHOT_PATH:C:\Users\19030\nacos\config
+18:51:10.322 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,94] - [RpcClientFactory] create a new rpc client of 92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0
+18:51:10.380 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$673/1819897025
+18:51:10.381 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$674/892611887
+18:51:10.381 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+18:51:10.381 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+18:51:10.387 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Try to connect to server on start up, server: {serverIp = '192.168.191.194', server main port = 8848}
+18:51:16.977 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Try to connect to server on start up, server: {serverIp = '192.168.191.194', server main port = 8848}
+18:51:17.921 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Success to connect to server [192.168.191.194:8848] on start up, connectionId = 1710240677340_192.168.191.192_5542
+18:51:17.922 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Notify connected event to listeners.
+18:51:17.922 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+18:51:17.923 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.c.i.ClientWorker - [onConnected,639] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Connected,notify listen context...
+18:51:17.923 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [92130ca4-a2b2-4cc2-b00d-2b49852f2167_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$682/513042872
+18:51:18.016 [main] INFO  c.a.n.c.c.u.JvmUtil - [<clinit>,54] - isMultiInstance:false
+18:51:18.080 [main] INFO  c.x.p.s.SpuInfoServiceTest - [logStartupProfileInfo,663] - The following profiles are active: dev
+18:51:19.410 [main] INFO  c.u.j.c.EnableEncryptablePropertiesBeanFactoryPostProcessor - [postProcessBeanFactory,44] - Post-processing PropertySource instances
+18:51:19.410 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,105] - Skipping PropertySource configurationProperties [class org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource
+18:51:19.410 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource test [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:19.410 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrapProperties-mall-product-dev.yaml,DEFAULT_GROUP [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+18:51:19.411 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrapProperties-mall-product.yaml,DEFAULT_GROUP [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+18:51:19.411 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource bootstrapProperties-mall-product,DEFAULT_GROUP [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+18:51:19.411 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource Inlined Test Properties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:19.411 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:19.411 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+18:51:19.412 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+18:51:19.412 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+18:51:19.412 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:19.412 [main] INFO  c.u.j.EncryptablePropertySourceConverter - [makeEncryptable,110] - Converting PropertySource springCloudDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+18:51:19.593 [main] INFO  c.u.j.f.DefaultLazyPropertyFilter - [lambda$new$2,45] - Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+18:51:19.598 [main] INFO  c.u.j.r.DefaultLazyPropertyResolver - [lambda$new$2,46] - Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+18:51:19.598 [main] INFO  c.u.j.d.DefaultLazyPropertyDetector - [lambda$new$2,44] - Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+18:51:19.606 [main] INFO  i.s.s.b.a.SeataAutoConfiguration - [globalTransactionScanner,63] - Automatically configure Seata
+18:51:19.682 [main] INFO  i.s.c.ConfigurationFactory - [load,64] - load Configuration from :Spring Configuration
+18:51:19.691 [main] INFO  c.u.j.e.DefaultLazyEncryptor - [lambda$new$2,46] - String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+18:51:19.697 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.algorithm, using default value: PBEWITHHMACSHA512ANDAES_256
+18:51:19.697 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.key-obtention-iterations, using default value: 1000
+18:51:19.698 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.pool-size, using default value: 1
+18:51:19.698 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.provider-name, using default value: null
+18:51:19.699 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.provider-class-name, using default value: null
+18:51:19.699 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.salt-generator-classname, using default value: org.jasypt.salt.RandomSaltGenerator
+18:51:19.699 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.iv-generator-classname, using default value: org.jasypt.iv.RandomIvGenerator
+18:51:19.700 [main] INFO  c.u.j.c.StringEncryptorBuilder - [get,119] - Encryptor config not found for property jasypt.encryptor.string-output-type, using default value: base64
+18:51:19.708 [main] INFO  i.s.c.n.NacosConfiguration - [getConfigProperties,233] - Nacos check auth with userName/password.
+18:51:19.721 [main] INFO  c.a.n.c.e.SearchableProperties - [sortPropertySourceDefaultOrder,197] - properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+18:51:19.722 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+18:51:19.722 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+18:51:19.819 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,94] - [RpcClientFactory] create a new rpc client of b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0
+18:51:19.820 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$673/1819897025
+18:51:19.820 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$674/892611887
+18:51:19.820 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+18:51:19.820 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+18:51:19.821 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Try to connect to server on start up, server: {serverIp = '192.168.191.194', server main port = 8848}
+18:51:19.978 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Success to connect to server [192.168.191.194:8848] on start up, connectionId = 1710240679459_192.168.191.192_5553
+18:51:19.979 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Notify connected event to listeners.
+18:51:19.979 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+18:51:19.980 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.c.i.ClientWorker - [onConnected,639] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Connected,notify listen context...
+18:51:19.980 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [b19d6944-635b-4d7a-9999-76fb1b5433e1_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$682/513042872
+18:51:20.393 [main] INFO  i.s.s.a.GlobalTransactionScanner - [initClient,212] - Initializing Global Transaction Clients ... 
+18:51:20.764 [main] INFO  c.a.n.c.c.i.CacheData - [<clinit>,67] - nacos.cache.data.init.snapshot = true 
+18:51:20.766 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [subscribe] transport.enableTmClientBatchSendRequest+SEATA_GROUP+f0beae13-d7a8-43b1-b513-5228858d7a14
+18:51:20.772 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=transport.enableTmClientBatchSendRequest, group=SEATA_GROUP, cnt=1
+18:51:20.773 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=transport.enableTmClientBatchSendRequest, group=SEATA_GROUP, cnt=2
+18:51:20.808 [main] INFO  i.s.c.r.n.NettyClientBootstrap - [start,147] - NettyClientBootstrap has started
+18:51:20.809 [main] INFO  i.s.d.r.RegistryFactory - [buildRegistryService,50] - use registry center type: nacos
+18:51:20.821 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [subscribe] service.vgroupMapping.default_tx_group+SEATA_GROUP+f0beae13-d7a8-43b1-b513-5228858d7a14
+18:51:20.822 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=service.vgroupMapping.default_tx_group, group=SEATA_GROUP, cnt=1
+18:51:20.850 [main] INFO  c.a.n.c.e.SearchableProperties - [sortPropertySourceDefaultOrder,197] - properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+18:51:20.851 [main] INFO  c.a.n.client.naming - [lambda$initNamespaceForNaming$1,72] - initializer namespace from System Property :f0beae13-d7a8-43b1-b513-5228858d7a14
+18:51:20.859 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+18:51:20.859 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+18:51:20.992 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,94] - [RpcClientFactory] create a new rpc client of 48609877-f9f8-4f92-a0cf-70d7a4af3d62
+18:51:20.995 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+18:51:20.995 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+18:51:20.996 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+18:51:20.997 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Try to connect to server on start up, server: {serverIp = '192.168.191.194', server main port = 8848}
+18:51:21.163 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Success to connect to server [192.168.191.194:8848] on start up, connectionId = 1710240680634_192.168.191.192_5560
+18:51:21.163 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Notify connected event to listeners.
+18:51:21.163 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+18:51:21.164 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.client.naming - [onConnected,78] - Grpc connection connect
+18:51:21.164 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$682/513042872
+18:51:21.166 [main] INFO  c.a.n.client.naming - [subscribe,167] - [SUBSCRIBE-SERVICE] service:seata-server, group:SEATA_GROUP, clusters:default 
+18:51:21.200 [main] INFO  c.a.n.client.naming - [isChangedServiceInfo,184] - init new ips(1) service: SEATA_GROUP@@seata-server@@default -> [{"instanceId":"172.18.0.20#8091#default#SEATA_GROUP@@seata-server","ip":"172.18.0.20","port":8091,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"default","serviceName":"SEATA_GROUP@@seata-server","metadata":{},"instanceHeartBeatTimeOut":15000,"instanceHeartBeatInterval":5000,"instanceIdGenerator":"simple","ipDeleteTimeout":30000}]
+18:51:21.201 [main] INFO  c.a.n.client.naming - [processServiceInfo,169] - current ips:(1) service: SEATA_GROUP@@seata-server@@default -> [{"instanceId":"172.18.0.20#8091#default#SEATA_GROUP@@seata-server","ip":"172.18.0.20","port":8091,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"default","serviceName":"SEATA_GROUP@@seata-server","metadata":{},"instanceHeartBeatTimeOut":15000,"instanceHeartBeatInterval":5000,"instanceIdGenerator":"simple","ipDeleteTimeout":30000}]
+18:51:21.210 [main] INFO  c.a.n.client.naming - [subscribe,167] - [SUBSCRIBE-SERVICE] service:seata-server, group:SEATA_GROUP, clusters:default 
+18:51:21.212 [main] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:51:21.729 [nacos-grpc-client-executor-192.168.191.194-7] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Receive server push request, request = NotifySubscriberRequest, requestId = 412
+18:51:21.730 [nacos-grpc-client-executor-192.168.191.194-7] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [48609877-f9f8-4f92-a0cf-70d7a4af3d62] Ack server push request, request = NotifySubscriberRequest, requestId = 412
+18:51:22.977 [main] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:TMROLE,address:172.18.0.20:8091,msg:< RegisterTMRequest{version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='ak=null
+digest=default_tx_group,192.168.0.106,1710240682975
+timestamp=1710240682975
+authVersion=V4
+vgroup=default_tx_group
+ip=192.168.0.106
+'} >
+18:51:36.548 [main] INFO  i.s.s.a.GlobalTransactionScanner - [initClient,226] - Transaction Manager Client is initialized. applicationId[mall-product] txServiceGroup[default_tx_group]
+18:51:36.566 [NettyClientSelector_TMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x6af8b5f1]) will closed
+18:51:36.578 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [subscribe] transport.enableRmClientBatchSendRequest+SEATA_GROUP+f0beae13-d7a8-43b1-b513-5228858d7a14
+18:51:36.578 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=transport.enableRmClientBatchSendRequest, group=SEATA_GROUP, cnt=1
+18:51:36.579 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=transport.enableRmClientBatchSendRequest, group=SEATA_GROUP, cnt=2
+18:51:36.626 [main] INFO  i.s.r.d.AsyncWorker - [<init>,73] - Async Commit Buffer Limit: 10000
+18:51:36.627 [main] INFO  i.s.r.d.x.ResourceManagerXA - [init,59] - ResourceManagerXA init ...
+18:51:36.635 [main] INFO  i.s.c.r.n.NettyClientBootstrap - [start,147] - NettyClientBootstrap has started
+18:51:36.635 [main] INFO  i.s.s.a.GlobalTransactionScanner - [initClient,231] - Resource Manager is initialized. applicationId[mall-product] txServiceGroup[default_tx_group]
+18:51:36.636 [main] INFO  i.s.s.a.GlobalTransactionScanner - [initClient,235] - Global Transaction Clients are initialized. 
+18:51:37.309 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+18:51:38.738 [main] INFO  c.a.d.p.DruidDataSource - [init,998] - {dataSource-1} inited
+18:51:38.942 [main] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:51:38.943 [main] INFO  i.s.c.r.n.RmNettyRemotingClient - [lambda$getPoolKeyFunction$0,286] - RM will register :jdbc:mysql://192.168.191.194:3306/mall_pms
+18:51:38.943 [main] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:RMROLE,address:172.18.0.20:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://192.168.191.194:3306/mall_pms', version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='null'} >
+18:51:48.950 [NettyClientSelector_RMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x03742d01]) will closed
+18:51:49.000 [main] INFO  i.s.s.a.d.SeataAutoDataSourceProxyCreator - [wrapIfNecessary,91] - Auto proxy data source 'dataSource' by 'AT' mode.
+18:51:59.794 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [subscribe] client.tm.degradeCheck+SEATA_GROUP+f0beae13-d7a8-43b1-b513-5228858d7a14
+18:51:59.794 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=client.tm.degradeCheck, group=SEATA_GROUP, cnt=1
+18:51:59.795 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=client.tm.degradeCheck, group=SEATA_GROUP, cnt=2
+18:51:59.817 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [subscribe] service.disableGlobalTransaction+SEATA_GROUP+f0beae13-d7a8-43b1-b513-5228858d7a14
+18:51:59.818 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=service.disableGlobalTransaction, group=SEATA_GROUP, cnt=1
+18:51:59.818 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-f0beae13-d7a8-43b1-b513-5228858d7a14-192.168.191.194_8848] [add-listener] ok, tenant=f0beae13-d7a8-43b1-b513-5228858d7a14, dataId=service.disableGlobalTransaction, group=SEATA_GROUP, cnt=2
+18:51:59.819 [main] INFO  i.s.s.a.GlobalTransactionScanner - [wrapIfNecessary,291] - Bean [com.xiaofei.product.service.impl.SpuInfoServiceImpl$$EnhancerBySpringCGLIB$$c4eb1af5] with name [spuInfoServiceImpl] would use interceptor [io.seata.integration.tx.api.interceptor.handler.GlobalTransactionalInterceptorHandler]
+18:52:08.520 [main] INFO  c.a.n.c.e.SearchableProperties - [sortPropertySourceDefaultOrder,197] - properties search order:PROPERTIES->JVM->ENV->DEFAULT_SETTING
+18:52:08.521 [main] INFO  c.a.n.client.naming - [initNamespaceForNaming,61] - initializer namespace from System Property : null
+18:52:08.521 [main] INFO  c.a.n.client.naming - [lambda$initNamespaceForNaming$0,65] - initializer namespace from System Environment :null
+18:52:08.521 [main] INFO  c.a.n.client.naming - [lambda$initNamespaceForNaming$1,72] - initializer namespace from System Property :d83abeea-4d77-4633-93b1-8d1fe5bbc08d
+18:52:08.522 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+18:52:08.522 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+18:52:08.648 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,94] - [RpcClientFactory] create a new rpc client of a8844f03-cbf6-4179-a8e8-aaafa3726d1c
+18:52:08.649 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+18:52:08.649 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+18:52:08.649 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+18:52:08.649 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Try to connect to server on start up, server: {serverIp = '192.168.191.194', server main port = 8848}
+18:52:08.815 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Success to connect to server [192.168.191.194:8848] on start up, connectionId = 1710240728282_192.168.191.192_4987
+18:52:08.815 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Notify connected event to listeners.
+18:52:08.815 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+18:52:08.815 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.client.naming - [onConnected,78] - Grpc connection connect
+18:52:08.815 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$682/513042872
+18:52:08.816 [main] INFO  c.a.n.client.naming - [subscribe,167] - [SUBSCRIBE-SERVICE] service:mall-product, group:DEFAULT_GROUP, clusters:DEFAULT 
+18:52:08.836 [main] INFO  c.a.n.client.naming - [isChangedServiceInfo,184] - init new ips(1) service: DEFAULT_GROUP@@mall-product@@DEFAULT -> [{"ip":"192.168.0.106","port":9000,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@mall-product","metadata":{"preserved.register.source":"SPRING_CLOUD"},"instanceHeartBeatTimeOut":15000,"instanceHeartBeatInterval":5000,"ipDeleteTimeout":30000}]
+18:52:08.837 [main] INFO  c.a.n.client.naming - [processServiceInfo,169] - current ips:(1) service: DEFAULT_GROUP@@mall-product@@DEFAULT -> [{"ip":"192.168.0.106","port":9000,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@mall-product","metadata":{"preserved.register.source":"SPRING_CLOUD"},"instanceHeartBeatTimeOut":15000,"instanceHeartBeatInterval":5000,"ipDeleteTimeout":30000}]
+18:52:09.342 [nacos-grpc-client-executor-192.168.191.194-4] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Receive server push request, request = NotifySubscriberRequest, requestId = 413
+18:52:09.343 [nacos-grpc-client-executor-192.168.191.194-4] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Ack server push request, request = NotifySubscriberRequest, requestId = 413
+18:52:20.782 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:52:20.782 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:TMROLE,address:172.18.0.20:8091,msg:< RegisterTMRequest{version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='ak=null
+digest=default_tx_group,192.168.0.106,1710240740782
+timestamp=1710240740782
+authVersion=V4
+vgroup=default_tx_group
+ip=192.168.0.106
+'} >
+18:52:24.535 [main] INFO  c.x.p.s.SpuInfoServiceTest - [logStarted,61] - Started SpuInfoServiceTest in 86.082 seconds (JVM running for 87.327)
+18:52:24.539 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-d83abeea-4d77-4633-93b1-8d1fe5bbc08d-192.168.191.194_8848] [subscribe] mall-product-dev.yaml+DEFAULT_GROUP+d83abeea-4d77-4633-93b1-8d1fe5bbc08d
+18:52:24.539 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-d83abeea-4d77-4633-93b1-8d1fe5bbc08d-192.168.191.194_8848] [add-listener] ok, tenant=d83abeea-4d77-4633-93b1-8d1fe5bbc08d, dataId=mall-product-dev.yaml, group=DEFAULT_GROUP, cnt=1
+18:52:24.540 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-d83abeea-4d77-4633-93b1-8d1fe5bbc08d-192.168.191.194_8848] [subscribe] mall-product+DEFAULT_GROUP+d83abeea-4d77-4633-93b1-8d1fe5bbc08d
+18:52:24.541 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-d83abeea-4d77-4633-93b1-8d1fe5bbc08d-192.168.191.194_8848] [add-listener] ok, tenant=d83abeea-4d77-4633-93b1-8d1fe5bbc08d, dataId=mall-product, group=DEFAULT_GROUP, cnt=1
+18:52:24.543 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,381] - [fixed-d83abeea-4d77-4633-93b1-8d1fe5bbc08d-192.168.191.194_8848] [subscribe] mall-product.yaml+DEFAULT_GROUP+d83abeea-4d77-4633-93b1-8d1fe5bbc08d
+18:52:24.543 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-d83abeea-4d77-4633-93b1-8d1fe5bbc08d-192.168.191.194_8848] [add-listener] ok, tenant=d83abeea-4d77-4633-93b1-8d1fe5bbc08d, dataId=mall-product.yaml, group=DEFAULT_GROUP, cnt=1
+18:52:25.065 [main] INFO  c.a.n.client.naming - [subscribe,167] - [SUBSCRIBE-SERVICE] service:mall-ware, group:DEFAULT_GROUP, clusters: 
+18:52:25.084 [main] INFO  c.a.n.client.naming - [isChangedServiceInfo,184] - init new ips(0) service: DEFAULT_GROUP@@mall-ware -> []
+18:52:25.084 [main] INFO  c.a.n.client.naming - [processServiceInfo,169] - current ips:(0) service: DEFAULT_GROUP@@mall-ware -> []
+18:52:25.585 [nacos-grpc-client-executor-192.168.191.194-8] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Receive server push request, request = NotifySubscriberRequest, requestId = 414
+18:52:25.586 [nacos-grpc-client-executor-192.168.191.194-8] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Ack server push request, request = NotifySubscriberRequest, requestId = 414
+18:52:30.796 [NettyClientSelector_TMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0xe515e8e3]) will closed
+18:52:30.796 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:52:30.796 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:TMROLE,address:172.18.0.20:8091,msg:< RegisterTMRequest{version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='ak=null
+digest=default_tx_group,192.168.0.106,1710240750796
+timestamp=1710240750796
+authVersion=V4
+vgroup=default_tx_group
+ip=192.168.0.106
+'} >
+18:52:32.529 [main] INFO  c.a.n.client.naming - [subscribe,167] - [SUBSCRIBE-SERVICE] service:mall-elasticsearch, group:DEFAULT_GROUP, clusters: 
+18:52:32.550 [main] INFO  c.a.n.client.naming - [isChangedServiceInfo,184] - init new ips(1) service: DEFAULT_GROUP@@mall-elasticsearch -> [{"ip":"192.168.0.106","port":9007,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@mall-elasticsearch","metadata":{"preserved.register.source":"SPRING_CLOUD"},"instanceHeartBeatTimeOut":15000,"instanceHeartBeatInterval":5000,"ipDeleteTimeout":30000}]
+18:52:32.551 [main] INFO  c.a.n.client.naming - [processServiceInfo,169] - current ips:(1) service: DEFAULT_GROUP@@mall-elasticsearch -> [{"ip":"192.168.0.106","port":9007,"weight":1.0,"healthy":true,"enabled":true,"ephemeral":true,"clusterName":"DEFAULT","serviceName":"DEFAULT_GROUP@@mall-elasticsearch","metadata":{"preserved.register.source":"SPRING_CLOUD"},"instanceHeartBeatTimeOut":15000,"instanceHeartBeatInterval":5000,"ipDeleteTimeout":30000}]
+18:52:32.611 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:32.909 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:33.111 [nacos-grpc-client-executor-192.168.191.194-11] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Receive server push request, request = NotifySubscriberRequest, requestId = 415
+18:52:33.111 [nacos-grpc-client-executor-192.168.191.194-11] INFO  c.a.n.c.r.client - [printIfInfoEnabled,60] - [a8844f03-cbf6-4179-a8e8-aaafa3726d1c] Ack server push request, request = NotifySubscriberRequest, requestId = 415
+18:52:33.174 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:33.465 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:33.699 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:33.956 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:34.201 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:34.460 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:34.747 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:34.970 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:35.212 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:35.436 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:35.683 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:35.987 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:36.223 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:36.490 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:36.647 [timeoutChecker_2_1] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:52:36.647 [timeoutChecker_2_1] INFO  i.s.c.r.n.RmNettyRemotingClient - [lambda$getPoolKeyFunction$0,286] - RM will register :jdbc:mysql://192.168.191.194:3306/mall_pms
+18:52:36.648 [timeoutChecker_2_1] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:RMROLE,address:172.18.0.20:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://192.168.191.194:3306/mall_pms', version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='null'} >
+18:52:36.734 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:36.968 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:37.228 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:37.503 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:37.766 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:38.027 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:38.311 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:38.594 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:38.817 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:39.031 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:39.305 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:39.505 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:39.753 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:40.010 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:40.222 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:40.453 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:40.702 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:40.799 [NettyClientSelector_TMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0xf8c4e931]) will closed
+18:52:40.799 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:52:40.799 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:TMROLE,address:172.18.0.20:8091,msg:< RegisterTMRequest{version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='ak=null
+digest=default_tx_group,192.168.0.106,1710240760799
+timestamp=1710240760799
+authVersion=V4
+vgroup=default_tx_group
+ip=192.168.0.106
+'} >
+18:52:40.964 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:41.234 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:41.482 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:41.742 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:42.016 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:42.226 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:42.474 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:45.394 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:45.650 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:46.000 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:46.219 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:46.490 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:46.664 [NettyClientSelector_RMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x8ae11899]) will closed
+18:52:46.664 [timeoutChecker_2_1] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:52:46.664 [timeoutChecker_2_1] INFO  i.s.c.r.n.RmNettyRemotingClient - [lambda$getPoolKeyFunction$0,286] - RM will register :jdbc:mysql://192.168.191.194:3306/mall_pms
+18:52:46.665 [timeoutChecker_2_1] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:RMROLE,address:172.18.0.20:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://192.168.191.194:3306/mall_pms', version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='null'} >
+18:52:46.771 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:47.106 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:47.343 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:47.621 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:47.817 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:48.029 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:48.286 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:48.539 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:48.794 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:49.058 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:49.309 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:49.581 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:49.833 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:50.086 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:50.295 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:50.551 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:50.803 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:50.815 [NettyClientSelector_TMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0xb3a6fe93]) will closed
+18:52:50.815 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyClientChannelManager - [acquireChannel,109] - will connect to 172.18.0.20:8091
+18:52:50.815 [timeoutChecker_1_1] INFO  i.s.c.r.n.NettyPoolableFactory - [makeObject,56] - NettyPool create channel to transactionRole:TMROLE,address:172.18.0.20:8091,msg:< RegisterTMRequest{version='2.0.0', applicationId='mall-product', transactionServiceGroup='default_tx_group', extraData='ak=null
+digest=default_tx_group,192.168.0.106,1710240770815
+timestamp=1710240770815
+authVersion=V4
+vgroup=default_tx_group
+ip=192.168.0.106
+'} >
+18:52:51.053 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:51.323 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:51.601 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:51.904 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:52.186 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:52.473 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:52.679 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:52.959 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:53.308 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:53.594 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:53.834 [main] INFO  c.x.p.s.i.SpuInfoServiceImpl - [spuUp,315] - 商品上架成功
+18:52:53.936 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,256] - com.alibaba.nacos.client.naming.cache.ServiceInfoHolder do shutdown begin
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,133] - com.alibaba.nacos.client.naming.backups.FailoverReactor do shutdown begin
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,135] - com.alibaba.nacos.client.naming.backups.FailoverReactor do shutdown stop
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,258] - com.alibaba.nacos.client.naming.cache.ServiceInfoHolder do shutdown stop
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,204] - com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate do shutdown begin
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,143] - com.alibaba.nacos.client.naming.core.ServiceInfoUpdateService do shutdown begin
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,145] - com.alibaba.nacos.client.naming.core.ServiceInfoUpdateService do shutdown stop
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,194] - com.alibaba.nacos.client.naming.core.ServerListManager do shutdown begin
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,199] - com.alibaba.nacos.client.naming.core.ServerListManager do shutdown stop
+18:52:53.937 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,484] - com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy do shutdown begin
+18:52:53.938 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,486] - com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy do shutdown stop
+18:52:53.938 [SpringContextShutdownHook] INFO  c.a.n.c.r.client - [shutdown,425] - Shutdown rpc client, set status to shutdown
+18:52:53.938 [SpringContextShutdownHook] INFO  c.a.n.c.r.client - [shutdown,427] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@7f1fb65e[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+18:52:53.938 [SpringContextShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,580] - Close current connection 1710240728282_192.168.191.192_4987
+18:52:53.939 [SpringContextShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,140] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@7091f3a2[Running, pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 17]
+18:52:53.939 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,292] - Shutdown grpc redo service executor java.util.concurrent.ScheduledThreadPoolExecutor@7b8d38e0[Running, pool size = 1, active threads = 0, queued tasks = 1, completed tasks = 15]
+18:52:53.939 [SpringContextShutdownHook] INFO  c.a.n.c.a.r.i.CredentialWatcher - [stop,106] - [null] CredentialWatcher is stopped
+18:52:53.939 [SpringContextShutdownHook] INFO  c.a.n.c.a.r.i.CredentialService - [free,100] - [null] CredentialService is freed
+18:52:53.940 [SpringContextShutdownHook] INFO  c.a.n.client.naming - [shutdown,211] - com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate do shutdown stop
+18:52:54.822 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2071] - {dataSource-1} closing ...
+18:52:54.829 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2144] - {dataSource-1} closed
+18:52:54.829 [NettyClientSelector_TMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0xe1926abd]) will closed
+18:52:54.831 [NettyClientSelector_RMROLE_1_1] INFO  i.s.c.r.n.AbstractNettyRemotingClient - [close,480] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x892105e9]) will closed

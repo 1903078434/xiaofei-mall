@@ -10,30 +10,16 @@ spring:
     active: dev
   cloud:
     nacos:
+      server-addr: ENC(9sldPvw9eCSchf4GmcUfmUGey8nFsEmAym4iTVarOG7UNYkx22/Mxr+/Ztj+h8idAPbCEHGG5F+N5f9ZJKy+eA==)
+      username: ENC(qbX/J7SH9y7kX7qhXlzjULIHgNfe6L06xtw7Y7sMAsi/H6lUeyU7eU2yHOLgMQD0)
+      password: ENC(i/3k57tzUTz7K5WBk4XrZZh2glAh3FHfDiQav3rEdV5cMKqQTVeXTf+8R/sAnfo3wc7l8gOpzagcin77vvy4cLVdVltfk81AMMLNOSujyvAi01fp0bWv0dKkIJ8Z4MEXDJWxXTwAPJRdosaOb5wuJg==)
       discovery:
         # 服务注册地址
-        server-addr: 127.0.0.1:8848
+        namespace: ENC(QbyDq3Ke43AsfPuOSt/2MJ/XgZufWpy0QkbL1iJWXMX95WvSiltX//i+++K7e8ziZX8syrN3sLk4f4C8nHWP6C3QjnG2/j9MlQJrOkVKlS4=)
       config:
         file-extension: yaml
-
-seata:
-  registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址
-    # 参考tc服务自己的registry.conf中的配置
-    type: nacos
-    nacos: # tc
-      server-addr: 127.0.0.1:8848
-      namespace: ""
-      group: DEFAULT_GROUP
-      application: seata-server # seata服务在nacos中的服务名称
-      username: nacos
-      password: nacos
-      cluster: default
-  tx-service-group: ${spring.application.name} # 事务组，根据这个获取seata服务的cluster名称
-  service:
-    vgroup-mapping: # 事务组与seata服务cluster的映射关系
-      mall-ware: default
-  data-source-proxy-mode: AT # 开启数据源代理模式，默认为AT
-
+        namespace: ENC(QbyDq3Ke43AsfPuOSt/2MJ/XgZufWpy0QkbL1iJWXMX95WvSiltX//i+++K7e8ziZX8syrN3sLk4f4C8nHWP6C3QjnG2/j9MlQJrOkVKlS4=)
+        refresh-enabled: true            # 开启监听和自动刷新
 feign:
   client:
     config:

@@ -3,7 +3,7 @@ server:
   port: 9203
 
 # Spring
-spring: 
+spring:
   application:
     # 应用名称
     name: ruoyi-job
@@ -12,14 +12,16 @@ spring:
     active: dev
   cloud:
     nacos:
+      server-addr: ENC(9sldPvw9eCSchf4GmcUfmUGey8nFsEmAym4iTVarOG7UNYkx22/Mxr+/Ztj+h8idAPbCEHGG5F+N5f9ZJKy+eA==)
+      username: ENC(qbX/J7SH9y7kX7qhXlzjULIHgNfe6L06xtw7Y7sMAsi/H6lUeyU7eU2yHOLgMQD0)
+      password: ENC(i/3k57tzUTz7K5WBk4XrZZh2glAh3FHfDiQav3rEdV5cMKqQTVeXTf+8R/sAnfo3wc7l8gOpzagcin77vvy4cLVdVltfk81AMMLNOSujyvAi01fp0bWv0dKkIJ8Z4MEXDJWxXTwAPJRdosaOb5wuJg==)
       discovery:
         # 服务注册地址
-        server-addr: 127.0.0.1:8848
+        namespace: ENC(QbyDq3Ke43AsfPuOSt/2MJ/XgZufWpy0QkbL1iJWXMX95WvSiltX//i+++K7e8ziZX8syrN3sLk4f4C8nHWP6C3QjnG2/j9MlQJrOkVKlS4=)
       config:
-        # 配置中心地址
-        server-addr: 127.0.0.1:8848
-        # 配置文件格式
-        file-extension: yml
+        file-extension: yaml
+        namespace: ENC(QbyDq3Ke43AsfPuOSt/2MJ/XgZufWpy0QkbL1iJWXMX95WvSiltX//i+++K7e8ziZX8syrN3sLk4f4C8nHWP6C3QjnG2/j9MlQJrOkVKlS4=)
+        refresh-enabled: true            # 开启监听和自动刷新
         # 共享配置
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
